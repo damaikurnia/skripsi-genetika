@@ -10,10 +10,20 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import kelas.Dosen;
+import kelas.MataKuliah;
+import kelas.Ruang;
+import kontrol.DosenKontrol;
+import kontrol.MataKuliahKontrol;
+import kontrol.RuangKontrol;
+import tabelModel.Dosen_TM;
+import tabelModel.MataKuliah_TM;
 
 /**
  *
@@ -31,7 +41,21 @@ public class viewMataKuliah extends javax.swing.JFrame {
         dialogMataKuliah.setLocationRelativeTo(null);
         dialogMataKuliah.setTitle("List Mata Kuliah");
     }
-
+    
+    private void bersihkan(){
+        idMataKuliahText.setText("");
+        namaMataKuliahText.setText("");
+        sksText.setText("");
+        semesterText.setText("");
+        jamPelajaranText.setText("");
+        jenisText.setText("");
+    }
+    
+    private void updateTabelMataKuliah() throws SQLException {
+        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+        MataKuliah_TM model = new MataKuliah_TM(mktm);
+        listMataKuliahTabel.setModel(model);
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -84,13 +108,13 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
         listMataKuliahTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idMK", "NamaMatkul", "SKS", "Semester", "JPl", "Jenis"
             }
         ));
         listMataKuliahTabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,6 +241,11 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel4.add(namaMataKuliahText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
 
         simpanButton.setText("Simpan");
+        simpanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
@@ -251,6 +280,11 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel4.add(jamPelajaranText, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 100, -1));
 
         batalButton.setText("Batal");
+        batalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                batalButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 70, -1));
 
         tabelButton.setText("Tabel");
@@ -273,22 +307,22 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -303,7 +337,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -312,7 +345,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -372,12 +404,12 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
     private void listMataKuliahTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMataKuliahTabelMouseClicked
         int row1 = listMataKuliahTabel.getSelectedRow();
-        String idMataKuliah = listMataKuliahTabel.getValueAt(row1, 1).toString();
-        String namaMatakuliah = listMataKuliahTabel.getValueAt(row1, 2).toString();
-        String sks = listMataKuliahTabel.getValueAt(row1, 3).toString();
-        String semester = listMataKuliahTabel.getValueAt(row1, 4).toString();
-        String jp = listMataKuliahTabel.getValueAt(row1, 5).toString();
-        String jenis = listMataKuliahTabel.getValueAt(row1, 6).toString();
+        String idMataKuliah = listMataKuliahTabel.getValueAt(row1, 0).toString();
+        String namaMatakuliah = listMataKuliahTabel.getValueAt(row1, 1).toString();
+        String sks = listMataKuliahTabel.getValueAt(row1, 2).toString();
+        String semester = listMataKuliahTabel.getValueAt(row1, 3).toString();
+        String jp = listMataKuliahTabel.getValueAt(row1, 4).toString();
+        String jenis = listMataKuliahTabel.getValueAt(row1, 5).toString();
         
         idMataKuliahText.setText(idMataKuliah);
         namaMataKuliahText.setText(namaMatakuliah);
@@ -394,12 +426,37 @@ public class viewMataKuliah extends javax.swing.JFrame {
 }//GEN-LAST:event_listMataKuliahCloseButtonActionPerformed
 
     private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
+        try {
+            updateTabelMataKuliah();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewMataKuliah.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dialogMataKuliah.setVisible(true);
     }//GEN-LAST:event_tabelButtonActionPerformed
 
     private void jenisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jenisTextActionPerformed
+
+    private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
+        MataKuliah matkul = new MataKuliah();
+        matkul.setIdMK(idMataKuliahText.getText());
+        matkul.setNamaMK(namaMataKuliahText.getText());
+        matkul.setSks(Integer.parseInt(sksText.getText()));
+        matkul.setSemester(Integer.parseInt(semesterText.getText()));
+        matkul.setJP(Integer.parseInt(jamPelajaranText.getText()));
+        matkul.setJenis(jenisText.getText());
+        
+        try {
+            MataKuliahKontrol.getKoneksi().insertMataKuliah(matkul);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_simpanButtonActionPerformed
+
+    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
+        bersihkan();
+    }//GEN-LAST:event_batalButtonActionPerformed
 
     /**
      * @param args the command line arguments

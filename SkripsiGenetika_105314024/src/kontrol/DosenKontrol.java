@@ -20,38 +20,38 @@ public class DosenKontrol {
         return dosen;
     }
 
-    public void insertDosen(Dosen r) throws SQLException {
+    public void insertDosen(Dosen d) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
         String query = "INSERT INTO DOSEN VALUES(?,?,?)";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, r.getIdDosen());
-        stmt.setString(2, r.getNamaDosen());
-        stmt.setString(3, r.getStatus());
+        stmt.setString(1, d.getIdDosen());
+        stmt.setString(2, d.getNamaDosen());
+        stmt.setString(3, d.getStatus());
 
         stmt.executeUpdate();
         conn.commit();
     }
 
-    public void updateDosen(Dosen ruang) throws SQLException {
+    public void updateDosen(Dosen dosen) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
         String query = "update Dosen set namaDosen = ?, status = ? where idDosen = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, ruang.getNamaDosen());
-        stmt.setString(2, ruang.getStatus());
-        stmt.setString(3, ruang.getIdDosen());
+        stmt.setString(1, dosen.getNamaDosen());
+        stmt.setString(2, dosen.getStatus());
+        stmt.setString(3, dosen.getIdDosen());
 
         stmt.executeUpdate();
         conn.commit();
     }
 
-    public void deleteDosen(Dosen ruang) throws SQLException {
+    public void deleteDosen(Dosen dosen) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
         String query = "delete from Dosen where idDosen = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, ruang.getIdDosen());
+        stmt.setString(1, dosen.getIdDosen());
 
         stmt.executeUpdate();
         conn.commit();

@@ -13,11 +13,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mich
  */
-public class mataKuliahTableModel extends AbstractTableModel {
+public class MataKuliah_TM extends AbstractTableModel {
 
     private List<MataKuliah> mk = new ArrayList<MataKuliah>();
 
-    public mataKuliahTableModel(List<MataKuliah> mk) {
+    public MataKuliah_TM(List<MataKuliah> mk) {
         this.mk = mk;
     }
 
