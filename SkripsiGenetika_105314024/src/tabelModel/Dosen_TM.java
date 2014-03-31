@@ -13,11 +13,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mich
  */
-public class DosenTableModel extends AbstractTableModel {
+public class Dosen_TM extends AbstractTableModel {
 
     private List<Dosen> dosen = new ArrayList<Dosen>();
 
-    public DosenTableModel(List<Dosen> dosen) {
+    public Dosen_TM(List<Dosen> dosen) {
         this.dosen = dosen;
     }
 

@@ -12,12 +12,17 @@ package view;
 
 import kelas.Dosen;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import kelas.Ruang;
 import kontrol.DosenKontrol;
+import kontrol.RuangKontrol;
+import tabelModel.Dosen_TM;
+import tabelModel.Ruang_TM;
 
 /**
  *
@@ -77,7 +82,7 @@ public class viewDosen extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18));
+        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
         jLabel29.setText("Data Dosen");
 
         listDosenTabel.setModel(new javax.swing.table.DefaultTableModel(
@@ -194,15 +199,15 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("ID Dosen");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nama Dosen");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Status");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
 
@@ -225,11 +230,16 @@ public class viewDosen extends javax.swing.JFrame {
         });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("DATA DOSEN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 42, -1, -1));
 
         batalButton.setText("Batal");
+        batalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                batalButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 70, -1));
 
         tabelButton.setText("Tabel");
@@ -245,22 +255,22 @@ public class viewDosen extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -334,8 +344,8 @@ public class viewDosen extends javax.swing.JFrame {
 
     private void listDosenTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDosenTabelMouseClicked
         int row1 = listDosenTabel.getSelectedRow();
-        String idDosen = listDosenTabel.getValueAt(row1, 1).toString();
-        String namaDosen = listDosenTabel.getValueAt(row1, 2).toString();
+        String idDosen = listDosenTabel.getValueAt(row1, 0).toString();
+        String namaDosen = listDosenTabel.getValueAt(row1, 1).toString();
         idDosenText.setText(idDosen);
         namaDosenText.setText(namaDosen);
 
@@ -347,6 +357,11 @@ public class viewDosen extends javax.swing.JFrame {
 }//GEN-LAST:event_listDosenCloseButtonActionPerformed
 
     private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
+        try {
+            updateTabelDosen();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewDosen.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dialogDosen.setVisible(true);
     }//GEN-LAST:event_tabelButtonActionPerformed
 
@@ -355,27 +370,19 @@ public class viewDosen extends javax.swing.JFrame {
         String nama = namaDosenText.getText();
         String Combo = (String) jComboBox1.getSelectedItem();
 
-        Dosen dSimpan = new Dosen();
-        dSimpan.setIdDosen(id);
-        dSimpan.setNamaDosen(nama);
-        dSimpan.setStatus(Combo);
-
-        Dosen dUpdate = new Dosen();
-        dUpdate.setIdDosen(id);
-        dUpdate.setNamaDosen(nama);
-        dUpdate.setStatus(Combo);
+        Dosen temp = new Dosen(id, nama, Combo);
 
         String buttonsimpan = simpanButton.getText();
         try {
             if (buttonsimpan.equals("Update")) {
-                DosenKontrol dosenk = DosenKontrol.getKoneksiDosen();
-                dosenk.UpdateDosen(dUpdate);
+                DosenKontrol dosenk = DosenKontrol.getKoneksi();
+                dosenk.updateDosen(temp);
                 JOptionPane.showMessageDialog(null, "Berhasil di update");
                 bersihkan();
                 idDosenText.requestFocus();
             } else {
-                DosenKontrol dosenk = DosenKontrol.getKoneksiDosen();
-                dosenk.tambahDosen(dSimpan);
+                DosenKontrol dosenk = DosenKontrol.getKoneksi();
+                dosenk.insertDosen(temp);
                 JOptionPane.showMessageDialog(null, "Berhasil di simpan");
                 bersihkan();
                 idDosenText.requestFocus();
@@ -387,10 +394,21 @@ public class viewDosen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_simpanButtonActionPerformed
 
+    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
+        bersihkan();
+    }//GEN-LAST:event_batalButtonActionPerformed
+
     private void bersihkan(){
         idDosenText.setText("");
         namaDosenText.setText("");
     }
+    
+    private void updateTabelDosen() throws SQLException {
+        List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
+        Dosen_TM model = new Dosen_TM(dtm);
+        listDosenTabel.setModel(model);
+    }
+    
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
