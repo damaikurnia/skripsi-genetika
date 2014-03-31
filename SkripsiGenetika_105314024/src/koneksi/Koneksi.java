@@ -17,7 +17,7 @@ public class Koneksi {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
             connection = DriverManager.getConnection(jdbcURL, user, password);
-            System.out.println("koneksi berhasil");
+//            System.out.println("koneksi berhasil");
             return connection;
         } catch (Exception ex) {
             System.out.println("message: " + ex.getMessage() + "\nTidak konek");

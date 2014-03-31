@@ -7,7 +7,10 @@ package kontrol;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import kelas.Ruang;
 import koneksi.Koneksi;
 
@@ -43,7 +46,7 @@ public class RuangKontrol {
     public void updateRuang(Ruang ruang) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update Ruang set namaRuang = ? where idRuang=?";
+        String query = "update Ruang set namaRuang = ? where idRuang = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, ruang.getIdRuang());
         stmt.setString(2, ruang.getNamaRuang());
@@ -55,12 +58,28 @@ public class RuangKontrol {
     public void deleteRuang(Ruang ruang) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "delete from Ruang where idRuang= ?";
+        String query = "delete from Ruang where idRuang = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, ruang.getIdRuang());
 
         stmt.executeUpdate();
         conn.commit();
     }
-
+    
+    public List<Ruang> tampilRuang() throws SQLException {
+        PreparedStatement stmt = null;
+        Ruang temp = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT * FROM Ruang";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<Ruang> ruang = new ArrayList<Ruang>();
+        
+        while (result.next()) {
+            temp = new Ruang(result.getString(1), result.getString(2));
+            ruang.add(temp);
+        }
+        return ruang;
+    }
 }
