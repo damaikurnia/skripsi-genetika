@@ -4,14 +4,14 @@
  */
 package tabelModel;
 
-import clas.Dosen;
+import kelas.Dosen;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author ADIT
+ * @author Mich
  */
 public class DosenTableModel extends AbstractTableModel {
 

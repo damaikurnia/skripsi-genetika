@@ -4,20 +4,20 @@
  */
 package tabelModel;
 
-import clas.ruang_kelas;
+import kelas.Ruang;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author ADIT
+ * @author Mich
  */
-public class ruangKelasTableModel extends AbstractTableModel {
+public class Ruang_TM extends AbstractTableModel {
 
-    private List<ruang_kelas> rk = new ArrayList<ruang_kelas>();
+    private List<Ruang> rk = new ArrayList<Ruang>();
 
-    public ruangKelasTableModel(List<ruang_kelas> rk) {
+    public Ruang_TM(List<Ruang> rk) {
         this.rk = rk;
     }
 
@@ -33,14 +33,12 @@ public class ruangKelasTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ruang_kelas r = rk.get(rowIndex);
+        Ruang r = rk.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return r.getIdRuang();
             case 1:
                 return r.getNamaRuang();
-            case 2:
-                return r.getKapasitas();
             default:
                 return "";
         }
@@ -53,8 +51,6 @@ public class ruangKelasTableModel extends AbstractTableModel {
                 return "ID Ruang";
             case 1:
                 return "Nama Ruang";
-            case 2:
-                return "Kapasitas";
             default:
                 return "";
         }

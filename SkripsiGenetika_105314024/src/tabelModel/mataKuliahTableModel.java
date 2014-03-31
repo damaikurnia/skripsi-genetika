@@ -4,20 +4,20 @@
  */
 package tabelModel;
 
-import clas.mata_kuliah;
+import kelas.MataKuliah;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author ADIT
+ * @author Mich
  */
 public class mataKuliahTableModel extends AbstractTableModel {
 
-    private List<mata_kuliah> mk = new ArrayList<mata_kuliah>();
+    private List<MataKuliah> mk = new ArrayList<MataKuliah>();
 
-    public mataKuliahTableModel(List<mata_kuliah> mk) {
+    public mataKuliahTableModel(List<MataKuliah> mk) {
         this.mk = mk;
     }
 
@@ -33,7 +33,7 @@ public class mataKuliahTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        mata_kuliah m = mk.get(rowIndex);
+        MataKuliah m = mk.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return m.getIdMK();

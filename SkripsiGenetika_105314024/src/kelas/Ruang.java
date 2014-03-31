@@ -11,20 +11,24 @@ package kelas;
  * @author Mich
  */
 public class Ruang {
-    private int idRuang;
-    private String namaRuang; 
-
+    String idRuang;
+    String namaRuang; 
+    
+    public Ruang(String id,String nama){
+        this.idRuang = id;
+        this.namaRuang = nama;
+    }
     /**
      * @return the idRuang
      */
-    public int getIdRuang() {
+    public String getIdRuang() {
         return idRuang;
     }
 
     /**
      * @param idRuang the idRuang to set
      */
-    public void setIdRuang(int idRuang) {
+    public void setIdRuang(String idRuang) {
         this.idRuang = idRuang;
     }
 

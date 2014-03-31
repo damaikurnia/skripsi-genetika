@@ -10,7 +10,7 @@
  */
 package view;
 
-import clas.Dosen;
+import kelas.Dosen;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import kontrol.DosenKontrol;
 
 /**
  *
- * @author ADIT
+ * @author Mich
  */
 public class viewDosen extends javax.swing.JFrame {
 

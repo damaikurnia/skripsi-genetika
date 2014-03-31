@@ -3,7 +3,7 @@ package kontrol;
 
 import java.sql.*;
 import koneksi.Koneksi;
-import clas.Dosen;
+import kelas.Dosen;
 
 public class DosenKontrol {
     private Connection conn;
