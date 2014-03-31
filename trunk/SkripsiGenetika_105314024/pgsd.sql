@@ -43,11 +43,11 @@ CREATE TABLE `kelas_makul` (
 
 /*Data for the table `kelas_makul` */
 
-/*Table structure for table `mata_kuliah` */
+/*Table structure for table `matakuliah` */
 
-DROP TABLE IF EXISTS `mata_kuliah`;
+DROP TABLE IF EXISTS `matakuliah`;
 
-CREATE TABLE `mata_kuliah` (
+CREATE TABLE `matakuliah` (
   `idMK` varchar(100) NOT NULL,
   `namaMK` varchar(100) DEFAULT NULL,
   `sks` int(5) DEFAULT NULL,
@@ -57,7 +57,9 @@ CREATE TABLE `mata_kuliah` (
   PRIMARY KEY (`idMK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `mata_kuliah` */
+/*Data for the table `matakuliah` */
+
+insert  into `matakuliah`(`idMK`,`namaMK`,`sks`,`semester`,`JP`,`jenis`) values ('INF 201','Agama',2,1,2,'Teori'),('INF 202','Kalkulus',3,1,3,'Teori');
 
 /*Table structure for table `ruang` */
 

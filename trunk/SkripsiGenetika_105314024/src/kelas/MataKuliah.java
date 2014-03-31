@@ -30,14 +30,6 @@ public class MataKuliah {
         this.jenis = jenis;
     }
 
-    public MataKuliah(String idMK, String namaMK, int sks, int semester, int JP) {
-        this.idMK = idMK;
-        this.namaMK = namaMK;
-        this.sks = sks;
-        this.semester = semester;
-        this.JP = JP;
-    }
-
     /**
      * @return the idMK
      */
