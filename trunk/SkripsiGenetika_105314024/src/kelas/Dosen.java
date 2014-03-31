@@ -11,10 +11,15 @@ package kelas;
  * @author Mich
  */
 public class Dosen {
-    private String idDosen;
-    private String namaDosen;
-    private String status;
+    String idDosen;
+    String namaDosen;
+    String status;
 
+    public Dosen(String id,String nama,String status){
+        this.idDosen = id;
+        this.namaDosen = nama;
+        this.status = status;
+    }
     /**
      * @return the idDosen
      */
