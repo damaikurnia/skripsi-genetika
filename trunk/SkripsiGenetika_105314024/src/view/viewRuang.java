@@ -10,10 +10,13 @@
  */
 package view;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import kelas.Ruang;
+import kontrol.RuangKontrol;
 
 /**
  *
@@ -57,12 +60,10 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         idRuangText = new javax.swing.JTextField();
         namaRuangText = new javax.swing.JTextField();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        kapasitasText = new javax.swing.JTextField();
         batalButton = new javax.swing.JButton();
         tabelButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -198,10 +199,6 @@ public class viewRuang extends javax.swing.JFrame {
         jLabel2.setText("Nama Ruang");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Kapasitas");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
-
         idRuangText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idRuangTextActionPerformed(evt);
@@ -211,12 +208,16 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel4.add(namaRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
 
         simpanButton.setText("Simpan");
+        simpanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("DATA RUANG");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-        jPanel4.add(kapasitasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 70, -1));
 
         batalButton.setText("Batal");
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 70, -1));
@@ -234,22 +235,22 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -265,7 +266,6 @@ public class viewRuang extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
             .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -274,7 +274,6 @@ public class viewRuang extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +332,6 @@ public class viewRuang extends javax.swing.JFrame {
         
         idRuangText.setText(idRuang);
         namaRuangText.setText(namaRuang);
-        kapasitasText.setText(kapasitas);
         
         dialogRuangKelas.setVisible(false);
 }//GEN-LAST:event_listRuangKelasTabelMouseClicked
@@ -345,6 +343,15 @@ public class viewRuang extends javax.swing.JFrame {
     private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
         dialogRuangKelas.setVisible(true);
     }//GEN-LAST:event_tabelButtonActionPerformed
+
+    private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
+        Ruang ruang = new Ruang(idRuangText.getText(), namaRuangText.getText());
+        try {
+            RuangKontrol.getKoneksi().insertRuang(ruang);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_simpanButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,7 +386,6 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -391,7 +397,6 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextField kapasitasText;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton listRuangKelasCloseButton;
     private javax.swing.JTable listRuangKelasTabel;
