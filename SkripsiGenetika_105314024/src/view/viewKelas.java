@@ -336,7 +336,9 @@ public class viewKelas extends javax.swing.JFrame {
 }//GEN-LAST:event_kelasButtonActionPerformed
 
     private void penjadwalanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penjadwalanButtonActionPerformed
-        // TODO add your handling code here:
+        viewPenjadwalan asd = new viewPenjadwalan();
+        asd.setVisible(true);
+        this.setVisible(false);
 }//GEN-LAST:event_penjadwalanButtonActionPerformed
 
     private void idKelasTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idKelasTextActionPerformed
