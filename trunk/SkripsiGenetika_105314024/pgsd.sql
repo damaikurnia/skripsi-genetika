@@ -53,13 +53,12 @@ CREATE TABLE `matakuliah` (
   `sks` int(5) DEFAULT NULL,
   `semester` int(5) DEFAULT NULL,
   `JP` int(5) DEFAULT NULL,
-  `jenis` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idMK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `matakuliah` */
 
-insert  into `matakuliah`(`idMK`,`namaMK`,`sks`,`semester`,`JP`,`jenis`) values ('INF 201','Agama',2,1,2,'Teori'),('INF 202','Kalkulus',3,1,3,'Teori');
+insert  into `matakuliah`(`idMK`,`namaMK`,`sks`,`semester`,`JP`) values ('PDW 2106','Logika',2,1,2),('PDW 2107','Pendidikan Keterampilan Menulis Indah dan Kerajinan Tangan',2,1,2),('PDW 2119','Perkembangan dan Belajar Peserta Didik 1',2,1,2),('PDW 2122','Bahasa dan Sastra Indonesia',2,1,2),('PDW 2123','IPA Biologi',3,1,3),('PDW 2124','IPA Fisika',3,1,3),('PDW 2125','Matematika 1',3,1,3),('PDW 2126','Bahasa Inggris 1',2,1,2),('PDW 2155','Keterampilan Menulis Ilmiah',2,1,2),('USD 120','Pendidikan Agama',2,1,2);
 
 /*Table structure for table `ruang` */
 

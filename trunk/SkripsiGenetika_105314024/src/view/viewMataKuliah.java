@@ -12,8 +12,10 @@ package view;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
@@ -43,12 +45,11 @@ public class viewMataKuliah extends javax.swing.JFrame {
     }
     
     private void bersihkan(){
-        idMataKuliahText.setText("");
+//        idMataKuliahText.setText("");
         namaMataKuliahText.setText("");
-        sksText.setText("");
-        semesterText.setText("");
-        jamPelajaranText.setText("");
-        jenisText.setText("");
+        SKS_jComboBox.setSelectedIndex(0);
+        Smstr_jComboBox.setSelectedIndex(0);
+        JP_jComboBox.setSelectedIndex(0);
     }
     
     private void updateTabelMataKuliah() throws SQLException {
@@ -86,15 +87,13 @@ public class viewMataKuliah extends javax.swing.JFrame {
         namaMataKuliahText = new javax.swing.JTextField();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        sksText = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        semesterText = new javax.swing.JTextField();
-        jamPelajaranText = new javax.swing.JTextField();
         batalButton = new javax.swing.JButton();
         tabelButton = new javax.swing.JButton();
-        jenisText = new javax.swing.JTextField();
+        SKS_jComboBox = new javax.swing.JComboBox();
+        Smstr_jComboBox = new javax.swing.JComboBox();
+        JP_jComboBox = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -108,13 +107,13 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
         listMataKuliahTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "idMK", "NamaMatkul", "SKS", "Semester", "JPl", "Jenis"
+                "idMK", "NamaMatkul", "SKS", "Semester", "JP"
             }
         ));
         listMataKuliahTabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,7 +250,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("DATA MATA KULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-        jPanel4.add(sksText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Semester");
@@ -260,24 +258,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("Jam Pelajaran");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel12.setText("Jenis");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
-
-        semesterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                semesterTextActionPerformed(evt);
-            }
-        });
-        jPanel4.add(semesterText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 70, -1));
-
-        jamPelajaranText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jamPelajaranTextActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jamPelajaranText, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 100, -1));
 
         batalButton.setText("Batal");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -295,12 +275,14 @@ public class viewMataKuliah extends javax.swing.JFrame {
         });
         jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
 
-        jenisText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jenisTextActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jenisText, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 100, -1));
+        SKS_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+        jPanel4.add(SKS_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, -1));
+
+        Smstr_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
+        jPanel4.add(Smstr_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
+
+        JP_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+        jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -396,14 +378,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_idMataKuliahTextActionPerformed
 
-    private void semesterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semesterTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_semesterTextActionPerformed
-
-    private void jamPelajaranTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jamPelajaranTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jamPelajaranTextActionPerformed
-
     private void listMataKuliahTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMataKuliahTabelMouseClicked
         int row1 = listMataKuliahTabel.getSelectedRow();
         String idMataKuliah = listMataKuliahTabel.getValueAt(row1, 0).toString();
@@ -411,14 +385,12 @@ public class viewMataKuliah extends javax.swing.JFrame {
         String sks = listMataKuliahTabel.getValueAt(row1, 2).toString();
         String semester = listMataKuliahTabel.getValueAt(row1, 3).toString();
         String jp = listMataKuliahTabel.getValueAt(row1, 4).toString();
-        String jenis = listMataKuliahTabel.getValueAt(row1, 5).toString();
         
         idMataKuliahText.setText(idMataKuliah);
         namaMataKuliahText.setText(namaMatakuliah);
-        sksText.setText(sks);
-        semesterText.setText(semester);
-        jamPelajaranText.setText(jp);
-        jenisText.setText(jenis);
+        SKS_jComboBox.setSelectedItem(sks);
+        Smstr_jComboBox.setSelectedItem(semester);;
+        JP_jComboBox.setSelectedItem(jp);
         
         dialogMataKuliah.setVisible(false);
 }//GEN-LAST:event_listMataKuliahTabelMouseClicked
@@ -436,21 +408,18 @@ public class viewMataKuliah extends javax.swing.JFrame {
         dialogMataKuliah.setVisible(true);
     }//GEN-LAST:event_tabelButtonActionPerformed
 
-    private void jenisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jenisTextActionPerformed
-
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         MataKuliah matkul = new MataKuliah();
-        matkul.setIdMK(idMataKuliahText.getText());
+        matkul.setIdMK(idMataKuliahText.getText().toUpperCase());
         matkul.setNamaMK(namaMataKuliahText.getText());
-        matkul.setSks(Integer.parseInt(sksText.getText()));
-        matkul.setSemester(Integer.parseInt(semesterText.getText()));
-        matkul.setJP(Integer.parseInt(jamPelajaranText.getText()));
-        matkul.setJenis(jenisText.getText());
+        matkul.setSks(Integer.parseInt(SKS_jComboBox.getSelectedItem().toString()));
+        matkul.setSemester(Integer.parseInt(Smstr_jComboBox.getSelectedItem().toString()));
+        matkul.setJP(Integer.parseInt(JP_jComboBox.getSelectedItem().toString()));
         
         try {
             MataKuliahKontrol.getKoneksi().insertMataKuliah(matkul);
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah "+matkul.getIdMK()+" - "+matkul.getNamaMK()+" berhasil ditambahkan");
+            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -484,6 +453,9 @@ public class viewMataKuliah extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox JP_jComboBox;
+    private javax.swing.JComboBox SKS_jComboBox;
+    private javax.swing.JComboBox Smstr_jComboBox;
     private javax.swing.JButton batalButton;
     private javax.swing.JDialog dialogMataKuliah;
     private javax.swing.JButton dosenButton;
@@ -492,7 +464,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -508,8 +479,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextField jamPelajaranText;
-    private javax.swing.JTextField jenisText;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton listMataKuliahCloseButton;
     private javax.swing.JTable listMataKuliahTabel;
@@ -517,9 +486,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JTextField namaMataKuliahText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
-    private javax.swing.JTextField semesterText;
     private javax.swing.JButton simpanButton;
-    private javax.swing.JTextField sksText;
     private javax.swing.JButton tabelButton;
     // End of variables declaration//GEN-END:variables
 }

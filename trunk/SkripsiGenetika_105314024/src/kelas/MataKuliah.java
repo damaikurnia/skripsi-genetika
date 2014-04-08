@@ -16,18 +16,16 @@ public class MataKuliah {
     private int sks;
     private int semester;
     private int JP;
-    private String jenis;
 
     public MataKuliah() {
     }
 
-    public MataKuliah(String idMK, String namaMK, int sks, int semester, int JP, String jenis) {
+    public MataKuliah(String idMK, String namaMK, int sks, int semester, int JP) {
         this.idMK = idMK;
         this.namaMK = namaMK;
         this.sks = sks;
         this.semester = semester;
         this.JP = JP;
-        this.jenis = jenis;
     }
 
     /**
@@ -98,20 +96,6 @@ public class MataKuliah {
      */
     public void setJP(int JP) {
         this.JP = JP;
-    }
-
-    /**
-     * @return the jenis
-     */
-    public String getJenis() {
-        return jenis;
-    }
-
-    /**
-     * @param jenis the jenis to set
-     */
-    public void setJenis(String jenis) {
-        this.jenis = jenis;
     }
 
 }

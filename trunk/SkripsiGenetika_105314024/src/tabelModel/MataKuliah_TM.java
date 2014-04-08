@@ -28,7 +28,7 @@ public class MataKuliah_TM extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
 
     @Override
@@ -45,8 +45,6 @@ public class MataKuliah_TM extends AbstractTableModel {
                 return m.getSemester();
             case 4:
                 return m.getJP();
-            case 5:
-                return m.getJenis();
             default:
                 return "";
         }
@@ -65,8 +63,6 @@ public class MataKuliah_TM extends AbstractTableModel {
                 return "Semester";
             case 4:
                 return "Jam Pelajaran";
-            case 5:
-                return "Jenis";
             default:
                 return "";
         }
