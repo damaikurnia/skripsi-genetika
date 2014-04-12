@@ -256,8 +256,8 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("Jam Pelajaran");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
+        jLabel11.setText("JP");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, -1));
 
         batalButton.setText("Batal");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -282,7 +282,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel4.add(Smstr_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
 
         JP_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-        jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
+        jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, 20));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 

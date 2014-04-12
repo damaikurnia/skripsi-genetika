@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Ruang;
@@ -365,9 +366,10 @@ public class viewRuang extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelButtonActionPerformed
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
-        Ruang ruang = new Ruang(idRuangText.getText(), namaRuangText.getText());
+        Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase());
         try {
             RuangKontrol.getKoneksi().insertRuang(ruang);
+            JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil ditambahkan");
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
