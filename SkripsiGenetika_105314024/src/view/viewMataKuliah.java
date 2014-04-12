@@ -45,7 +45,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     }
     
     private void bersihkan(){
-//        idMataKuliahText.setText("");
+        idMataKuliahText.setText("");
         namaMataKuliahText.setText("");
         SKS_jComboBox.setSelectedIndex(0);
         Smstr_jComboBox.setSelectedIndex(0);
@@ -419,7 +419,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         try {
             MataKuliahKontrol.getKoneksi().insertMataKuliah(matkul);
             JOptionPane.showMessageDialog(rootPane, "Matakuliah "+matkul.getIdMK()+" - "+matkul.getNamaMK()+" berhasil ditambahkan");
-            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }

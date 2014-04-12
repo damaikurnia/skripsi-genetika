@@ -67,7 +67,7 @@ public class MataKuliahKontrol {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM MATAKULIAH";
+        String query = "SELECT * FROM matakuliah ORDER BY semester";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<MataKuliah> mk = new ArrayList<MataKuliah>();
