@@ -10,10 +10,16 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import kelas.Dosen;
+import kelas.MataKuliah;
+import kontrol.DosenKontrol;
+import kontrol.MataKuliahKontrol;
 
 /**
  *
@@ -23,8 +29,22 @@ public class viewKelas extends javax.swing.JFrame {
 
     /** Creates new form viewKelas */
     public viewKelas() {
-        initComponents();
-        setLocationRelativeTo(null);
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            
+            List<MataKuliah> matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+            for (MataKuliah k : matkul) {
+                MatakuliahComboBox.addItem(k.getIdMK() + " - " + k.getNamaMK());
+            }
+            
+            List<Dosen> dosen = DosenKontrol.getKoneksi().tampilDosen();
+            for (Dosen k : dosen) {
+                DosenComboBox.addItem(k.getIdDosen() + " - " + k.getNamaDosen());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -52,15 +72,16 @@ public class viewKelas extends javax.swing.JFrame {
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
-        tabelButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        idDosenText = new javax.swing.JTextField();
+        KelasText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listKelasMatkulTabel = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
+        DosenComboBox = new javax.swing.JComboBox();
+        KelasComboBox = new javax.swing.JComboBox();
+        MatakuliahComboBox = new javax.swing.JComboBox();
+        batalButton1 = new javax.swing.JButton();
+        batalButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -150,28 +171,31 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel4.add(idKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 60, -1));
 
         simpanButton.setText("Simpan");
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("TABEL MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
 
-        batalButton.setText("Batal");
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 70, -1));
-
-        tabelButton.setText("Tabel");
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 70, -1));
+        batalButton.setText("Hapus");
+        batalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                batalButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Kelas");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
-        idDosenText.addActionListener(new java.awt.event.ActionListener() {
+        KelasText.setEditable(false);
+        KelasText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idDosenTextActionPerformed(evt);
+                KelasTextActionPerformed(evt);
             }
         });
-        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 80, -1));
+        jPanel4.add(KelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 80, -1));
 
         listKelasMatkulTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -192,14 +216,23 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel12.setText("DATA KELAS MATAKULIAH");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 210, -1));
+        jPanel4.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 210, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel4.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
+        KelasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "Lainya" }));
+        KelasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KelasComboBoxActionPerformed(evt);
+            }
+        });
+        jPanel4.add(KelasComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel4.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 210, -1));
+        jPanel4.add(MatakuliahComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 210, -1));
+
+        batalButton1.setText("Batal");
+        jPanel4.add(batalButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 70, -1));
+
+        batalButton2.setText("Ubah");
+        jPanel4.add(batalButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 70, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -236,7 +269,6 @@ public class viewKelas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -245,7 +277,6 @@ public class viewKelas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -297,9 +328,22 @@ public class viewKelas extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_idKelasTextActionPerformed
 
-    private void idDosenTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idDosenTextActionPerformed
+    private void KelasTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KelasTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idDosenTextActionPerformed
+    }//GEN-LAST:event_KelasTextActionPerformed
+
+    private void KelasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KelasComboBoxActionPerformed
+        if(KelasComboBox.getSelectedItem().toString().equals("Lainya")){
+            KelasText.setEditable(true);
+        }
+        else{
+            KelasText.setEditable(false);
+        }
+    }//GEN-LAST:event_KelasComboBoxActionPerformed
+
+    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_batalButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,14 +369,16 @@ public class viewKelas extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox DosenComboBox;
+    private javax.swing.JComboBox KelasComboBox;
+    private javax.swing.JTextField KelasText;
+    private javax.swing.JComboBox MatakuliahComboBox;
     private javax.swing.JButton batalButton;
+    private javax.swing.JButton batalButton1;
+    private javax.swing.JButton batalButton2;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
-    private javax.swing.JTextField idDosenText;
     private javax.swing.JTextField idKelasText;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -356,6 +402,5 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
-    private javax.swing.JButton tabelButton;
     // End of variables declaration//GEN-END:variables
 }
