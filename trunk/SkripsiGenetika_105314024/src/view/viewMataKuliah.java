@@ -94,6 +94,9 @@ public class viewMataKuliah extends javax.swing.JFrame {
         SKS_jComboBox = new javax.swing.JComboBox();
         Smstr_jComboBox = new javax.swing.JComboBox();
         JP_jComboBox = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -221,15 +224,15 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("ID Mata Kuliah");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nama Mata Kuliah");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Sks");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
 
         idMataKuliahText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,19 +248,19 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 simpanButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
-        jLabel4.setText("DATA MATA KULIAH");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jLabel4.setText("TABEL MATAKULIAH");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("Semester");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
+        jLabel5.setText("Matakuliah Semester");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("JP");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, -1));
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
         batalButton.setText("Batal");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +268,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
 
         tabelButton.setText("Tabel");
         tabelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -273,16 +276,35 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 tabelButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
+        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, -1, -1));
 
         SKS_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-        jPanel4.add(SKS_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, -1));
+        jPanel4.add(SKS_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
 
         Smstr_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
-        jPanel4.add(Smstr_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
+        jPanel4.add(Smstr_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, -1));
 
         JP_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-        jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, 20));
+        jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, -1, 20));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 390, 210));
+
+        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel12.setText("DATA MATAKULIAH");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -463,6 +485,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -477,7 +500,9 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton listMataKuliahCloseButton;
     private javax.swing.JTable listMataKuliahTabel;

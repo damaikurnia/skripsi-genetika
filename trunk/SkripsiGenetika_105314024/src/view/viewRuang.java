@@ -77,6 +77,9 @@ public class viewRuang extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
         tabelButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -204,19 +207,19 @@ public class viewRuang extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("ID Ruang");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nama Ruang");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         idRuangText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idRuangTextActionPerformed(evt);
             }
         });
-        jPanel4.add(idRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 206, -1));
-        jPanel4.add(namaRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
+        jPanel4.add(idRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 206, -1));
+        jPanel4.add(namaRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 206, -1));
 
         simpanButton.setText("Simpan");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
@@ -227,8 +230,8 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
-        jLabel4.setText("DATA RUANG");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jLabel4.setText("TABEL RUANG");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, -1, -1));
 
         batalButton.setText("Batal");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +248,25 @@ public class viewRuang extends javax.swing.JFrame {
             }
         });
         jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 70, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 400, 190));
+
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel5.setText("DATA RUANG");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -415,6 +437,7 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -424,7 +447,9 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton listRuangKelasCloseButton;
     private javax.swing.JTable listRuangKelasTabel;

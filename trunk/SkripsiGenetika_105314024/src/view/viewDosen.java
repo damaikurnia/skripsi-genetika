@@ -78,6 +78,9 @@ public class viewDosen extends javax.swing.JFrame {
         tabelButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -205,26 +208,26 @@ public class viewDosen extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("ID Dosen");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nama Dosen");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Status");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         idDosenText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idDosenTextActionPerformed(evt);
             }
         });
-        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 206, -1));
-        jPanel4.add(namaDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 206, -1));
+        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 206, -1));
+        jPanel4.add(namaDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 206, -1));
 
         Status_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tetap", "Tidak Tetap" }));
-        jPanel4.add(Status_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 98, -1));
+        jPanel4.add(Status_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 98, -1));
 
         simpanButton.setText("Simpan");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
@@ -235,8 +238,8 @@ public class viewDosen extends javax.swing.JFrame {
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
-        jLabel4.setText("DATA DOSEN");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 42, -1, -1));
+        jLabel4.setText("TABEL DOSEN");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
 
         batalButton.setText("Batal");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +272,25 @@ public class viewDosen extends javax.swing.JFrame {
             }
         });
         jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 380, 190));
+
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel5.setText("DATA DOSEN");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -497,6 +519,7 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -506,7 +529,9 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton listDosenCloseButton;
     private javax.swing.JTable listDosenTabel;

@@ -35,9 +35,10 @@ insert  into `dosen`(`idDosen`,`namaDosen`,`status`) values ('D001','Drs. Paulus
 DROP TABLE IF EXISTS `kelas_makul`;
 
 CREATE TABLE `kelas_makul` (
-  `idKelas` varchar(50) NOT NULL,
-  `namaKelas` varchar(5) DEFAULT NULL,
-  `jumlahMahasiswa` int(50) DEFAULT NULL,
+  `idKelas` varchar(3) NOT NULL,
+  `idMK` varchar(100) DEFAULT NULL,
+  `idDosen` varchar(100) DEFAULT NULL,
+  `Kelas` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`idKelas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
