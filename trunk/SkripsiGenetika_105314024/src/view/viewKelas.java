@@ -36,11 +36,6 @@ public class viewKelas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogKelasMatkul = new javax.swing.JDialog();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listKelasMatkulTabel = new javax.swing.JTable();
-        listKelasMatkulCloseButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -54,16 +49,18 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         idKelasText = new javax.swing.JTextField();
-        namaKelasText = new javax.swing.JTextField();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jumlahMahasiswaText = new javax.swing.JTextField();
         batalButton = new javax.swing.JButton();
         tabelButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         idDosenText = new javax.swing.JTextField();
-        idRuangText = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listKelasMatkulTabel = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -71,62 +68,6 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
-        jLabel29.setText("Data Mata Kuliah");
-
-        listKelasMatkulTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        listKelasMatkulTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listKelasMatkulTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(listKelasMatkulTabel);
-
-        listKelasMatkulCloseButton.setText("Tutup");
-        listKelasMatkulCloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listKelasMatkulCloseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout dialogKelasMatkulLayout = new javax.swing.GroupLayout(dialogKelasMatkul.getContentPane());
-        dialogKelasMatkul.getContentPane().setLayout(dialogKelasMatkulLayout);
-        dialogKelasMatkulLayout.setHorizontalGroup(
-            dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                .addGroup(dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listKelasMatkulCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel29)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        dialogKelasMatkulLayout.setVerticalGroup(
-            dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listKelasMatkulCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,82 +131,97 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("ID Kelas");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        jLabel1.setText("No Kelas");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Nama Kelas");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jLabel2.setText("Matakuliah");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Jumlah Mahasiswa");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+        jLabel3.setText("Dosen Pengampu");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         idKelasText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idKelasTextActionPerformed(evt);
             }
         });
-        jPanel4.add(idKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 206, -1));
-        jPanel4.add(namaKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
+        jPanel4.add(idKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 60, -1));
 
         simpanButton.setText("Simpan");
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
-        jLabel4.setText("DATA KELAS");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-        jPanel4.add(jumlahMahasiswaText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 70, -1));
+        jLabel4.setText("TABEL MATAKULIAH");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
 
         batalButton.setText("Batal");
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 70, -1));
 
         tabelButton.setText("Tabel");
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 70, -1));
+        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("ID Dosen");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("ID Ruang");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, -1, -1));
+        jLabel5.setText("Kelas");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         idDosenText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idDosenTextActionPerformed(evt);
             }
         });
-        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 206, -1));
+        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 80, -1));
 
-        idRuangText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idRuangTextActionPerformed(evt);
+        listKelasMatkulTabel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-        jPanel4.add(idRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 206, -1));
+        ));
+        jScrollPane1.setViewportView(listKelasMatkulTabel);
+
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 420, 210));
+
+        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel12.setText("DATA KELAS MATAKULIAH");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 210, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel4.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel4.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 210, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -281,8 +237,6 @@ public class viewKelas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
             .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -291,8 +245,6 @@ public class viewKelas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-            .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,31 +301,6 @@ public class viewKelas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idDosenTextActionPerformed
 
-    private void idRuangTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRuangTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idRuangTextActionPerformed
-
-    private void listKelasMatkulTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listKelasMatkulTabelMouseClicked
-        int row1 = listKelasMatkulTabel.getSelectedRow();
-        String idKelas = listKelasMatkulTabel.getValueAt(row1, 1).toString();
-        String namaKelas = listKelasMatkulTabel.getValueAt(row1, 2).toString();
-        String jmlmahasiswa = listKelasMatkulTabel.getValueAt(row1, 3).toString();
-        String idDosen = listKelasMatkulTabel.getValueAt(row1, 4).toString();
-        String idRuang = listKelasMatkulTabel.getValueAt(row1, 5).toString();
-        
-        idKelasText.setText(idKelas);
-        namaKelasText.setText(namaKelas);
-        jumlahMahasiswaText.setText(jmlmahasiswa);
-        idDosenText.setText(idDosen);
-        idRuangText.setText(idRuang);
-        
-        dialogKelasMatkul.setVisible(false);
-}//GEN-LAST:event_listKelasMatkulTabelMouseClicked
-
-    private void listKelasMatkulCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listKelasMatkulCloseButtonActionPerformed
-        dialogKelasMatkul.setVisible(false);
-}//GEN-LAST:event_listKelasMatkulCloseButtonActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -399,17 +326,17 @@ public class viewKelas extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalButton;
-    private javax.swing.JDialog dialogKelasMatkul;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idDosenText;
     private javax.swing.JTextField idKelasText;
-    private javax.swing.JTextField idRuangText;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -422,13 +349,10 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextField jumlahMahasiswaText;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JButton listKelasMatkulCloseButton;
     private javax.swing.JTable listKelasMatkulTabel;
     private javax.swing.JButton matkulButton;
-    private javax.swing.JTextField namaKelasText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
