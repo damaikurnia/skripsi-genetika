@@ -71,7 +71,7 @@ public class viewDosen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         idDosenText = new javax.swing.JTextField();
         namaDosenText = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        Status_ComboBox = new javax.swing.JComboBox();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
@@ -223,8 +223,8 @@ public class viewDosen extends javax.swing.JFrame {
         jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 206, -1));
         jPanel4.add(namaDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 206, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tetap", "Tidak Tetap" }));
-        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 98, -1));
+        Status_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tetap", "Tidak Tetap" }));
+        jPanel4.add(Status_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 98, -1));
 
         simpanButton.setText("Simpan");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
@@ -366,12 +366,14 @@ public class viewDosen extends javax.swing.JFrame {
 
     private void listDosenTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDosenTabelMouseClicked
         int row1 = listDosenTabel.getSelectedRow();
-        String idDosen = listDosenTabel.getValueAt(row1, 0).toString();
-        String namaDosen = listDosenTabel.getValueAt(row1, 1).toString();
+        String idDosen = listDosenTabel.getValueAt(row1,0).toString();
+        String namaDosen = listDosenTabel.getValueAt(row1,1).toString();
+        String status = listDosenTabel.getValueAt(row1,2).toString();
         idDosenText.setText(idDosen);
         namaDosenText.setText(namaDosen);
+        Status_ComboBox.setSelectedItem(status);
+        
         idDosenText.setEditable(false);
-
         dialogDosen.setVisible(false);
 }//GEN-LAST:event_listDosenTabelMouseClicked
 
@@ -391,7 +393,7 @@ public class viewDosen extends javax.swing.JFrame {
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         String id = idDosenText.getText();
         String nama = namaDosenText.getText();
-        String Combo = (String) jComboBox1.getSelectedItem();
+        String Combo = (String) Status_ComboBox.getSelectedItem();
         Dosen temp = new Dosen(id, nama, Combo);
         try {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
@@ -413,7 +415,7 @@ public class viewDosen extends javax.swing.JFrame {
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         String id = idDosenText.getText();
         String nama = namaDosenText.getText();
-        String Combo = (String) jComboBox1.getSelectedItem();
+        String Combo = (String) Status_ComboBox.getSelectedItem();
         Dosen temp = new Dosen(id, nama, Combo);
 
         try {
@@ -432,7 +434,7 @@ public class viewDosen extends javax.swing.JFrame {
     private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
         String id = idDosenText.getText();
         String nama = namaDosenText.getText();
-        String Combo = (String) jComboBox1.getSelectedItem();
+        String Combo = (String) Status_ComboBox.getSelectedItem();
         Dosen temp = new Dosen(id, nama, Combo);
 
         try {
@@ -449,7 +451,7 @@ public class viewDosen extends javax.swing.JFrame {
     }//GEN-LAST:event_hapusButtonActionPerformed
 
     private void bersihkan() {
-        idDosenText.setText("");
+//        idDosenText.setText("");
         namaDosenText.setText("");
         idDosenText.setEditable(true);
     }
@@ -481,6 +483,7 @@ public class viewDosen extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox Status_ComboBox;
     private javax.swing.JButton batalButton;
     private javax.swing.JDialog dialogDosen;
     private javax.swing.JButton dosenButton;
@@ -488,7 +491,6 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idDosenText;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

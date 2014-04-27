@@ -28,7 +28,7 @@ CREATE TABLE `dosen` (
 
 /*Data for the table `dosen` */
 
-insert  into `dosen`(`idDosen`,`namaDosen`,`status`) values ('D001','Puspa','Tetap'),('D002','Albert','Tetap'),('D003','Kartono','Tidak Tetap');
+insert  into `dosen`(`idDosen`,`namaDosen`,`status`) values ('D001','Drs. Paulus Wahana, M.Hum.','Tetap'),('D002','Drs. Y.B. Adimassana, M.A.','Tetap'),('D003','Catur Rismiati, S.Pd., M.A., Ph.D.','Tetap'),('D004','G. Ari Nugrahanta, S.J, M.A.','Tetap'),('D005','Rusmawan, S.Pd., M.Pd.','Tetap');
 
 /*Table structure for table `kelas_makul` */
 

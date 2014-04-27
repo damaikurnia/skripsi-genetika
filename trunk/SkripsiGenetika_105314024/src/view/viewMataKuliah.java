@@ -389,7 +389,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
         idMataKuliahText.setText(idMataKuliah);
         namaMataKuliahText.setText(namaMatakuliah);
         SKS_jComboBox.setSelectedItem(sks);
-        Smstr_jComboBox.setSelectedItem(semester);;
+        Smstr_jComboBox.setSelectedItem(semester);
         JP_jComboBox.setSelectedItem(jp);
         
         dialogMataKuliah.setVisible(false);
