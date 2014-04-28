@@ -70,7 +70,6 @@ public class viewDosen extends javax.swing.JFrame {
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
-        tabelButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -187,14 +186,6 @@ public class viewDosen extends javax.swing.JFrame {
             }
         });
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 70, -1));
-
-        tabelButton.setText("Tabel");
-        tabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabelButtonActionPerformed(evt);
-            }
-        });
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 60, -1));
 
         editButton.setText("Ubah");
         editButton.addActionListener(new java.awt.event.ActionListener() {
@@ -330,14 +321,6 @@ public class viewDosen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idDosenTextActionPerformed
 
-    private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
-        try {
-            updateTabelDosen();
-        } catch (SQLException ex) {
-            Logger.getLogger(viewDosen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tabelButtonActionPerformed
-
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         String id = idDosenText.getText();
         String nama = namaDosenText.getText();
@@ -472,7 +455,6 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
-    private javax.swing.JButton tabelButton;
     private javax.swing.JTable tabelDosen;
     // End of variables declaration//GEN-END:variables
 }
