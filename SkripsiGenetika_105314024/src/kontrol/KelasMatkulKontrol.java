@@ -104,7 +104,7 @@ public class KelasMatkulKontrol {
         MataKuliah mk = new MataKuliah();
         mk.setIdMK(result.getString(1));
         mk.setNamaMK(result.getString(2));
-        
+        conn.commit();
         return mk;
     }
     
@@ -118,6 +118,7 @@ public class KelasMatkulKontrol {
         result = stmt.executeQuery();
         
         Dosen mk = new Dosen(result.getString(1), result.getString(2), "");
+        conn.commit();
         return mk;
     }
 }

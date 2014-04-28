@@ -18,6 +18,13 @@ public class KelasKuliah {
     private String kelas;//A B C
     private Dosen idDosen;
 
+    public KelasKuliah(){}
+    public KelasKuliah(int id,MataKuliah idm,String kls,Dosen idsn){
+        this.idKelas = id;
+        this.idMK = idm;
+        this.kelas = kls;
+        this.idDosen = idsn;
+    }
     /**
      * @return the idKelas
      */

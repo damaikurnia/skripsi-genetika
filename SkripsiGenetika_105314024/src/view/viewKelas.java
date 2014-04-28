@@ -14,13 +14,17 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
+import kelas.KelasKuliah;
 import kelas.MataKuliah;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
+import tabelModel.KelasMatkul_TM;
+import tabelModel.MataKuliah_TM;
 
 /**
  *
@@ -33,6 +37,7 @@ public class viewKelas extends javax.swing.JFrame {
         try {
             initComponents();
             setLocationRelativeTo(null);
+            updateTabelKelas();
             
             List<MataKuliah> matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
             for (MataKuliah k : matkul) {
@@ -48,6 +53,12 @@ public class viewKelas extends javax.swing.JFrame {
         }
     }
 
+    private void updateTabelKelas() throws SQLException {
+        List<KelasKuliah> mktm = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
+        KelasMatkul_TM model = new KelasMatkul_TM(mktm);
+        tabelKelasMatakuliah.setModel(model);
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -380,24 +391,35 @@ public class viewKelas extends javax.swing.JFrame {
         String namaDosen = tabelKelasMatakuliah.getValueAt(row1,2).toString();
         String kelas = tabelKelasMatakuliah.getValueAt(row1,3).toString();
         
-        MataKuliah mk = null;
-        Dosen dsn = null;
         try {
-            mk = KelasMatkulKontrol.getKoneksi().tampilMatakuliah(namaMatakuliah);
-            dsn = KelasMatkulKontrol.getKoneksi().tampilDosen(namaDosen);
+            MataKuliah mk = KelasMatkulKontrol.getKoneksi().tampilMatakuliah(namaMatakuliah);
+            Dosen dsn = KelasMatkulKontrol.getKoneksi().tampilDosen(namaDosen);
+            JOptionPane.showMessageDialog(this, mk.getIdMK()+" - "+mk.getNamaMK()+"\n"+dsn.getIdDosen()+" - "+dsn.getNamaDosen());
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         idKelasText.setText(noKelas);
-        MatakuliahComboBox.setSelectedItem(mk.getIdMK()+" - "+mk.getNamaMK());
-        DosenComboBox.setSelectedItem(dsn.getIdDosen()+" - "+dsn.getNamaDosen());
-        KelasComboBox.setSelectedItem(kelas); //BELUM SELESAI UNTUK YG LAINNYA
+//        MatakuliahComboBox.setSelectedItem(mk.getIdMK()+" - "+mk.getNamaMK());
+//        DosenComboBox.setSelectedItem(dsn.getIdDosen()+" - "+dsn.getNamaDosen());
+        KelasComboBox.setSelectedItem(kelas); //BELUM SELESAI UNTUK YG "LAINNYA"
         idKelasText.setEditable(false);
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
-        // TODO add your handling code here:
+        int nomor = Integer.parseInt(idKelasText.getText());
+        String idMatkul = MatakuliahComboBox.getSelectedItem().toString().substring(0, 8);
+        String idDosen = DosenComboBox.getSelectedItem().toString().substring(0, 5);
+        String kelas = KelasComboBox.getSelectedItem().toString();
+        KelasKuliah kk = new KelasKuliah(nomor, new MataKuliah(idMatkul), kelas, new Dosen(idDosen));
+        
+        try {
+            KelasMatkulKontrol.getKoneksi().insertKelasMataKuliah(kk);
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah berhasil ditambahkan");
+            updateTabelKelas();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_simpanButtonActionPerformed
 
     private void batalButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButton2ActionPerformed
