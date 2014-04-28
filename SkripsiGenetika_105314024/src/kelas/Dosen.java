@@ -14,7 +14,11 @@ public class Dosen {
     String idDosen;
     String namaDosen;
     String status;
-
+    
+    public Dosen(String id){
+        this.idDosen = id;
+    }
+    
     public Dosen(String id,String nama,String status){
         this.idDosen = id;
         this.namaDosen = nama;

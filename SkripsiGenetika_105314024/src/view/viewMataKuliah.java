@@ -35,13 +35,14 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
     /** Creates new form viewMataKuliah */
     public viewMataKuliah() {
-        initComponents();
-         setLocationRelativeTo(null);
-         
-        dialogMataKuliah.setVisible(false);
-        dialogMataKuliah.setSize(600, 430);
-        dialogMataKuliah.setLocationRelativeTo(null);
-        dialogMataKuliah.setTitle("List Mata Kuliah");
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+           
+            updateTabelMataKuliah();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewMataKuliah.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void bersihkan(){
@@ -55,7 +56,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private void updateTabelMataKuliah() throws SQLException {
         List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
         MataKuliah_TM model = new MataKuliah_TM(mktm);
-        listMataKuliahTabel.setModel(model);
+        tabelMatakuliah.setModel(model);
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -66,11 +67,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogMataKuliah = new javax.swing.JDialog();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listMataKuliahTabel = new javax.swing.JTable();
-        listMataKuliahCloseButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -90,12 +86,11 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
-        tabelButton = new javax.swing.JButton();
         SKS_jComboBox = new javax.swing.JComboBox();
         Smstr_jComboBox = new javax.swing.JComboBox();
         JP_jComboBox = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelMatakuliah = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -104,62 +99,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
-        jLabel29.setText("Data Mata Kuliah");
-
-        listMataKuliahTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "idMK", "NamaMatkul", "SKS", "Semester", "JP"
-            }
-        ));
-        listMataKuliahTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listMataKuliahTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(listMataKuliahTabel);
-
-        listMataKuliahCloseButton.setText("Tutup");
-        listMataKuliahCloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listMataKuliahCloseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout dialogMataKuliahLayout = new javax.swing.GroupLayout(dialogMataKuliah.getContentPane());
-        dialogMataKuliah.getContentPane().setLayout(dialogMataKuliahLayout);
-        dialogMataKuliahLayout.setHorizontalGroup(
-            dialogMataKuliahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogMataKuliahLayout.createSequentialGroup()
-                .addGroup(dialogMataKuliahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogMataKuliahLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(dialogMataKuliahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listMataKuliahCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(dialogMataKuliahLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel29)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        dialogMataKuliahLayout.setVerticalGroup(
-            dialogMataKuliahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogMataKuliahLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listMataKuliahCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -270,14 +209,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         });
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
 
-        tabelButton.setText("Tabel");
-        tabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabelButtonActionPerformed(evt);
-            }
-        });
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, -1, -1));
-
         SKS_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
         jPanel4.add(SKS_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
 
@@ -287,7 +218,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
         JP_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
         jPanel4.add(JP_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, -1, 20));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelMatakuliah.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -298,7 +229,12 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelMatakuliahMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelMatakuliah);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 390, 210));
 
@@ -400,36 +336,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_idMataKuliahTextActionPerformed
 
-    private void listMataKuliahTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMataKuliahTabelMouseClicked
-        int row1 = listMataKuliahTabel.getSelectedRow();
-        String idMataKuliah = listMataKuliahTabel.getValueAt(row1, 0).toString();
-        String namaMatakuliah = listMataKuliahTabel.getValueAt(row1, 1).toString();
-        String sks = listMataKuliahTabel.getValueAt(row1, 2).toString();
-        String semester = listMataKuliahTabel.getValueAt(row1, 3).toString();
-        String jp = listMataKuliahTabel.getValueAt(row1, 4).toString();
-        
-        idMataKuliahText.setText(idMataKuliah);
-        namaMataKuliahText.setText(namaMatakuliah);
-        SKS_jComboBox.setSelectedItem(sks);
-        Smstr_jComboBox.setSelectedItem(semester);
-        JP_jComboBox.setSelectedItem(jp);
-        
-        dialogMataKuliah.setVisible(false);
-}//GEN-LAST:event_listMataKuliahTabelMouseClicked
-
-    private void listMataKuliahCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listMataKuliahCloseButtonActionPerformed
-        dialogMataKuliah.setVisible(false);
-}//GEN-LAST:event_listMataKuliahCloseButtonActionPerformed
-
-    private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
-        try {
-            updateTabelMataKuliah();
-        } catch (SQLException ex) {
-            Logger.getLogger(viewMataKuliah.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        dialogMataKuliah.setVisible(true);
-    }//GEN-LAST:event_tabelButtonActionPerformed
-
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         MataKuliah matkul = new MataKuliah();
         matkul.setIdMK(idMataKuliahText.getText().toUpperCase());
@@ -449,6 +355,22 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
         bersihkan();
     }//GEN-LAST:event_batalButtonActionPerformed
+
+    private void tabelMatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMatakuliahMouseClicked
+        int row1 = tabelMatakuliah.getSelectedRow();
+        String idMataKuliah = tabelMatakuliah.getValueAt(row1, 0).toString();
+        String namaMatakuliah = tabelMatakuliah.getValueAt(row1, 1).toString();
+        String sks = tabelMatakuliah.getValueAt(row1, 2).toString();
+        String semester = tabelMatakuliah.getValueAt(row1, 3).toString();
+        String jp = tabelMatakuliah.getValueAt(row1, 4).toString();
+        
+        idMataKuliahText.setText(idMataKuliah);
+        namaMataKuliahText.setText(namaMatakuliah);
+        SKS_jComboBox.setSelectedItem(sks);
+        Smstr_jComboBox.setSelectedItem(semester);
+        JP_jComboBox.setSelectedItem(jp);
+        
+    }//GEN-LAST:event_tabelMatakuliahMouseClicked
 
     /**
      * @param args the command line arguments
@@ -478,7 +400,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JComboBox SKS_jComboBox;
     private javax.swing.JComboBox Smstr_jComboBox;
     private javax.swing.JButton batalButton;
-    private javax.swing.JDialog dialogMataKuliah;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idMataKuliahText;
@@ -487,7 +408,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -501,16 +421,12 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JButton listMataKuliahCloseButton;
-    private javax.swing.JTable listMataKuliahTabel;
     private javax.swing.JButton matkulButton;
     private javax.swing.JTextField namaMataKuliahText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
-    private javax.swing.JButton tabelButton;
+    private javax.swing.JTable tabelMatakuliah;
     // End of variables declaration//GEN-END:variables
 }

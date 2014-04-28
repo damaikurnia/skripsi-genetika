@@ -13,50 +13,65 @@ import kelas.Dosen;
  * @author Mich
  */
 public class KelasKuliah {
-    private MataKuliah idKuliah;
-    private String kelasKuliah;//A B C
-    private Dosen dosenPengampu;
+    private int idKelas;
+    private MataKuliah idMK;
+    private String kelas;//A B C
+    private Dosen idDosen;
 
     /**
-     * @return the idKuliah
+     * @return the idKelas
      */
-    public MataKuliah getIdKuliah() {
-        return idKuliah;
+    public int getIdKelas() {
+        return idKelas;
     }
 
     /**
-     * @param idKuliah the idKuliah to set
+     * @param idKelas the idKelas to set
      */
-    public void setIdKuliah(MataKuliah idKuliah) {
-        this.idKuliah = idKuliah;
+    public void setIdKelas(int idKelas) {
+        this.idKelas = idKelas;
     }
 
     /**
-     * @return the kelasKuliah
+     * @return the idMK
      */
-    public String getKelasKuliah() {
-        return kelasKuliah;
+    public MataKuliah getIdMK() {
+        return idMK;
     }
 
     /**
-     * @param kelasKuliah the kelasKuliah to set
+     * @param idMK the idMK to set
      */
-    public void setKelasKuliah(String kelasKuliah) {
-        this.kelasKuliah = kelasKuliah;
+    public void setIdMK(MataKuliah idMK) {
+        this.idMK = idMK;
     }
 
     /**
-     * @return the dosenPengampu
+     * @return the kelas
      */
-    public Dosen getDosenPengampu() {
-        return dosenPengampu;
+    public String getKelas() {
+        return kelas;
     }
 
     /**
-     * @param dosenPengampu the dosenPengampu to set
+     * @param kelas the kelas to set
      */
-    public void setDosenPengampu(Dosen dosenPengampu) {
-        this.dosenPengampu = dosenPengampu;
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
+    }
+
+    /**
+     * @return the idDosen
+     */
+    public Dosen getIdDosen() {
+        return idDosen;
+    }
+
+    /**
+     * @param idDosen the idDosen to set
+     */
+    public void setIdDosen(Dosen idDosen) {
+        this.idDosen = idDosen;
     }
 
 }

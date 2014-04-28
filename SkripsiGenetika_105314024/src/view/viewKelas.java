@@ -19,6 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
 import kelas.MataKuliah;
 import kontrol.DosenKontrol;
+import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
 
 /**
@@ -75,7 +76,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         KelasText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listKelasMatkulTabel = new javax.swing.JTable();
+        tabelKelasMatakuliah = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         DosenComboBox = new javax.swing.JComboBox();
         KelasComboBox = new javax.swing.JComboBox();
@@ -171,6 +172,11 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel4.add(idKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 60, -1));
 
         simpanButton.setText("Simpan");
+        simpanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
@@ -197,7 +203,13 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(KelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 80, -1));
 
-        listKelasMatkulTabel.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
+        tabelKelasMatakuliah.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -208,7 +220,12 @@ public class viewKelas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(listKelasMatkulTabel);
+        tabelKelasMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKelasMatakuliahMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelKelasMatakuliah);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 420, 210));
 
@@ -216,6 +233,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel12.setText("DATA KELAS MATAKULIAH");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
+        DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 210, -1));
 
         KelasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "Lainya" }));
@@ -226,12 +244,18 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(KelasComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
 
+        MatakuliahComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(MatakuliahComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 210, -1));
 
         batalButton1.setText("Batal");
         jPanel4.add(batalButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 70, -1));
 
         batalButton2.setText("Ubah");
+        batalButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                batalButton2ActionPerformed(evt);
+            }
+        });
         jPanel4.add(batalButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 70, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
@@ -345,6 +369,41 @@ public class viewKelas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_batalButtonActionPerformed
 
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void tabelKelasMatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKelasMatakuliahMouseClicked
+        int row1 = tabelKelasMatakuliah.getSelectedRow();
+        String noKelas = tabelKelasMatakuliah.getValueAt(row1,0).toString();
+        String namaMatakuliah = tabelKelasMatakuliah.getValueAt(row1,1).toString();
+        String namaDosen = tabelKelasMatakuliah.getValueAt(row1,2).toString();
+        String kelas = tabelKelasMatakuliah.getValueAt(row1,3).toString();
+        
+        MataKuliah mk = null;
+        Dosen dsn = null;
+        try {
+            mk = KelasMatkulKontrol.getKoneksi().tampilMatakuliah(namaMatakuliah);
+            dsn = KelasMatkulKontrol.getKoneksi().tampilDosen(namaDosen);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        idKelasText.setText(noKelas);
+        MatakuliahComboBox.setSelectedItem(mk.getIdMK()+" - "+mk.getNamaMK());
+        DosenComboBox.setSelectedItem(dsn.getIdDosen()+" - "+dsn.getNamaDosen());
+        KelasComboBox.setSelectedItem(kelas); //BELUM SELESAI UNTUK YG LAINNYA
+        idKelasText.setEditable(false);
+    }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
+
+    private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_simpanButtonActionPerformed
+
+    private void batalButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_batalButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -397,10 +456,10 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JTable listKelasMatkulTabel;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
+    private javax.swing.JTable tabelKelasMatakuliah;
     // End of variables declaration//GEN-END:variables
 }
