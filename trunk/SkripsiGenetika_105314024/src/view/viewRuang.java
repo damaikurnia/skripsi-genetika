@@ -31,19 +31,19 @@ public class viewRuang extends javax.swing.JFrame {
      * Creates new form viewRuang
      */
     public viewRuang() {
-        initComponents();
-        setLocationRelativeTo(null);
-
-        dialogRuangKelas.setVisible(false);
-        dialogRuangKelas.setSize(600, 430);
-        dialogRuangKelas.setLocationRelativeTo(null);
-        dialogRuangKelas.setTitle("List Ruang Kelas");
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            updateTabelRuang();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void updateTabelRuang() throws SQLException {
         List<Ruang> rtm = RuangKontrol.getKoneksi().tampilRuang();
         Ruang_TM model = new Ruang_TM(rtm);
-        listRuangKelasTabel.setModel(model);
+        tabelRuang.setModel(model);
     }
 
     /**
@@ -55,11 +55,6 @@ public class viewRuang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogRuangKelas = new javax.swing.JDialog();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listRuangKelasTabel = new javax.swing.JTable();
-        listRuangKelasCloseButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -76,9 +71,8 @@ public class viewRuang extends javax.swing.JFrame {
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         batalButton = new javax.swing.JButton();
-        tabelButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelRuang = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -87,62 +81,6 @@ public class viewRuang extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
-        jLabel29.setText("Data Ruang Kelas");
-
-        listRuangKelasTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "ID Ruang", "Nama Ruang"
-            }
-        ));
-        listRuangKelasTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listRuangKelasTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(listRuangKelasTabel);
-
-        listRuangKelasCloseButton.setText("Tutup");
-        listRuangKelasCloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listRuangKelasCloseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout dialogRuangKelasLayout = new javax.swing.GroupLayout(dialogRuangKelas.getContentPane());
-        dialogRuangKelas.getContentPane().setLayout(dialogRuangKelasLayout);
-        dialogRuangKelasLayout.setHorizontalGroup(
-            dialogRuangKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogRuangKelasLayout.createSequentialGroup()
-                .addGroup(dialogRuangKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogRuangKelasLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(dialogRuangKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listRuangKelasCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(dialogRuangKelasLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel29)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        dialogRuangKelasLayout.setVerticalGroup(
-            dialogRuangKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogRuangKelasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listRuangKelasCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -241,15 +179,7 @@ public class viewRuang extends javax.swing.JFrame {
         });
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 70, -1));
 
-        tabelButton.setText("Tabel");
-        tabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabelButtonActionPerformed(evt);
-            }
-        });
-        jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 70, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelRuang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -260,7 +190,12 @@ public class viewRuang extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelRuang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelRuangMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelRuang);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 400, 190));
 
@@ -362,31 +297,6 @@ public class viewRuang extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_idRuangTextActionPerformed
 
-    private void listRuangKelasTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listRuangKelasTabelMouseClicked
-        int row1 = listRuangKelasTabel.getSelectedRow();
-        String idRuang = listRuangKelasTabel.getValueAt(row1, 0).toString();
-        String namaRuang = listRuangKelasTabel.getValueAt(row1, 1).toString();
-
-        idRuangText.setText(idRuang);
-        namaRuangText.setText(namaRuang);
-
-        dialogRuangKelas.setVisible(false);
-        idRuangText.setEditable(false);
-}//GEN-LAST:event_listRuangKelasTabelMouseClicked
-
-    private void listRuangKelasCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRuangKelasCloseButtonActionPerformed
-        dialogRuangKelas.setVisible(false);
-}//GEN-LAST:event_listRuangKelasCloseButtonActionPerformed
-
-    private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
-        dialogRuangKelas.setVisible(true);
-        try {
-            updateTabelRuang();
-        } catch (SQLException ex) {
-            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tabelButtonActionPerformed
-
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase());
         try {
@@ -402,6 +312,16 @@ public class viewRuang extends javax.swing.JFrame {
         namaRuangText.setText("");
         idRuangText.setEditable(true);
     }//GEN-LAST:event_batalButtonActionPerformed
+
+    private void tabelRuangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRuangMouseClicked
+        int row1 = tabelRuang.getSelectedRow();
+        String idRuang = tabelRuang.getValueAt(row1, 0).toString();
+        String namaRuang = tabelRuang.getValueAt(row1, 1).toString();
+
+        idRuangText.setText(idRuang);
+        namaRuangText.setText(namaRuang);
+        idRuangText.setEditable(false);
+    }//GEN-LAST:event_tabelRuangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -428,14 +348,12 @@ public class viewRuang extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalButton;
-    private javax.swing.JDialog dialogRuangKelas;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idRuangText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -448,16 +366,12 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JButton listRuangKelasCloseButton;
-    private javax.swing.JTable listRuangKelasTabel;
     private javax.swing.JButton matkulButton;
     private javax.swing.JTextField namaRuangText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
-    private javax.swing.JButton tabelButton;
+    private javax.swing.JTable tabelRuang;
     // End of variables declaration//GEN-END:variables
 }

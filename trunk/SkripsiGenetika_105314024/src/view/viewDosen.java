@@ -34,13 +34,13 @@ public class viewDosen extends javax.swing.JFrame {
      * Creates new form viewDosen
      */
     public viewDosen() {
-        initComponents();
-        setLocationRelativeTo(null);
-
-        dialogDosen.setVisible(false);
-        dialogDosen.setSize(600, 430);
-        dialogDosen.setLocationRelativeTo(null);
-        dialogDosen.setTitle("List Dosen");
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            updateTabelDosen();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewDosen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -52,11 +52,6 @@ public class viewDosen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogDosen = new javax.swing.JDialog();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listDosenTabel = new javax.swing.JTable();
-        listDosenCloseButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -79,7 +74,7 @@ public class viewDosen extends javax.swing.JFrame {
         editButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelDosen = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -88,62 +83,6 @@ public class viewDosen extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
-        jLabel29.setText("Data Dosen");
-
-        listDosenTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        listDosenTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listDosenTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(listDosenTabel);
-
-        listDosenCloseButton.setText("Tutup");
-        listDosenCloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listDosenCloseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout dialogDosenLayout = new javax.swing.GroupLayout(dialogDosen.getContentPane());
-        dialogDosen.getContentPane().setLayout(dialogDosenLayout);
-        dialogDosenLayout.setHorizontalGroup(
-            dialogDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogDosenLayout.createSequentialGroup()
-                .addGroup(dialogDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogDosenLayout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jLabel29))
-                    .addGroup(dialogDosenLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(dialogDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listDosenCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        dialogDosenLayout.setVerticalGroup(
-            dialogDosenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogDosenLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listDosenCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -273,7 +212,7 @@ public class viewDosen extends javax.swing.JFrame {
         });
         jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelDosen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -284,7 +223,12 @@ public class viewDosen extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelDosen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDosenMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelDosen);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 380, 190));
 
@@ -386,30 +330,12 @@ public class viewDosen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idDosenTextActionPerformed
 
-    private void listDosenTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDosenTabelMouseClicked
-        int row1 = listDosenTabel.getSelectedRow();
-        String idDosen = listDosenTabel.getValueAt(row1,0).toString();
-        String namaDosen = listDosenTabel.getValueAt(row1,1).toString();
-        String status = listDosenTabel.getValueAt(row1,2).toString();
-        idDosenText.setText(idDosen);
-        namaDosenText.setText(namaDosen);
-        Status_ComboBox.setSelectedItem(status);
-        
-        idDosenText.setEditable(false);
-        dialogDosen.setVisible(false);
-}//GEN-LAST:event_listDosenTabelMouseClicked
-
-    private void listDosenCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listDosenCloseButtonActionPerformed
-        dialogDosen.setVisible(false);
-}//GEN-LAST:event_listDosenCloseButtonActionPerformed
-
     private void tabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelButtonActionPerformed
         try {
             updateTabelDosen();
         } catch (SQLException ex) {
             Logger.getLogger(viewDosen.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dialogDosen.setVisible(true);
     }//GEN-LAST:event_tabelButtonActionPerformed
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
@@ -472,6 +398,18 @@ public class viewDosen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_hapusButtonActionPerformed
 
+    private void tabelDosenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDosenMouseClicked
+        int row1 = tabelDosen.getSelectedRow();
+        String idDosen = tabelDosen.getValueAt(row1,0).toString();
+        String namaDosen = tabelDosen.getValueAt(row1,1).toString();
+        String status = tabelDosen.getValueAt(row1,2).toString();
+        idDosenText.setText(idDosen);
+        namaDosenText.setText(namaDosen);
+        Status_ComboBox.setSelectedItem(status);
+        
+        idDosenText.setEditable(false);
+    }//GEN-LAST:event_tabelDosenMouseClicked
+
     private void bersihkan() {
 //        idDosenText.setText("");
         namaDosenText.setText("");
@@ -481,7 +419,7 @@ public class viewDosen extends javax.swing.JFrame {
     private void updateTabelDosen() throws SQLException {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
-        listDosenTabel.setModel(model);
+        tabelDosen.setModel(model);
     }
 
     public static void main(String args[]) {
@@ -507,7 +445,6 @@ public class viewDosen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Status_ComboBox;
     private javax.swing.JButton batalButton;
-    private javax.swing.JDialog dialogDosen;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton editButton;
     private javax.swing.JButton hapusButton;
@@ -516,7 +453,6 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -530,16 +466,13 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JButton listDosenCloseButton;
-    private javax.swing.JTable listDosenTabel;
     private javax.swing.JButton matkulButton;
     private javax.swing.JTextField namaDosenText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
     private javax.swing.JButton tabelButton;
+    private javax.swing.JTable tabelDosen;
     // End of variables declaration//GEN-END:variables
 }
