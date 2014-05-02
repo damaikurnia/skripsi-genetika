@@ -330,6 +330,7 @@ public class viewDosen extends javax.swing.JFrame {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
             dosenk.insertDosen(temp);
             JOptionPane.showMessageDialog(null, "Data Dosen "+nama+" Berhasil di tambah");
+            updateTabelDosen();
             bersihkan();
             idDosenText.requestFocus();
 

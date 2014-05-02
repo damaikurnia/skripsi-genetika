@@ -28,7 +28,7 @@ CREATE TABLE `dosen` (
 
 /*Data for the table `dosen` */
 
-insert  into `dosen`(`idDosen`,`namaDosen`,`status`) values ('D001','Drs. Paulus Wahana, M.Hum.','Tetap'),('D002','Drs. Y.B. Adimassana, M.A.','Tetap'),('D003','Catur Rismiati, S.Pd., M.A., Ph.D.','Tetap'),('D004','G. Ari Nugrahanta, S.J, M.A.','Tetap'),('D005','Rusmawan, S.Pd., M.Pd.','Tetap');
+insert  into `dosen`(`idDosen`,`namaDosen`,`status`) values ('D001','Drs. Paulus Wahana, M.Hum.','Tetap'),('D002','Drs. Y.B. Adimassana, M.A.','Tetap'),('D003','Catur Rismiati, S.Pd., M.A., Ph.D.','Tetap'),('D004','G. Ari Nugrahanta, S.J, M.A.','Tetap'),('D005','Rusmawan, S.Pd., M.Pd.','Tetap'),('D006','Eny Winarti, Ph. D.','Tetap'),('D007','Galih Kusumo, S.Pd, M.Pd.','Tetap'),('D008','Theresia Yunia Setyawan, S.Pd, M.Hum.','Tetap'),('D009','Dra. Ignatia Esti Sumarah, M.Hum.','Tetap'),('D010','Drs. Puji Purnomo, M.Si.','Tetap'),('D011','Andri Anugrahana, S.Pd., M.Pd.','Tetap'),('D012','Wahyu Wido Sari, S.Si., M.Biotech.','Tetap'),('D013','Elisabeth Desiana Mayasari, S.Psi., M.A.','Tetap'),('D014','Agnes Herlina Dwi Hadiyanti, M.T., M. Sc.','Tetap'),('D015','Christiyanti Aprinastuti, S.Si., M.Pd.','Tetap'),('D016','Laurensia Aptik Evanjeli, S.Psi., M.A.','Tetap'),('D017','Brigitta Erlita Tri Anggadewi, S.Psi., M.Psi.','Tetap'),('D018','Irine Kurniastuti, S.Psi., M.Psi.','Tetap'),('D019','Apri Damai Sagita Krissandi, S.S., M.Pd.','Tetap'),('D020','Maria Melani Ika Susanti, S.Pd.','Tetap');
 
 /*Table structure for table `kelas_makul` */
 
@@ -43,6 +43,8 @@ CREATE TABLE `kelas_makul` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `kelas_makul` */
+
+insert  into `kelas_makul`(`idKelas`,`idMK`,`idDosen`,`Kelas`) values ('1','PDW 2125','D002 ','A');
 
 /*Table structure for table `matakuliah` */
 
