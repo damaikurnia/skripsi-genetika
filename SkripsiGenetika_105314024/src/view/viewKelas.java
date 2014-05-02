@@ -61,6 +61,14 @@ public class viewKelas extends javax.swing.JFrame {
         tabelKelasMatakuliah.setModel(model);
     }
 
+    private void bersihkan() {
+        idKelasText.setText("");
+        MatakuliahComboBox.setSelectedItem("-");
+        DosenComboBox.setSelectedItem("-");
+        KelasComboBox.setSelectedItem("-"); //BELUM SELESAI UNTUK YG "LAINNYA"
+        idKelasText.setEditable(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,7 +93,7 @@ public class viewKelas extends javax.swing.JFrame {
         idKelasText = new javax.swing.JTextField();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        batalButton = new javax.swing.JButton();
+        hapusButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         KelasText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -94,8 +102,8 @@ public class viewKelas extends javax.swing.JFrame {
         DosenComboBox = new javax.swing.JComboBox();
         KelasComboBox = new javax.swing.JComboBox();
         MatakuliahComboBox = new javax.swing.JComboBox();
-        batalButton1 = new javax.swing.JButton();
-        batalButton2 = new javax.swing.JButton();
+        batalButton = new javax.swing.JButton();
+        ubahButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -196,19 +204,20 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel4.setText("TABEL MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
 
-        batalButton.setText("Hapus");
-        batalButton.addActionListener(new java.awt.event.ActionListener() {
+        hapusButton.setText("Hapus");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                batalButtonActionPerformed(evt);
+                hapusButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 70, -1));
+        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Kelas");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         KelasText.setEditable(false);
+        KelasText.setText("-");
         KelasText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 KelasTextActionPerformed(evt);
@@ -249,7 +258,7 @@ public class viewKelas extends javax.swing.JFrame {
         DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 210, -1));
 
-        KelasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "Lainya" }));
+        KelasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "A", "B", "C", "D", "E", "F", "Lainya" }));
         KelasComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 KelasComboBoxActionPerformed(evt);
@@ -260,16 +269,21 @@ public class viewKelas extends javax.swing.JFrame {
         MatakuliahComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(MatakuliahComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 210, -1));
 
-        batalButton1.setText("Batal");
-        jPanel4.add(batalButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 70, -1));
-
-        batalButton2.setText("Ubah");
-        batalButton2.addActionListener(new java.awt.event.ActionListener() {
+        batalButton.setText("Batal");
+        batalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                batalButton2ActionPerformed(evt);
+                batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 70, -1));
+
+        ubahButton.setText("Ubah");
+        ubahButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(ubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 70, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -372,14 +386,16 @@ public class viewKelas extends javax.swing.JFrame {
     private void KelasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KelasComboBoxActionPerformed
         if (KelasComboBox.getSelectedItem().toString().equals("Lainya")) {
             KelasText.setEditable(true);
+            KelasText.setText("");
         } else {
             KelasText.setEditable(false);
+            KelasText.setText(KelasComboBox.getSelectedItem().toString());
         }
     }//GEN-LAST:event_KelasComboBoxActionPerformed
 
-    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_batalButtonActionPerformed
+    }//GEN-LAST:event_hapusButtonActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
 
@@ -397,34 +413,56 @@ public class viewKelas extends javax.swing.JFrame {
             idKelasText.setText(noKelas);
             MatakuliahComboBox.setSelectedItem(mk.getIdMK() + " - " + mk.getNamaMK());
             DosenComboBox.setSelectedItem(dsn.getIdDosen() + " - " + dsn.getNamaDosen());
-            KelasComboBox.setSelectedItem(kelas); //BELUM SELESAI UNTUK YG "LAINNYA"
+            KelasComboBox.setSelectedItem(kelas);
             idKelasText.setEditable(false);
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         int nomor = Integer.parseInt(idKelasText.getText());
         String idMatkul = MatakuliahComboBox.getSelectedItem().toString().substring(0, 8);
         String idDosen = DosenComboBox.getSelectedItem().toString().substring(0, 5);
-        String kelas = KelasComboBox.getSelectedItem().toString();
+        String kelas = KelasText.getText().toUpperCase();
         KelasKuliah kk = new KelasKuliah(nomor, new MataKuliah(idMatkul), kelas, new Dosen(idDosen));
 
         try {
             KelasMatkulKontrol.getKoneksi().insertKelasMataKuliah(kk);
             JOptionPane.showMessageDialog(rootPane, "Matakuliah berhasil ditambahkan");
             updateTabelKelas();
+            int data = Integer.parseInt(idKelasText.getText());
+            data = data+1;
+            idKelasText.setText(Integer.toString(data));
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_simpanButtonActionPerformed
 
-    private void batalButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_batalButton2ActionPerformed
+    private void ubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahButtonActionPerformed
+        int nomor = Integer.parseInt(idKelasText.getText());
+        String idMatkul = MatakuliahComboBox.getSelectedItem().toString().substring(0, 8);
+        String idDosen = DosenComboBox.getSelectedItem().toString().substring(0, 5);
+        String kelas = KelasText.getText().toUpperCase();
+        KelasKuliah kk = new KelasKuliah(nomor, new MataKuliah(idMatkul), kelas, new Dosen(idDosen));
+
+        try {
+            KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(kk);
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah :\n"+
+                    "Nomor          : "+kk.getIdKelas()+"\n"+
+                    "Matkul         : "+kk.getIdMK().getIdMK()+"\n"+
+                    "Dosen Pengampu : "+kk.getIdDosen().getIdDosen()+"\n"+
+                    "Kelas          : "+kk.getKelas()+"\n"+
+                    "BERHASIL DIRUBAH");
+            updateTabelKelas();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ubahButtonActionPerformed
+
+    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
+        bersihkan();
+    }//GEN-LAST:event_batalButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,9 +493,8 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JTextField KelasText;
     private javax.swing.JComboBox MatakuliahComboBox;
     private javax.swing.JButton batalButton;
-    private javax.swing.JButton batalButton1;
-    private javax.swing.JButton batalButton2;
     private javax.swing.JButton dosenButton;
+    private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idKelasText;
     private javax.swing.JLabel jLabel1;
@@ -483,5 +520,6 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTable tabelKelasMatakuliah;
+    private javax.swing.JButton ubahButton;
     // End of variables declaration//GEN-END:variables
 }
