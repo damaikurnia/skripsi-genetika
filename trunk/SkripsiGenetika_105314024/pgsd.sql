@@ -44,7 +44,7 @@ CREATE TABLE `kelas_makul` (
 
 /*Data for the table `kelas_makul` */
 
-insert  into `kelas_makul`(`idKelas`,`idMK`,`idDosen`,`Kelas`) values ('1','PDW 2125','D002 ','A');
+insert  into `kelas_makul`(`idKelas`,`idMK`,`idDosen`,`Kelas`) values ('1','USD 123 ','D001 ','A'),('10','USD 224 ','D002 ','B'),('11','USD 224 ','D002 ','C'),('2','USD 123 ','D001 ','B'),('3','USD 123 ','D001 ','C'),('4','USD 123 ','D001 ','D'),('5','PDW 2334','D001 ','A'),('6','PDW 2334','D001 ','B'),('7','PDW 2334','D001 ','C'),('8','PDW 2106','D002 ','D'),('9','PDW 2106','D002 ','E');
 
 /*Table structure for table `matakuliah` */
 
