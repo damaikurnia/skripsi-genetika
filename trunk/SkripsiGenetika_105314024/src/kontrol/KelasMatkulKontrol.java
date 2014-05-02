@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package kontrol;
 
 import java.sql.*;
@@ -19,6 +18,7 @@ import kelas.MataKuliah;
  * @author Mich
  */
 public class KelasMatkulKontrol {
+
     private Connection conn;
 
     public KelasMatkulKontrol(Connection conn) {
@@ -39,7 +39,7 @@ public class KelasMatkulKontrol {
         stmt.setString(2, kk.getIdMK().getIdMK());
         stmt.setString(3, kk.getIdDosen().getIdDosen());
         stmt.setString(4, kk.getKelas());
-        
+
         stmt.executeUpdate();
         conn.commit();
     }
@@ -50,12 +50,12 @@ public class KelasMatkulKontrol {
         String query = "update KELAS_MAKUL set idMK = ?, idDosen = ?,"
                 + "Kelas = ? where idKelas = ?";
         stmt = conn.prepareStatement(query);
-        
+
         stmt.setString(1, kk.getIdMK().getIdMK());
         stmt.setString(2, kk.getIdDosen().getIdDosen());
         stmt.setString(3, kk.getKelas());
         stmt.setString(4, Integer.toString(kk.getIdKelas()));
-        
+
         stmt.executeUpdate();
         conn.commit();
     }
@@ -70,7 +70,7 @@ public class KelasMatkulKontrol {
         stmt.executeUpdate();
         conn.commit();
     }
-    
+
     public List<KelasKuliah> tampilKelasMataKuliah() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -79,7 +79,7 @@ public class KelasMatkulKontrol {
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
-        
+
         KelasKuliah temp = null;
         while (result.next()) {
             temp = new KelasKuliah();
@@ -91,7 +91,7 @@ public class KelasMatkulKontrol {
         }
         return mk;
     }
-    
+
     public MataKuliah tampilMatakuliah(String idMK) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -100,14 +100,15 @@ public class KelasMatkulKontrol {
         stmt = conn.prepareStatement(query);
         stmt.setString(1, idMK);
         result = stmt.executeQuery();
-        
         MataKuliah mk = new MataKuliah();
-        mk.setIdMK(result.getString(1));
-        mk.setNamaMK(result.getString(2));
+        while (result.next()) {
+            mk.setIdMK(result.getString(1));
+            mk.setNamaMK(result.getString(2));
+        }
         conn.commit();
         return mk;
     }
-    
+
     public Dosen tampilDosen(String idDosen) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -116,9 +117,10 @@ public class KelasMatkulKontrol {
         stmt = conn.prepareStatement(query);
         stmt.setString(1, idDosen);
         result = stmt.executeQuery();
-        
-        Dosen mk = new Dosen(result.getString(1), result.getString(2), "");
-        conn.commit();
+        Dosen mk = null;
+        while (result.next()) {
+            mk = new Dosen(result.getString(1), result.getString(2), "");
+        }
         return mk;
     }
 }
