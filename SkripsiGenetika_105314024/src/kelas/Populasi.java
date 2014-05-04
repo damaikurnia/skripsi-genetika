@@ -8,7 +8,7 @@ package kelas;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class Populasi {
     private Kromosom[] parent = new Kromosom[2];//satu populasi terdiri dari 2 kromosom

@@ -15,7 +15,7 @@ import kelas.MataKuliah;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class KelasMatkulKontrol {
 

@@ -8,7 +8,7 @@ package kelas;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class Gen {
     private KelasKuliah timeSlot;
