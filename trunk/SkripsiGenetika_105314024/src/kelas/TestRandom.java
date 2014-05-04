@@ -5,7 +5,11 @@
  */
 package kelas;
 
+import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import kontrol.KelasMatkulKontrol;
 
 /**
  *
@@ -57,8 +61,8 @@ public class TestRandom {
 
     public static void randomTertentu() {
         Random r = new Random();
-        int random = 140;//gen ke[x]
-        int matkul = 101;
+        int random = 30;//gen ke[x]
+        int matkul = 16;
         int countt = 0;
         boolean cek[] = new boolean[matkul];
         for (int i = 0; i < cek.length; i++) {
@@ -87,7 +91,25 @@ public class TestRandom {
     public static void main(String[] args) {
         // TODO code application logic here
 //        hitungRandom();
-        randomTertentu();
-        randomTertentu();
+//        randomTertentu();
+//        randomTertentu();
+        
+        Kromosom a = new Kromosom();
+//        try {
+//            System.out.println(KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah().size());
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TestRandom.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        Gen[] data = a.prosesRandom();
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i].getTimeSlot().getIdKelas());
+            System.out.println(data[i].getTimeSlot().getIdMK().getIdMK());
+            System.out.println(data[i].getTimeSlot().getKelas());
+            System.out.println(data[i].getHari());
+            System.out.println(data[i].getRuang().idRuang);
+            System.out.println(data[i].getJam());
+            System.out.println("");
+        }
     }
 }
