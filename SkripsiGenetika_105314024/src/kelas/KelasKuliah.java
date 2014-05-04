@@ -13,18 +13,28 @@ import kelas.Dosen;
  * @author Mich
  */
 public class KelasKuliah {
+
     private int idKelas;
     private MataKuliah idMK;
     private String kelas;//A B C
     private Dosen idDosen;
+    
+    public KelasKuliah() {}
 
-    public KelasKuliah(){}
-    public KelasKuliah(int id,MataKuliah idm,String kls,Dosen idsn){
+    public KelasKuliah(int id) {
+        this.idKelas = id;
+        this.idMK = new MataKuliah("-");
+        this.kelas = "-";
+        this.idDosen = new Dosen("-");
+    }
+
+    public KelasKuliah(int id, MataKuliah idm, String kls, Dosen idsn) {
         this.idKelas = id;
         this.idMK = idm;
         this.kelas = kls;
         this.idDosen = idsn;
     }
+
     /**
      * @return the idKelas
      */
@@ -80,5 +90,5 @@ public class KelasKuliah {
     public void setIdDosen(Dosen idDosen) {
         this.idDosen = idDosen;
     }
-
+    
 }
