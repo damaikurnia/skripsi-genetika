@@ -64,13 +64,11 @@ public class Kromosom {
                 data[index].setNilaiFitness(0);
                 index++;
                 random--;
-//                System.out.print(0+" ");
                 
             } else {
                 if (cek[tangkap-1] == false) {
                     data[index] = new Gen();
                     int temp = tangkap;temp = temp -1;
-//                    System.out.print((temp+1)+" ");
                     data[index].setTimeSlot(dataa.get(temp));
                     data[index].setHari(tentukanHari(index));//generate
                     data[index].setJam(tentukanJam(index));//generate

@@ -394,7 +394,17 @@ public class viewKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_KelasComboBoxActionPerformed
 
     private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
-        // TODO add your handling code here:
+        KelasKuliah kk = new KelasKuliah(Integer.parseInt(idKelasText.getText()));
+
+        try {
+            KelasMatkulKontrol.getKoneksi().deleteKelasMataKuliah(kk);
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah berhasil Dihapus");
+            updateTabelKelas();
+            bersihkan();
+            idKelasText.setEditable(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_hapusButtonActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
