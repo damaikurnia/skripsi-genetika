@@ -355,6 +355,7 @@ public class viewDosen extends javax.swing.JFrame {
             dosenk.updateDosen(temp);
             JOptionPane.showMessageDialog(null, "Data Dosen "+nama+" Berhasil di Ubah");
             bersihkan();
+            updateTabelDosen();
             idDosenText.requestFocus();
 
         } catch (SQLException e) {
