@@ -11,7 +11,7 @@ package kelas;
  * @author Adhi
  */
 public class Gen {
-    private KelasKuliah timeSlot;
+    private KelasKuliah allele;
     private Ruang Ruang;
     private String hari;
     private int jam;
@@ -21,14 +21,14 @@ public class Gen {
      * @return the timeSlot
      */
     public KelasKuliah getTimeSlot() {
-        return timeSlot;
+        return allele;
     }
 
     /**
      * @param timeSlot the timeSlot to set
      */
     public void setTimeSlot(KelasKuliah timeSlot) {
-        this.timeSlot = timeSlot;
+        this.allele = timeSlot;
     }
 
     /**
