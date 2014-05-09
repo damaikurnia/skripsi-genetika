@@ -34,10 +34,11 @@ public class RuangKontrol {
     public void insertRuang(Ruang r) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "INSERT INTO RUANG VALUES(?,?)";
+        String query = "INSERT INTO RUANG VALUES(?,?,?)";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, r.getIdRuang());
         stmt.setString(2, r.getNamaRuang());
+        stmt.setString(3, r.getJenisRuang());
 
         stmt.executeUpdate();
         conn.commit();
@@ -46,10 +47,11 @@ public class RuangKontrol {
     public void updateRuang(Ruang ruang) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update Ruang set namaRuang = ? where idRuang = ?";
+        String query = "update Ruang set namaRuang = ?, jenisRuang = ? where idRuang = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, ruang.getIdRuang());
-        stmt.setString(2, ruang.getNamaRuang());
+        stmt.setString(1, ruang.getNamaRuang());
+        stmt.setString(2, ruang.getJenisRuang());
+        stmt.setString(3, ruang.getIdRuang());
 
         stmt.executeUpdate();
         conn.commit();
@@ -77,7 +79,7 @@ public class RuangKontrol {
         List<Ruang> ruang = new ArrayList<Ruang>();
         
         while (result.next()) {
-            temp = new Ruang(result.getString(1), result.getString(2));
+            temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
             ruang.add(temp);
         }
         return ruang;

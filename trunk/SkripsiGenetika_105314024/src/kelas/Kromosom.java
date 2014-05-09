@@ -60,7 +60,7 @@ public class Kromosom {
                 data[index].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
                 data[index].setHari("-");//generate
                 data[index].setJam(0);//generate
-                data[index].setRuang(new Ruang("-","-"));//generate
+                data[index].setRuang(new Ruang("-","-","-"));//generate
                 data[index].setNilaiFitness(0);
                 index++;
                 random--;
@@ -92,6 +92,6 @@ public class Kromosom {
     }
 
     public Ruang tentukanRuang(int index) {
-        return new Ruang("K205", "K206");
+        return new Ruang("K205", "K206","Teori");
     }
 }
