@@ -12,11 +12,13 @@ package kelas;
  */
 public class Ruang {
     String idRuang;
-    String namaRuang; 
+    String namaRuang;
+    private String jenisRuang;
     
-    public Ruang(String id,String nama){
+    public Ruang(String id,String nama,String jenis){
         this.idRuang = id;
         this.namaRuang = nama;
+        this.jenisRuang = jenis;
     }
     /**
      * @return the idRuang
@@ -45,4 +47,19 @@ public class Ruang {
     public void setNamaRuang(String namaRuang) {
         this.namaRuang = namaRuang;
     }
+
+    /**
+     * @return the jenisRuang
+     */
+    public String getJenisRuang() {
+        return jenisRuang;
+    }
+
+    /**
+     * @param jenisRuang the jenisRuang to set
+     */
+    public void setJenisRuang(String jenisRuang) {
+        this.jenisRuang = jenisRuang;
+    }
+    
 }

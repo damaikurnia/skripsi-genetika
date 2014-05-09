@@ -28,7 +28,7 @@ public class Ruang_TM extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -39,6 +39,8 @@ public class Ruang_TM extends AbstractTableModel {
                 return r.getIdRuang();
             case 1:
                 return r.getNamaRuang();
+            case 2:
+                return r.getJenisRuang();
             default:
                 return "";
         }
@@ -48,12 +50,14 @@ public class Ruang_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "ID Ruang";
+                return "Kode";
             case 1:
                 return "Nama Ruang";
+            case 2:
+                return "Jenis Ruang";
             default:
                 return "";
         }
     }
-    
+
 }

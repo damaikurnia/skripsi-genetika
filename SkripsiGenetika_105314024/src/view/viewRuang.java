@@ -74,6 +74,10 @@ public class viewRuang extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelRuang = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        hapusButton = new javax.swing.JButton();
+        ubahButton = new javax.swing.JButton();
+        jenisComboBox = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -144,12 +148,12 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("ID Ruang");
+        jLabel1.setText("Kode");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Nama Ruang");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jLabel2.setText("Jenis Ruang");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         idRuangText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +169,7 @@ public class viewRuang extends javax.swing.JFrame {
                 simpanButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("TABEL RUANG");
@@ -177,7 +181,7 @@ public class viewRuang extends javax.swing.JFrame {
                 batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 70, -1));
 
         tabelRuang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,6 +206,29 @@ public class viewRuang extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel5.setText("DATA RUANG");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Nama Ruang");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        hapusButton.setText("Hapus");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 70, -1));
+
+        ubahButton.setText("Ubah");
+        ubahButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(ubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 70, -1));
+
+        jenisComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teori", "Praktikum", "Teori Praktikum" }));
+        jPanel4.add(jenisComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -298,10 +325,11 @@ public class viewRuang extends javax.swing.JFrame {
 }//GEN-LAST:event_idRuangTextActionPerformed
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
-        Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase());
+        Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase(), jenisComboBox.getSelectedItem().toString().toUpperCase());
         try {
             RuangKontrol.getKoneksi().insertRuang(ruang);
             JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil ditambahkan");
+            updateTabelRuang();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -310,18 +338,45 @@ public class viewRuang extends javax.swing.JFrame {
     private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
         idRuangText.setText("");
         namaRuangText.setText("");
+        jenisComboBox.setSelectedIndex(1);
         idRuangText.setEditable(true);
+        simpanButton.setEnabled(true);
     }//GEN-LAST:event_batalButtonActionPerformed
 
     private void tabelRuangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRuangMouseClicked
+        simpanButton.setEnabled(false);
         int row1 = tabelRuang.getSelectedRow();
         String idRuang = tabelRuang.getValueAt(row1, 0).toString();
         String namaRuang = tabelRuang.getValueAt(row1, 1).toString();
+//        String jenisRuang = tabelRuang.getValueAt(row1, 2).toString();
 
         idRuangText.setText(idRuang);
         namaRuangText.setText(namaRuang);
+//        jenisComboBox.setSelectedItem(jenisRuang);
         idRuangText.setEditable(false);
     }//GEN-LAST:event_tabelRuangMouseClicked
+
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+        Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase(), jenisComboBox.getSelectedItem().toString().toUpperCase());
+        try {
+            RuangKontrol.getKoneksi().deleteRuang(ruang);
+            JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil dihapus");
+            updateTabelRuang();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_hapusButtonActionPerformed
+
+    private void ubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahButtonActionPerformed
+        Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase(), jenisComboBox.getSelectedItem().toString().toUpperCase());
+        try {
+            RuangKontrol.getKoneksi().updateRuang(ruang);
+            JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil dirubah");
+            updateTabelRuang();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ubahButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,11 +404,13 @@ public class viewRuang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalButton;
     private javax.swing.JButton dosenButton;
+    private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idRuangText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -366,6 +423,7 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jenisComboBox;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton matkulButton;
     private javax.swing.JTextField namaRuangText;
@@ -373,5 +431,6 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTable tabelRuang;
+    private javax.swing.JButton ubahButton;
     // End of variables declaration//GEN-END:variables
 }
