@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import kelas.Ruang;
 import koneksi.Koneksi;
 
@@ -74,6 +76,39 @@ public class RuangKontrol {
         ResultSet result = null;
         conn.setAutoCommit(false);
         String query = "SELECT * FROM Ruang";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<Ruang> ruang = new ArrayList<Ruang>();
+        
+        while (result.next()) {
+            temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
+            ruang.add(temp);
+        }
+        return ruang;
+    }
+    
+    public int jumlahRuang() throws SQLException{
+        PreparedStatement stmt = null;
+        Ruang temp = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT COUNT(jenisRuang) FROM ruang WHERE jenisRuang LIKE ('TEORI%')";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        int jumlah = 0;
+        while (result.next()) {
+            jumlah = result.getInt(1);
+        }
+        return jumlah;
+    }
+    
+    public List<Ruang> tampilRuangTeori() throws SQLException {
+        PreparedStatement stmt = null;
+        Ruang temp = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+//        String query = "SELECT * FROM Ruang WHERE jenisRuang LIKE ('TEORI%')";
+        String query = "SELECT * FROM ruang WHERE jenisRuang LIKE('TEORI%') ORDER BY jenisRuang;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();

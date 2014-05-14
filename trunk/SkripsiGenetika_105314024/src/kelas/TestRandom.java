@@ -103,12 +103,13 @@ public class TestRandom {
         
         Gen[] data = a.prosesRandom();
         for (int i = 0; i < data.length; i++) {
-            System.out.println(data[i].getTimeSlot().getIdKelas());
-            System.out.println(data[i].getTimeSlot().getIdMK().getIdMK());
-            System.out.println(data[i].getTimeSlot().getKelas());
-            System.out.println(data[i].getHari());
-            System.out.println(data[i].getRuang().idRuang);
-            System.out.println(data[i].getJam());
+            System.out.println("Gen["+i+"]");
+            System.out.println("idKelas     : "+data[i].getTimeSlot().getIdKelas());
+            System.out.println("kodeMatkul  : "+data[i].getTimeSlot().getIdMK().getIdMK());
+            System.out.println("kelas       : "+data[i].getTimeSlot().getKelas());
+            System.out.println("hari        : "+data[i].getHari());
+            System.out.println("ruang       : "+data[i].getRuang().getIdRuang());
+            System.out.println("jam ke      : "+data[i].getJam());
             System.out.println("");
         }
     }
