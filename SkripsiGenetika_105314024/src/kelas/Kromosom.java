@@ -20,7 +20,19 @@ import kontrol.RuangKontrol;
 public class Kromosom {
 
     private Gen[] data;// 1 Kromosom terdiri dari n-GEN (140)
-
+    List<KelasKuliah> dataa = null;
+    int ruang = 0;
+    List<Ruang> rng = null;
+    
+    public Kromosom(){
+        try {
+            dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
+            ruang = RuangKontrol.getKoneksi().jumlahRuang();
+            rng = RuangKontrol.getKoneksi().tampilRuangTeori();
+        } catch (SQLException ex) {
+            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @return the data
      */
@@ -36,23 +48,10 @@ public class Kromosom {
     }
 
     public Gen[] prosesRandom() {
-        List<KelasKuliah> dataa = null;
-        try {
-            //data
-            dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         Random r = new Random();
         int hari = 5;
         int waktu = 12;
-        int ruang = 0;
-        try {
-            ruang = RuangKontrol.getKoneksi().jumlahRuang();
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         int N = (hari * ruang * waktu) / 3;
         int matkul = dataa.size();
         data = new Gen[N];
@@ -97,12 +96,6 @@ public class Kromosom {
     public String tentukanHari(int index) {
         int hari = 5;
         int waktu = 12;
-        int ruang = 0;
-        try {
-            ruang = RuangKontrol.getKoneksi().jumlahRuang();
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
         int N = (hari * ruang * waktu) / 3;
 
         int bagi = N / 5;
@@ -127,15 +120,6 @@ public class Kromosom {
     public Ruang tentukanRuang(int index) {
         int hari = 5;
         int waktu = 12;
-        int ruang = 0;
-        List<Ruang> rng = null;
-
-        try {
-            ruang = RuangKontrol.getKoneksi().jumlahRuang();//11 teori
-            rng = RuangKontrol.getKoneksi().tampilRuangTeori();
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
         int N = (hari * ruang * waktu) / 3;//220
 
         int bagi = N / 5;//44
@@ -264,5 +248,11 @@ public class Kromosom {
                 return rng.get(10);
             }
         }
+    }
+    
+    public Kromosom solusiAwal(){
+        Kromosom krom = new Kromosom();
+        krom.setData(prosesRandom());
+        return krom;
     }
 }
