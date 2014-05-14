@@ -7,10 +7,10 @@ package kelas;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class Pelanggaran {
-
+    
     public static Kromosom cekRuang(Kromosom x) {
         return null;
     } //aturan 1 - return kromosom
