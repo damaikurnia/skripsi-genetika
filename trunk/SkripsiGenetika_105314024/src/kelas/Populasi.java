@@ -11,7 +11,7 @@ package kelas;
  */
 public class Populasi {
 
-    private Kromosom[] parent = new Kromosom[10];//satu populasi terdiri dari 10 kromosom
+    private Kromosom[] parent = new Kromosom[1];//satu populasi terdiri dari 10 kromosom
     private int iterasi = 0;
 
     public void solusiAwalIterasi() {
@@ -63,16 +63,20 @@ public class Populasi {
 
     public void cetakSolusi() {
         solusiAwalIterasi();
+        HitungFitness();
+        
         for (int i = 0; i < parent.length; i++) {
             for (int j = 0; j < parent[i].getData().length; j++) {
 //            for (int j = 0; j < 1; j++) {
                 System.out.println("Gen[" + i + "]");
+                System.out.println("Index "+j);
                 System.out.println("idKelas     : " + parent[i].getData()[j].getTimeSlot().getIdKelas());
-                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getTimeSlot().getIdMK().getIdMK());
+                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getTimeSlot().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getTimeSlot().getIdDosen().idDosen);
                 System.out.println("kelas       : " + parent[i].getData()[j].getTimeSlot().getKelas());
                 System.out.println("hari        : " + parent[i].getData()[j].getHari());
                 System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
                 System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
                 System.out.println("");
 
             }
