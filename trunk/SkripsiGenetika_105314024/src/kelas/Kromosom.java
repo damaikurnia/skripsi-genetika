@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kontrol.KelasMatkulKontrol;
+import kontrol.MataKuliahKontrol;
 import kontrol.RuangKontrol;
 
 /**
@@ -23,8 +24,8 @@ public class Kromosom {
     List<KelasKuliah> dataa = null;
     int ruang = 0;
     List<Ruang> rng = null;
-    
-    public Kromosom(){
+
+    public Kromosom() {
         try {
             dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
             ruang = RuangKontrol.getKoneksi().jumlahRuang();
@@ -33,6 +34,7 @@ public class Kromosom {
             Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * @return the data
      */
@@ -47,52 +49,100 @@ public class Kromosom {
         this.data = data;
     }
 
-    public Gen[] prosesRandom() {
+//    public Gen[] prosesRandom() { //yg di random matakuliahnya
+//        Random r = new Random();
+//        int hari = 5;
+//        int waktu = 12;
+//        
+//        int N = (hari * ruang * waktu) / 3;
+//        int matkul = dataa.size();
+//        data = new Gen[N];
+//
+//        boolean cek[] = new boolean[matkul + 1];
+//        for (int i = 0; i < cek.length; i++) {
+//            cek[i] = false;
+//        }
+//
+//        int index = 0; //untuk index gen
+//        while (N != 0) {
+//            int tangkap = r.nextInt(matkul + 1);
+//            if (tangkap - 1 == -1) {
+//                data[index] = new Gen();
+//                data[index].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
+//                data[index].setHari(tentukanHari(index));//generate
+//                data[index].setJam(tentukanJam(index));//generate
+//                data[index].setRuang(tentukanRuang(index));//generate
+//                data[index].setNilaiFitness(0);
+//                index++;
+//                N--;
+//
+//            } else {
+//                if (cek[tangkap - 1] == false) {
+//                    data[index] = new Gen();
+//                    int temp = tangkap;
+//                    temp = temp - 1;
+//                    data[index].setTimeSlot(dataa.get(temp));
+//                    data[index].setHari(tentukanHari(index));//generate
+//                    data[index].setJam(tentukanJam(index));//generate
+//                    data[index].setRuang(tentukanRuang(index));//generate
+//                    data[index].setNilaiFitness(0);
+//                    index++;
+//                    cek[temp] = true;
+//                    N--;
+//                }
+//            }
+//        }
+//        return data;
+//    }
+    public Gen[] prosesRandom() { //yang di random slot gennya
         Random r = new Random();
         int hari = 5;
         int waktu = 12;
-        
-        int N = (hari * ruang * waktu) / 3;
-        int matkul = dataa.size();
-        data = new Gen[N];
 
-        boolean cek[] = new boolean[matkul + 1];
-        for (int i = 0; i < cek.length; i++) {
+        int matkul = dataa.size();
+        data = new Gen[(hari * ruang * waktu) / 3]; //220
+
+        boolean cek[] = new boolean[matkul]; //126
+        int N = matkul;
+
+        for (int i = 0; i < data.length; i++) {
+            data[i] = new Gen();
+            data[i].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
+            data[i].setHari(tentukanHari(i));//generate
+            data[i].setJam(tentukanJam(i));//generate
+            data[i].setRuang(tentukanRuang(i));//generate
+            data[i].setNilaiFitness(0);
+        }
+        for (int i = 0; i < matkul; i++) {
             cek[i] = false;
         }
 
-        int index = 0; //untuk index gen
+        int index = 0; //untuk index matakuliah
         while (N != 0) {
-            int tangkap = r.nextInt(matkul + 1);
-            if (tangkap - 1 == -1) {
-                data[index] = new Gen();
-                data[index].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
-                data[index].setHari(tentukanHari(index));//generate
-                data[index].setJam(tentukanJam(index));//generate
-                data[index].setRuang(tentukanRuang(index));//generate
-                data[index].setNilaiFitness(0);
+            int tangkap = r.nextInt(data.length);
+            if (data[tangkap].getTimeSlot().getIdKelas()==0) {
+                data[tangkap].setTimeSlot(dataa.get(index));
+                String idMK = data[tangkap].getTimeSlot().getIdMK().getIdMK();
+                data[tangkap].getTimeSlot().getIdMK().setSemester(isiSemester(idMK));
                 index++;
                 N--;
-
-            } else {
-                if (cek[tangkap - 1] == false) {
-                    data[index] = new Gen();
-                    int temp = tangkap;
-                    temp = temp - 1;
-                    data[index].setTimeSlot(dataa.get(temp));
-                    data[index].setHari(tentukanHari(index));//generate
-                    data[index].setJam(tentukanJam(index));//generate
-                    data[index].setRuang(tentukanRuang(index));//generate
-                    data[index].setNilaiFitness(0);
-                    index++;
-                    cek[temp] = true;
-                    N--;
-                }
             }
         }
         return data;
     }
-
+    
+    public int isiSemester(String idMK){
+        int semester = 0;
+        
+        try {
+            semester = MataKuliahKontrol.getKoneksi().cariSemester(idMK);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return semester;
+    }
+    
     public String tentukanHari(int index) {
         int hari = 5;
         int waktu = 12;
@@ -249,8 +299,8 @@ public class Kromosom {
             }
         }
     }
-    
-    public Kromosom solusiAwal(){
+
+    public Kromosom solusiAwal() {
         Kromosom krom = new Kromosom();
         krom.setData(prosesRandom());
         return krom;
