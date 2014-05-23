@@ -50,26 +50,26 @@ public class Pelanggaran {
 
         for (int i = 1; i < hari.length; i++) {//loop hari
             for (int b = 0; b < 4; b++) {//loop timeslot
-                for (int j = 0; j < jumlah_ruang; j++) {//loop perbandingan gen
+                for (int j = 0; j < jumlah_ruang; j++) {//loop perbandingan gen dalam timeslot
                     for (int k = j + 1; k < jumlah_ruang; k++) {
                         String banding1 = x.getData()[posisi_jam[j]].getTimeSlot().getIdDosen().getIdDosen();
                         String banding2 = x.getData()[posisi_jam[k]].getTimeSlot().getIdDosen().getIdDosen();
                         if(banding1.equals("-")){}
                         else if (banding1.equals(banding2)) {
                             int fitnes_awal = x.getData()[posisi_jam[k]].getNilaiFitness();
-                            x.getData()[posisi_jam[k]].setNilaiFitness(fitnes_awal + 1);
+                            x.getData()[posisi_jam[k]].setNilaiFitness(fitnes_awal + 1); //penambahan pelanggaran dengan nilai pelanggaran
                             System.out.println("Penlanggaran " + posisi_jam[j] + " dengan " + posisi_jam[k]);
                         }
 
                     }
 
                 }
-                for (int l = 0; l < posisi_jam.length; l++) { //menentukan index jam
+                for (int l = 0; l < posisi_jam.length; l++) { //menentukan index jam (pergeseran 1 timeslot)
                     posisi_jam[l] = posisi_jam[l] + 1;
                 }
             }
 
-            for (int l = 0; l < posisi_jam.length; l++) { //menentukan index jam
+            for (int l = 0; l < posisi_jam.length; l++) { //menentukan index jam hari berikutnya
                 if (l == 0) {
                     posisi_jam[l] = count;
                 } else {

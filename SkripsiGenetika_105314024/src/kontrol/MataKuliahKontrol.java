@@ -85,4 +85,20 @@ public class MataKuliahKontrol {
         return mk;
     }
     
+    public int cariSemester(String idMK) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT semester FROM matakuliah WHERE idMK = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setString(1, idMK);
+        result = stmt.executeQuery();
+        int semester = 0;
+        
+        while (result.next()) {
+            semester = result.getInt(1);
+        }
+        
+        return semester;
+    } 
 }

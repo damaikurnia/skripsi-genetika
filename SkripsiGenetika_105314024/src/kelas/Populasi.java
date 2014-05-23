@@ -76,6 +76,7 @@ public class Populasi {
                 System.out.println("hari        : " + parent[i].getData()[j].getHari());
                 System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
                 System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+                System.out.println("Semester    : " + parent[i].getData()[j].getTimeSlot().getIdMK().getSemester());
                 System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
                 System.out.println("");
 
