@@ -74,4 +74,21 @@ public class DosenKontrol {
         return dsn;
     }
     
+    public List<Dosen> cariDosen(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+        String sql = "select * from dosen where "
+                + "idDosen LIKE '%" + key + "%' OR namaDosen LIKE '%" + key + "%' OR "
+                + "status LIKE '%" + key + "%'"
+                + "order by idDosen";
+        psmt = conn.prepareStatement(sql);
+        rset = psmt.executeQuery();
+        List<Dosen> dosen = new ArrayList<Dosen>();
+        while (rset.next()) {
+            dosen.add(new Dosen(rset.getString(1), rset.getString(2), rset.getString(1)));
+        }
+        conn.commit();
+        return dosen;
+    }
 }

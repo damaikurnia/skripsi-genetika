@@ -23,6 +23,7 @@ import kelas.MataKuliah;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
+import tabelModel.Dosen_TM;
 import tabelModel.KelasMatkul_TM;
 import tabelModel.MataKuliah_TM;
 
@@ -53,12 +54,40 @@ public class viewKelas extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        cariSesuatu.setVisible(false);
+        cariSesuatu.setSize(515, 400);
+        cariSesuatu.setLocationRelativeTo(null);
     }
 
     private void updateTabelKelas() throws SQLException {
         List<KelasKuliah> mktm = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
         KelasMatkul_TM model = new KelasMatkul_TM(mktm);
         tabelKelasMatakuliah.setModel(model);
+    }
+
+    private void updateTabelMataKuliah() throws SQLException {
+        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+        MataKuliah_TM model = new MataKuliah_TM(mktm);
+        Tabelnya.setModel(model);
+    }
+
+    private void updateTabelDosen() throws SQLException {
+        List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
+        Dosen_TM model = new Dosen_TM(dtm);
+        Tabelnya.setModel(model);
+    }
+
+    private void cariMataKuliah(String key) throws SQLException {
+        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().cariMatakuliah(key);
+        MataKuliah_TM model = new MataKuliah_TM(mktm);
+        Tabelnya.setModel(model);
+    }
+
+    private void cariDosen(String key) throws SQLException {
+        List<Dosen> dtm = DosenKontrol.getKoneksi().cariDosen(key);
+        Dosen_TM model = new Dosen_TM(dtm);
+        Tabelnya.setModel(model);
     }
 
     private void bersihkan() {
@@ -78,6 +107,15 @@ public class viewKelas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cariSesuatu = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        Labelnya = new javax.swing.JLabel();
+        isiannya = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabelnya = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -104,6 +142,8 @@ public class viewKelas extends javax.swing.JFrame {
         MatakuliahComboBox = new javax.swing.JComboBox();
         batalButton = new javax.swing.JButton();
         ubahButton = new javax.swing.JButton();
+        dsn_button = new javax.swing.JButton();
+        mk_button = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -111,6 +151,104 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+
+        cariSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel7.setBackground(new java.awt.Color(153, 51, 0));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        jPanel8.setBackground(new java.awt.Color(153, 51, 0));
+
+        Labelnya.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
+        Labelnya.setText("CARI");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Labelnya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Labelnya, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        isiannya.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                isiannyaKeyReleased(evt);
+            }
+        });
+
+        Tabelnya.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabelnya.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelnyaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(Tabelnya);
+
+        jLabel11.setText("Masukkan :");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(isiannya, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 167, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(isiannya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        cariSesuatu.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 360));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -285,6 +423,22 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(ubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 70, -1));
 
+        dsn_button.setText("Cari");
+        dsn_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dsn_buttonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(dsn_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
+
+        mk_button.setText("Cari");
+        mk_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mk_buttonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(mk_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, -1, -1));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
@@ -442,7 +596,7 @@ public class viewKelas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Matakuliah berhasil ditambahkan");
             updateTabelKelas();
             int data = Integer.parseInt(idKelasText.getText());
-            data = data+1;
+            data = data + 1;
             idKelasText.setText(Integer.toString(data));
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
@@ -458,12 +612,12 @@ public class viewKelas extends javax.swing.JFrame {
 
         try {
             KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(kk);
-            JOptionPane.showMessageDialog(rootPane, "Matakuliah :\n"+
-                    "Nomor          : "+kk.getIdKelas()+"\n"+
-                    "Matkul         : "+kk.getIdMK().getIdMK()+"\n"+
-                    "Dosen Pengampu : "+kk.getIdDosen().getIdDosen()+"\n"+
-                    "Kelas          : "+kk.getKelas()+"\n"+
-                    "BERHASIL DIRUBAH");
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah :\n"
+                    + "Nomor          : " + kk.getIdKelas() + "\n"
+                    + "Matkul         : " + kk.getIdMK().getIdMK() + "\n"
+                    + "Dosen Pengampu : " + kk.getIdDosen().getIdDosen() + "\n"
+                    + "Kelas          : " + kk.getKelas() + "\n"
+                    + "BERHASIL DIRUBAH");
             updateTabelKelas();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
@@ -473,6 +627,58 @@ public class viewKelas extends javax.swing.JFrame {
     private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
         bersihkan();
     }//GEN-LAST:event_batalButtonActionPerformed
+
+    private void mk_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mk_buttonActionPerformed
+        try {
+            Labelnya.setText("CARI MATAKULIAH");
+            cariSesuatu.setVisible(true);
+            isiannya.setText("");
+            updateTabelMataKuliah();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mk_buttonActionPerformed
+
+    private void dsn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dsn_buttonActionPerformed
+        try {
+            Labelnya.setText("CARI DOSEN");
+            cariSesuatu.setVisible(true);
+            isiannya.setText("");
+            updateTabelDosen();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_dsn_buttonActionPerformed
+
+    private void isiannyaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_isiannyaKeyReleased
+        try {
+            String cari = isiannya.getText();
+            if (Labelnya.getText().equals("CARI DOSEN")) {
+                cariDosen(cari);
+            } else {
+                cariMataKuliah(cari);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_isiannyaKeyReleased
+
+    private void TabelnyaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelnyaMouseClicked
+        if (Labelnya.getText().equals("CARI DOSEN")) {
+            int row1 = Tabelnya.getSelectedRow();
+            String idDosen = Tabelnya.getValueAt(row1, 0).toString();
+            String namaDosen = Tabelnya.getValueAt(row1, 1).toString();
+            DosenComboBox.setSelectedItem(idDosen + " - " + namaDosen);
+            cariSesuatu.setVisible(false);
+        } else {
+            int row1 = Tabelnya.getSelectedRow();
+            String idMatkul = Tabelnya.getValueAt(row1, 0).toString();
+            String namaMatkul = Tabelnya.getValueAt(row1, 1).toString();
+            MatakuliahComboBox.setSelectedItem(idMatkul + " - " + namaMatkul);
+            cariSesuatu.setVisible(false);
+        }
+    }//GEN-LAST:event_TabelnyaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -501,14 +707,20 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JComboBox DosenComboBox;
     private javax.swing.JComboBox KelasComboBox;
     private javax.swing.JTextField KelasText;
+    private javax.swing.JLabel Labelnya;
     private javax.swing.JComboBox MatakuliahComboBox;
+    private javax.swing.JTable Tabelnya;
     private javax.swing.JButton batalButton;
+    private javax.swing.JDialog cariSesuatu;
     private javax.swing.JButton dosenButton;
+    private javax.swing.JButton dsn_button;
     private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idKelasText;
+    private javax.swing.JTextField isiannya;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -523,9 +735,14 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton kelasButton;
     private javax.swing.JButton matkulButton;
+    private javax.swing.JButton mk_button;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
