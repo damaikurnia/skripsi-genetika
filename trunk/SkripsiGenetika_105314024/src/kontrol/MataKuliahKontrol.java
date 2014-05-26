@@ -101,4 +101,30 @@ public class MataKuliahKontrol {
         
         return semester;
     } 
+    
+    public List<MataKuliah> cariMatakuliah(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String sql = "select * from matakuliah where "
+                + "idMK LIKE '%" + key + "%' OR namaMK LIKE '%" + key + "%' OR "
+                + "sks LIKE '%" + key + "%' OR semester LIKE '%" + key + "%' OR "
+                + "JP LIKE '%" + key + "%'"
+                + "order by idMK";
+        psmt = conn.prepareStatement(sql);
+        result = psmt.executeQuery();
+        List<MataKuliah> mk = new ArrayList<MataKuliah>();
+        MataKuliah temp = null;
+        while (result.next()) {
+            temp = new MataKuliah();
+            temp.setIdMK(result.getString(1));
+            temp.setNamaMK(result.getString(2));
+            temp.setSks(result.getInt(3));
+            temp.setSemester(result.getInt(4));
+            temp.setJP(result.getInt(5));
+            mk.add(temp);
+        }
+        conn.commit();
+        return mk;
+    }
 }
