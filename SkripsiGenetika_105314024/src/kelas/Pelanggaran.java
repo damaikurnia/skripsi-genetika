@@ -6,8 +6,11 @@
 package kelas;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import kontrol.DosenKontrol;
+import kontrol.MataKuliahKontrol;
 import kontrol.RuangKontrol;
 
 /**
@@ -19,7 +22,6 @@ public class Pelanggaran {
     static int jumlah_ruang;
 
     public Pelanggaran() {
-
     }
 
     public static Kromosom cekRuang(Kromosom x) {
@@ -58,7 +60,7 @@ public class Pelanggaran {
                         } else if (banding1.equals(banding2)) {
                             int fitnes_awal = x.getData()[posisi_jam[k]].getNilaiFitness();
                             x.getData()[posisi_jam[k]].setNilaiFitness(fitnes_awal + 1); //penambahan pelanggaran dengan nilai pelanggaran
-                            System.out.println("Penlanggaran " + posisi_jam[j] + " dengan " + posisi_jam[k]);
+//                            System.out.println("Penlanggaran(1) " + posisi_jam[j] + " dengan " + posisi_jam[k]);
                         }
 
                     }
@@ -76,7 +78,6 @@ public class Pelanggaran {
                     posisi_jam[l] = posisi_jam[l - 1] + 4;
                 }
             }
-            System.out.println("");
             count = count + count;
         }
         return x;
@@ -121,7 +122,7 @@ public class Pelanggaran {
                             if (banding7.equals(banding8)) { // kelas sama?
                                 int fitnes_awal = x.getData()[posisi_jam[k]].getNilaiFitness();
                                 x.getData()[posisi_jam[k]].setNilaiFitness(fitnes_awal + 1); //penambahan pelanggaran dengan nilai pelanggaran
-                                System.out.println("Penlanggaran " + posisi_jam[j] + " dengan " + posisi_jam[k]);
+//                                System.out.println("Penlanggaran(2) " + posisi_jam[j] + " dengan " + posisi_jam[k]);
                             }
                         }
 
@@ -146,10 +147,16 @@ public class Pelanggaran {
     } //aturan 3
 
     public static Kromosom cekJumlahMatakuliah(Kromosom x) {
-        int[] posisi_jam = new int[jumlah_ruang];//menetukan jam ke x di setiap ruang
         String[] hari = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat"};
-        int jam = 1;
+        int jam = 0;
         int count = 0;
+        int temp_count = 0;
+        List<String> kel = null;
+        try {
+            kel = MataKuliahKontrol.getKoneksi().cariKelompokKelas();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         while (true) { //mencari rentang hari
             if (x.getData()[count].getHari().equals(hari[0])) {
@@ -158,18 +165,81 @@ public class Pelanggaran {
                 break;
             }
         }
-
+        temp_count = count;
         for (int i = 0; i < hari.length; i++) {
-            for (jam = jam; jam < count; jam++) {
-                
-            }
-            count = count+count;
-        }
+            for (jam = jam; jam < temp_count; jam++) { //loop index perhari
+                String banding2 = Integer.toString(x.getData()[jam].getTimeSlot().getIdMK().getSemester());//semester
+                String banding3 = x.getData()[jam].getTimeSlot().getKelas();//kelas
 
+                for (int j = 0; j < kel.size(); j++) { //loop kelas dan semester
+                    String[] banding1 = kel.get(j).split("-");
+                    if (banding1[0].equals(banding2) && banding1[1].equals(banding3)) { // membandingkan kelas dengan semester
+                        int temp = Integer.parseInt(banding1[2]);
+                        temp = temp + 1;
+                        kel.set(j, banding1[0] + "-" + banding1[1] + "-" + temp);
+
+                        if (temp > 3) { //temp : jumlah dalam sehari melebihi 3 makul tiap kelas tiap semester
+                            int fitnes_awal = x.getData()[jam].getNilaiFitness();
+                            x.getData()[jam].setNilaiFitness(fitnes_awal + 1); //penambahan pelanggaran dengan nilai pelanggaran
+//                            System.out.println("Penlanggaran(3) " + jam);
+                        }
+                    }
+                }
+            }
+            for (int j = 0; j < kel.size(); j++) { //reset kel spt semula
+                String[] temp = kel.get(j).split("-");
+                kel.set(j, temp[0] + "-" + temp[1] + "-0");
+            }
+            temp_count = temp_count + count;//pergeserah ke hari selanjutnya
+        }
         return x;
-    } //aturan 4
+    }
 
     public static Kromosom cekDosenMengajar(Kromosom x) {
+        String[] hari = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat"};
+        int jam = 0;
+        int count = 0;
+        int temp_count = 0;
+        List<String> kel = null;
+        try {
+            kel = DosenKontrol.getKoneksi().cariKelompokDosen();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        while (true) { //mencari rentang hari
+            if (x.getData()[count].getHari().equals(hari[0])) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        temp_count = count;
+        for (int i = 0; i < hari.length; i++) {
+            for (jam = jam; jam < temp_count; jam++) { //loop index perhari
+                String banding2 = x.getData()[jam].getTimeSlot().getIdDosen().idDosen;//iddosen
+
+                for (int j = 0; j < kel.size(); j++) { //loop kelas dan semester
+                    String[] banding1 = kel.get(j).split("-");
+                    if (banding1[0].equals(banding2.trim())) { // membandingkan kelas dengan semester
+                        int temp = Integer.parseInt(banding1[1]);
+                        temp = temp + 1;
+                        kel.set(j, banding1[0] + "-" + temp);
+
+                        if (temp > 3) { //temp : jumlah dalam sehari melebihi 3 makul tiap kelas tiap semester
+                            int fitnes_awal = x.getData()[jam].getNilaiFitness();
+                            x.getData()[jam].setNilaiFitness(fitnes_awal + 1); //penambahan pelanggaran dengan nilai pelanggaran
+//                            System.out.println("Penlanggaran(4) " + jam);
+                        }
+                    }
+                }
+            }
+            for (int j = 0; j < kel.size(); j++) { //reset kel spt semula
+                String[] temp = kel.get(j).split("-");
+                kel.set(j, temp[0] + "-0");
+            }
+            temp_count = temp_count + count;//pergeseran ke hari selanjutnya
+        }
         return x;
     } //aturan 5
 
@@ -180,11 +250,11 @@ public class Pelanggaran {
             Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
         }
         Kromosom parent;
-//        parent = Pelanggaran.cekRuang(x);
-//        parent = Pelanggaran.cekDosen(x);
+        parent = Pelanggaran.cekRuang(x);
+        parent = Pelanggaran.cekDosen(x);
         parent = Pelanggaran.cekMatakuliah(x);
-//        parent = Pelanggaran.cekJumlahMatakuliah(x);
-//        parent = Pelanggaran.cekDosenMengajar(x);
+        parent = Pelanggaran.cekJumlahMatakuliah(x);
+        parent = Pelanggaran.cekDosenMengajar(x);
         return parent;
     }
 }

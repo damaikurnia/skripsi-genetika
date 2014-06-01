@@ -41,6 +41,7 @@ public class viewKelas extends javax.swing.JFrame {
             initComponents();
             setLocationRelativeTo(null);
             updateTabelKelas();
+            updateJumlahMK();
 
             List<MataKuliah> matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
             for (MataKuliah k : matkul) {
@@ -97,6 +98,14 @@ public class viewKelas extends javax.swing.JFrame {
         KelasComboBox.setSelectedItem("-"); //BELUM SELESAI UNTUK YG "LAINNYA"
         idKelasText.setEditable(true);
     }
+    
+    public void updateJumlahMK(){
+        try {
+            jLabel13.setText(KelasMatkulKontrol.getKoneksi().jumlahMatkul());
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,6 +153,7 @@ public class viewKelas extends javax.swing.JFrame {
         ubahButton = new javax.swing.JButton();
         dsn_button = new javax.swing.JButton();
         mk_button = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -439,6 +449,10 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(mk_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, -1, -1));
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setText("TOTAL MATAKULIAH : ");
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 420, 20));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
@@ -556,6 +570,7 @@ public class viewKelas extends javax.swing.JFrame {
             updateTabelKelas();
             bersihkan();
             idKelasText.setEditable(true);
+            updateJumlahMK();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -598,6 +613,7 @@ public class viewKelas extends javax.swing.JFrame {
             int data = Integer.parseInt(idKelasText.getText());
             data = data + 1;
             idKelasText.setText(Integer.toString(data));
+            updateJumlahMK();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -619,6 +635,7 @@ public class viewKelas extends javax.swing.JFrame {
                     + "Kelas          : " + kk.getKelas() + "\n"
                     + "BERHASIL DIRUBAH");
             updateTabelKelas();
+            updateJumlahMK();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -722,6 +739,7 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -127,4 +127,21 @@ public class MataKuliahKontrol {
         conn.commit();
         return mk;
     }
+    
+    public List<String> cariKelompokKelas() throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String sql = "SELECT b.semester,a.Kelas FROM kelas_makul a, matakuliah b "
+                + "WHERE a.idMK=b.idMK "
+                + "GROUP BY semester,Kelas ORDER BY semester;";
+        psmt = conn.prepareStatement(sql);
+        result = psmt.executeQuery();
+        List<String> kel = new ArrayList<String>();
+        while (result.next()) {
+            kel.add(result.getString(1)+"-"+result.getString(2)+"-0");
+        }
+        conn.commit();
+        return kel;
+    }
 }

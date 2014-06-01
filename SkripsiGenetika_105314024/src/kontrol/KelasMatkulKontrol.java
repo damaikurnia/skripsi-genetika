@@ -123,4 +123,19 @@ public class KelasMatkulKontrol {
         }
         return mk;
     }
+    
+    
+    public String jumlahMatkul() throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT COUNT(idKelas) FROM kelas_makul";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        String mk = null;
+        while (result.next()) {
+            mk = "TOTAL MATAKULIAH : "+result.getInt(1);
+        }
+        return mk;
+    }
 }
