@@ -91,4 +91,19 @@ public class DosenKontrol {
         conn.commit();
         return dosen;
     }
+    
+    public List<String> cariKelompokDosen() throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String sql = "SELECT idDosen FROM dosen";
+        psmt = conn.prepareStatement(sql);
+        result = psmt.executeQuery();
+        List<String> kel = new ArrayList<String>();
+        while (result.next()) {
+            kel.add(result.getString(1)+"-0");
+        }
+        conn.commit();
+        return kel;
+    }
 }
