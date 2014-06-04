@@ -11,23 +11,23 @@ package kelas;
  * @author Adhi
  */
 public class Gen {
-    private KelasKuliah allele;
-    private Ruang Ruang;
-    private String hari;
-    private int jam;
-    private int nilaiFitness;
+    KelasKuliah allele;
+    Ruang Ruang;
+    String hari;
+    int jam;
+    int nilaiFitness;
 
     /**
      * @return the timeSlot
      */
-    public KelasKuliah getTimeSlot() {
+    public KelasKuliah getAllele() {
         return allele;
     }
 
     /**
      * @param timeSlot the timeSlot to set
      */
-    public void setTimeSlot(KelasKuliah timeSlot) {
+    public void setAllele(KelasKuliah timeSlot) {
         this.allele = timeSlot;
     }
 

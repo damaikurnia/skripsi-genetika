@@ -11,8 +11,9 @@ package kelas;
  */
 public class Populasi {
 
-    private Kromosom[] parent = new Kromosom[1];//satu populasi terdiri dari 10 kromosom
-    private int iterasi = 0;
+    Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 10 kromosom
+    int[] N_fitness = new int[4];
+    int iterasi = 0;
 
     public void solusiAwalIterasi() {
         for (int i = 0; i < parent.length; i++) {
@@ -24,13 +25,25 @@ public class Populasi {
     public void HitungFitness() {
         for (int i = 0; i < getParent().length; i++) {
             parent[i] = Pelanggaran.eksekusiAturan(parent[i]);
+            N_fitness[i] = 0;
+            for (int j = 0; j < parent[i].getData().length; j++) {
+                N_fitness[i] = N_fitness[i] + parent[i].getData()[j].getNilaiFitness();
+            }
+//            System.out.println(N_fitness[i]); //tampilkan nilai fitnes kromosom ke i
         }
     }
 
-    public void Crossover() {
-    }
-
-    public void Mutasi() {
+    public void cetak() {
+        for (int i = 0; i < parent.length; i++) {
+            for (int j = 110; j < parent[i].getData().length; j++) {
+                if (j == 0) {
+                    System.out.print("|" + parent[i].getData()[j].getAllele().getIdKelas() + "    ");
+                } else {
+                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + "    ");
+                }
+            }
+            System.out.println("");
+        }
     }
 
     /**
@@ -61,31 +74,39 @@ public class Populasi {
         this.iterasi = iterasi;
     }
 
-    public void cetakSolusi() {
+    public void prosesGenetika() {
         solusiAwalIterasi();
         HitungFitness();
-        
-        for (int i = 0; i < parent.length; i++) {
-            for (int j = 0; j < parent[i].getData().length; j++) {
-//            for (int j = 0; j < 1; j++) {
-                System.out.println("Gen[" + i + "]");
-                System.out.println("Index "+j);
-                System.out.println("idKelas     : " + parent[i].getData()[j].getTimeSlot().getIdKelas());
-                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getTimeSlot().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getTimeSlot().getIdDosen().idDosen);
-                System.out.println("kelas       : " + parent[i].getData()[j].getTimeSlot().getKelas());
-                System.out.println("hari        : " + parent[i].getData()[j].getHari());
-                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
-                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
-                System.out.println("Semester    : " + parent[i].getData()[j].getTimeSlot().getIdMK().getSemester());
-                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
-                System.out.println("");
+//        cetak();
+        Kromosom[] child = Genetika.crossover(parent[0],parent[1]);
+//        parent[2] = child[0];
+//        parent[3] = child[1];
+//        cetak();
+//        System.out.println("------");
+//        routleWheelSelection();
 
-            }
-            System.out.println("------------------------------------------------------------------------------------");
-        }
+//        for (int i = 0; i < parent.length; i++) {
+//            for (int j = 0; j < parent[i].getData().length; j++) {
+////            for (int j = 0; j < 1; j++) {
+//                System.out.println("Gen[" + i + "]");
+//                System.out.println("Index "+j);
+//                System.out.println("idKelas     : " + parent[i].getData()[j].getTimeSlot().getIdKelas());
+//                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getTimeSlot().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getTimeSlot().getIdDosen().idDosen);
+//                System.out.println("kelas       : " + parent[i].getData()[j].getTimeSlot().getKelas());
+//                System.out.println("hari        : " + parent[i].getData()[j].getHari());
+//                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
+//                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+//                System.out.println("Semester    : " + parent[i].getData()[j].getTimeSlot().getIdMK().getSemester());
+//                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
+//                System.out.println("");
+//
+//            }
+//            System.out.println("------------------------------------------------------------------------------------");
+//        }
     }
+
     public static void main(String[] args) {
         Populasi pop = new Populasi();
-        pop.cetakSolusi();
+        pop.prosesGenetika();
     }
 }
