@@ -20,7 +20,7 @@ import kontrol.RuangKontrol;
  */
 public class Kromosom {
 
-    private Gen[] data;// 1 Kromosom terdiri dari n-GEN (140)
+    Gen[] data;// 1 Kromosom terdiri dari n-GEN (140)
     List<KelasKuliah> dataa = null;
     int ruang = 0;
     List<Ruang> rng = null;
@@ -107,7 +107,7 @@ public class Kromosom {
 
         for (int i = 0; i < data.length; i++) {
             data[i] = new Gen();
-            data[i].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
+            data[i].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
             data[i].setHari(tentukanHari(i));//generate
             data[i].setJam(tentukanJam(i));//generate
             data[i].setRuang(tentukanRuang(i));//generate
@@ -120,10 +120,10 @@ public class Kromosom {
         int index = 0; //untuk index matakuliah
         while (N != 0) {
             int tangkap = r.nextInt(data.length);
-            if (data[tangkap].getTimeSlot().getIdKelas()==0) {
-                data[tangkap].setTimeSlot(dataa.get(index));
-                String idMK = data[tangkap].getTimeSlot().getIdMK().getIdMK();
-                data[tangkap].getTimeSlot().getIdMK().setSemester(isiSemester(idMK));
+            if (data[tangkap].getAllele().getIdKelas()==0) {
+                data[tangkap].setAllele(dataa.get(index));
+                String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
+                data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
                 index++;
                 N--;
             }

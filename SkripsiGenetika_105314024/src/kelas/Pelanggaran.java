@@ -25,7 +25,7 @@ public class Pelanggaran {
     }
 
     public static Kromosom cekRuang(Kromosom x) {
-        return null;
+        return x;
     } //aturan 1 - return kromosom
 
     public static Kromosom cekDosen(Kromosom x) {
@@ -54,8 +54,8 @@ public class Pelanggaran {
             for (int b = 0; b < 4; b++) {//loop timeslot
                 for (int j = 0; j < jumlah_ruang; j++) {//loop perbandingan gen dalam timeslot
                     for (int k = j + 1; k < jumlah_ruang; k++) {
-                        String banding1 = x.getData()[posisi_jam[j]].getTimeSlot().getIdDosen().getIdDosen();
-                        String banding2 = x.getData()[posisi_jam[k]].getTimeSlot().getIdDosen().getIdDosen();
+                        String banding1 = x.getData()[posisi_jam[j]].getAllele().getIdDosen().getIdDosen();
+                        String banding2 = x.getData()[posisi_jam[k]].getAllele().getIdDosen().getIdDosen();
                         if (banding1.equals("-")) {
                         } else if (banding1.equals(banding2)) {
                             int fitnes_awal = x.getData()[posisi_jam[k]].getNilaiFitness();
@@ -110,12 +110,12 @@ public class Pelanggaran {
                 for (int j = 0; j < jumlah_ruang; j++) {//loop perbandingan gen dalam timeslot
                     for (int k = j + 1; k < jumlah_ruang; k++) {
 
-                        String banding1 = x.getData()[posisi_jam[j]].getTimeSlot().getIdMK().getIdMK(); //matakuliah
-                        String banding2 = x.getData()[posisi_jam[k]].getTimeSlot().getIdMK().getIdMK();
-                        int banding3 = x.getData()[posisi_jam[j]].getTimeSlot().getIdMK().getSemester(); //semester
-                        int banding4 = x.getData()[posisi_jam[k]].getTimeSlot().getIdMK().getSemester();
-                        String banding7 = x.getData()[posisi_jam[j]].getTimeSlot().getKelas(); //kelas
-                        String banding8 = x.getData()[posisi_jam[k]].getTimeSlot().getKelas();
+                        String banding1 = x.getData()[posisi_jam[j]].getAllele().getIdMK().getIdMK(); //matakuliah
+                        String banding2 = x.getData()[posisi_jam[k]].getAllele().getIdMK().getIdMK();
+                        int banding3 = x.getData()[posisi_jam[j]].getAllele().getIdMK().getSemester(); //semester
+                        int banding4 = x.getData()[posisi_jam[k]].getAllele().getIdMK().getSemester();
+                        String banding7 = x.getData()[posisi_jam[j]].getAllele().getKelas(); //kelas
+                        String banding8 = x.getData()[posisi_jam[k]].getAllele().getKelas();
 
                         if (banding1.equals("-")) {
                         } else if (banding3 == banding4) { //semester sama?
@@ -168,8 +168,8 @@ public class Pelanggaran {
         temp_count = count;
         for (int i = 0; i < hari.length; i++) {
             for (jam = jam; jam < temp_count; jam++) { //loop index perhari
-                String banding2 = Integer.toString(x.getData()[jam].getTimeSlot().getIdMK().getSemester());//semester
-                String banding3 = x.getData()[jam].getTimeSlot().getKelas();//kelas
+                String banding2 = Integer.toString(x.getData()[jam].getAllele().getIdMK().getSemester());//semester
+                String banding3 = x.getData()[jam].getAllele().getKelas();//kelas
 
                 for (int j = 0; j < kel.size(); j++) { //loop kelas dan semester
                     String[] banding1 = kel.get(j).split("-");
@@ -217,7 +217,7 @@ public class Pelanggaran {
         temp_count = count;
         for (int i = 0; i < hari.length; i++) {
             for (jam = jam; jam < temp_count; jam++) { //loop index perhari
-                String banding2 = x.getData()[jam].getTimeSlot().getIdDosen().idDosen;//iddosen
+                String banding2 = x.getData()[jam].getAllele().getIdDosen().idDosen;//iddosen
 
                 for (int j = 0; j < kel.size(); j++) { //loop kelas dan semester
                     String[] banding1 = kel.get(j).split("-");
