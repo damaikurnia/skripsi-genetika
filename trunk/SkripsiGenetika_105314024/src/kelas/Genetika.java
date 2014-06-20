@@ -36,44 +36,52 @@ public class Genetika {
         Kromosom[] child = new Kromosom[2];
         child[0] = parent1;
         child[1] = parent2;
-//        Gen[] temp;
+        Gen[] temp1;
 
         int point = parent1.getData().length / 2;
         int count = parent1.getData().length;
 
-//        for (int j = 0; j < child.length; j++) {
-//            for (int i = 0; i < count; i++) { //one point crossover
-//                if (i == 110) {
-//                    System.out.print("|" + child[j].data[i].getAllele().getIdKelas() + "  ");
-//                } else {
-//                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
-//                }
-//            }
-//            System.out.println("");
-//        }
-
-        for (int i = 0; i < count; i++) { //one point crossover
-            if (i >= point) {
-                KelasKuliah temp = parent1.getData()[i].getAllele();
-                child[1].getData()[i].setAllele(temp);
-                KelasKuliah temp2 = parent2.getData()[i].getAllele();
-                child[0].getData()[i].setAllele(temp2);
-            } else {
-
+        for (int j = 0; j < child.length; j++) {
+            for (int i = 0; i < count; i++) { //one point crossover
+                if (i == 110) {
+                    System.out.print("___" + child[j].data[i].getAllele().getIdKelas() + "  ");
+                } else {
+                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
+                }
             }
-            child[0].getData()[i].setNilaiFitness(0);
-            child[1].getData()[i].setNilaiFitness(0);
+            System.out.println("");
         }
-//        for (int j = 0; j < child.length; j++) {
-//            for (int i = 0; i < count; i++) { //one point crossover
-//                if (i == 110) {
-//                    System.out.print("|" + child[j].data[i].getAllele().getIdKelas() + "  ");
-//                } else {
-//                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
-//                }
-//            }
-//            System.out.println("");
-//        }
+        for (int i = 0; i < child.length; i++) {
+            temp1 = child[i].data;
+            for (int j = 0; j < count; j++) { //one point crossover
+                if (i == 0) {
+                    if (j >= point) {
+                        temp1[j] = parent2.data[j];
+                    } else {
+                        temp1[j] = temp1[j];
+                    }
+                } else {
+                    if (j >= point) {
+                        temp1[j] = parent1.data[j];
+                    } else {
+                        temp1[j] = temp1[j];
+                    }
+                }
+//                child[i].getData()[j].setNilaiFitness(0);
+            }
+            child[i].setData(temp1);
+        }
+
+        for (int j = 0; j < child.length; j++) {
+            for (int i = 0; i < count; i++) { //one point crossover
+                if (i == 110) {
+                    System.out.print("___" + child[j].data[i].getAllele().getIdKelas() + "  ");
+                } else {
+                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
+                }
+            }
+            System.out.println("");
+        }
 //        N_fitness[parent.length - 2] = 0;
 //        N_fitness[parent.length - 1] = 0;
         return child;
