@@ -33,58 +33,26 @@ public class Genetika {
 
     public static Kromosom[] crossover(Kromosom parent1, Kromosom parent2) {
 //        routleWheelSelection();
-        Kromosom[] child = new Kromosom[2];
-        child[0] = parent1;
-        child[1] = parent2;
-        Gen[] temp1;
-
-        int point = parent1.getData().length / 2;
-        int count = parent1.getData().length;
-
-        for (int j = 0; j < child.length; j++) {
-            for (int i = 0; i < count; i++) { //one point crossover
-                if (i == 110) {
-                    System.out.print("___" + child[j].data[i].getAllele().getIdKelas() + "  ");
-                } else {
-                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
-                }
+        Kromosom[] popul = new Kromosom[4];
+        popul[0] = parent1;//parent 1
+        popul[1] = parent2;//parent 2
+        popul[2] = parent1;//child 1
+        popul[3] = parent2;//child 2
+        
+        int point = popul[0].getData().length/2;
+        for (int i = 0; i < popul[0].getData().length; i++) {
+            if (i<point) {
+                
             }
-            System.out.println("");
-        }
-        for (int i = 0; i < child.length; i++) {
-            temp1 = child[i].data;
-            for (int j = 0; j < count; j++) { //one point crossover
-                if (i == 0) {
-                    if (j >= point) {
-                        temp1[j] = parent2.data[j];
-                    } else {
-                        temp1[j] = temp1[j];
-                    }
-                } else {
-                    if (j >= point) {
-                        temp1[j] = parent1.data[j];
-                    } else {
-                        temp1[j] = temp1[j];
-                    }
-                }
-//                child[i].getData()[j].setNilaiFitness(0);
+            else{
+                popul[2].getData()[i].setAllele(popul[1].getData()[i].getAllele());
+                popul[3].getData()[i].setAllele(popul[0].getData()[i].getAllele());
             }
-            child[i].setData(temp1);
+            popul[2].getData()[i].setNilaiFitness(0);
+            popul[3].getData()[i].setNilaiFitness(0);
         }
-
-        for (int j = 0; j < child.length; j++) {
-            for (int i = 0; i < count; i++) { //one point crossover
-                if (i == 110) {
-                    System.out.print("___" + child[j].data[i].getAllele().getIdKelas() + "  ");
-                } else {
-                    System.out.print(child[j].data[i].getAllele().getIdKelas() + "  ");
-                }
-            }
-            System.out.println("");
-        }
-//        N_fitness[parent.length - 2] = 0;
-//        N_fitness[parent.length - 1] = 0;
-        return child;
+        
+        return popul;
     }
 
     public void Mutasi() {
