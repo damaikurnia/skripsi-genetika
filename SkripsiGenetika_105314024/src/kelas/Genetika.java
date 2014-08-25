@@ -31,18 +31,19 @@ public class Genetika {
 //        }
 //    }
 
-    public static Kromosom[] crossover(Kromosom parent1, Kromosom parent2) {
+    public static Kromosom[] crossover(Kromosom[] parent) {
 //        routleWheelSelection();
-        Kromosom[] popul = new Kromosom[4];
-        popul[0] = parent1;//parent 1
-        popul[1] = parent2;//parent 2
-        popul[2] = parent1;//child 1
-        popul[3] = parent2;//child 2
+        Kromosom[] popul = parent;
+//        popul[0] = parent1;//parent 1 A - B
+//        popul[1] = parent2;//parent 2 C - D
+//        popul[2] = parent1;//child 1 A - D
+//        popul[3] = parent2;//child 2 C - B
         
-        int point = popul[0].getData().length/2;
+        int point = popul[0].getData().length/2;//titik one point crossover
         for (int i = 0; i < popul[0].getData().length; i++) {
-            if (i<point) {
-                
+            if (i<point) { // samakan gen A dan C ke child 1 dan 2
+                popul[2].getData()[i].setAllele(popul[0].getData()[i].getAllele());
+                popul[3].getData()[i].setAllele(popul[1].getData()[i].getAllele());
             }
             else{
                 popul[2].getData()[i].setAllele(popul[1].getData()[i].getAllele());
