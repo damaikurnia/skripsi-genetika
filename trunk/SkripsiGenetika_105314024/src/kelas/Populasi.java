@@ -35,9 +35,9 @@ public class Populasi {
 
     public void cetak() {
         for (int i = 0; i < parent.length; i++) {
-            for (int j = 110; j < parent[i].getData().length; j++) {
-                if (j == 0) {
-                    System.out.print("|" + parent[i].getData()[j].getAllele().getIdKelas() + "    ");
+            for (int j = 0; j < parent[i].getData().length; j++) {
+                if (j == 110) {
+                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + "    ");
                 } else {
                     System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + "    ");
                 }
@@ -77,11 +77,12 @@ public class Populasi {
     public void prosesGenetika() {
         solusiAwalIterasi();
         HitungFitness();
-//        cetak();
-        Kromosom[] child = Genetika.crossover(parent[0],parent[1]);
+        cetak();
+        parent = Genetika.crossover(parent);
 //        parent[2] = child[0];
 //        parent[3] = child[1];
-//        cetak();
+        System.out.println("");
+        cetak();
 //        System.out.println("------");
 //        routleWheelSelection();
 
