@@ -28,8 +28,8 @@ public class Kromosom {
     public Kromosom() {
         try {
             dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
-            ruang = RuangKontrol.getKoneksi().jumlahRuang();
-            rng = RuangKontrol.getKoneksi().tampilRuangTeori();
+            ruang = RuangKontrol.getKoneksi().jumlahRuang();//jumlah ruang teori
+            rng = RuangKontrol.getKoneksi().tampilRuangTeori();//list nama ruang teori
         } catch (SQLException ex) {
             Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,7 +172,7 @@ public class Kromosom {
         int waktu = 12;
         int N = (hari * ruang * waktu) / 3;//220
 
-        int bagi = N / 5;//44
+        int bagi = N / 5;//44 (5 adl 5 hari kuliah)
         int bagiruang = 0;
 
         bagiruang = bagi / ruang;//4

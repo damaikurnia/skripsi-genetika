@@ -11,7 +11,7 @@ package kelas;
  */
 public class Populasi {
 
-    Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 10 kromosom
+    Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
     int[] N_fitness = new int[4];
     int iterasi = 0;
 
@@ -77,33 +77,31 @@ public class Populasi {
     public void prosesGenetika() {
         solusiAwalIterasi();
         HitungFitness();
-        cetak();
-        parent = Genetika.crossover(parent);
-//        parent[2] = child[0];
-//        parent[3] = child[1];
-        System.out.println("");
-        cetak();
+//        cetak();
+//        parent = Genetika.crossover(parent);
+//        System.out.println("");
+//        cetak();
 //        System.out.println("------");
 //        routleWheelSelection();
 
-//        for (int i = 0; i < parent.length; i++) {
-//            for (int j = 0; j < parent[i].getData().length; j++) {
-////            for (int j = 0; j < 1; j++) {
-//                System.out.println("Gen[" + i + "]");
-//                System.out.println("Index "+j);
-//                System.out.println("idKelas     : " + parent[i].getData()[j].getTimeSlot().getIdKelas());
-//                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getTimeSlot().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getTimeSlot().getIdDosen().idDosen);
-//                System.out.println("kelas       : " + parent[i].getData()[j].getTimeSlot().getKelas());
-//                System.out.println("hari        : " + parent[i].getData()[j].getHari());
-//                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
-//                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
-//                System.out.println("Semester    : " + parent[i].getData()[j].getTimeSlot().getIdMK().getSemester());
-//                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
-//                System.out.println("");
-//
-//            }
-//            System.out.println("------------------------------------------------------------------------------------");
-//        }
+        for (int i = 0; i < 1; i++) { // parent.length
+            for (int j = 0; j < parent[i].getData().length; j++) {
+//            for (int j = 0; j < 1; j++) {
+                System.out.println("Gen[" + i + "]");
+                System.out.println("Index "+j);
+                System.out.println("idKelas     : " + parent[i].getData()[j].getAllele().getIdKelas());
+                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getAllele().getIdDosen().idDosen);
+                System.out.println("kelas       : " + parent[i].getData()[j].getAllele().getKelas());
+                System.out.println("hari        : " + parent[i].getData()[j].getHari());
+                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
+                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+                System.out.println("Semester    : " + parent[i].getData()[j].getAllele().getIdMK().getSemester());
+                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
+                System.out.println("");
+
+            }
+            System.out.println("------------------------------------------------------------------------------------");
+        }
     }
 
     public static void main(String[] args) {
