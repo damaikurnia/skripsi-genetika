@@ -25,7 +25,8 @@ public class Pelanggaran {
     }
 
     public static Kromosom cekRuang(Kromosom x) {
-        return x;
+        return x;//satu ruang hanya dapat dipakai oleh 1 1 matkul dihari dan jam yang sama
+        //syarat ini sudah terpenuhi secara otomatis oleh sistem.
     } //aturan 1 - return kromosom
 
     public static Kromosom cekDosen(Kromosom x) {
@@ -250,11 +251,17 @@ public class Pelanggaran {
             Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
         }
         Kromosom parent;
+//        parent = Pelanggaran.cekRuang(x);
+//        parent = Pelanggaran.cekDosen(x);
+//        parent = Pelanggaran.cekMatakuliah(x);
+//        parent = Pelanggaran.cekJumlahMatakuliah(x);
+//        parent = Pelanggaran.cekDosenMengajar(x);
+        
         parent = Pelanggaran.cekRuang(x);
-        parent = Pelanggaran.cekDosen(x);
-        parent = Pelanggaran.cekMatakuliah(x);
-        parent = Pelanggaran.cekJumlahMatakuliah(x);
-        parent = Pelanggaran.cekDosenMengajar(x);
+        parent = Pelanggaran.cekDosen(parent);
+        parent = Pelanggaran.cekMatakuliah(parent);
+        parent = Pelanggaran.cekJumlahMatakuliah(parent);
+        parent = Pelanggaran.cekDosenMengajar(parent);
         return parent;
     }
 }

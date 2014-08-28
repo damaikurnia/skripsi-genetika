@@ -78,5 +78,18 @@ CREATE TABLE `ruang` (
 
 insert  into `ruang`(`idRuang`,`namaRuang`,`jenisRuang`) values ('11','I PGSD 1','TEORI'),('12','I PGSD 2','TEORI'),('13','I PGSD 3 / LAB IPS/PKN','TEORI PRAKTIKUM'),('21','II PGSD 1 / LAB MATEMATIKA','TEORI PRAKTIKUM'),('22','II PGSD 2 / LAB MATEMATIKA','TEORI PRAKTIKUM'),('23','II PGSD 3','TEORI'),('24','II PGSD 4/ LAB BAHASA','TEORI PRAKTIKUM'),('300','LT. 3 DEPAN XAVERIUS','TEORI'),('401','LT. 4','TEORI'),('402','LT. 4','TEORI'),('L.IPA','LAB. IPA','PRAKTIKUM'),('L.LIS','LT. 4 POJOK','PRAKTIKUM'),('L.M','LAB MULTIMEDIA','PRAKTIKUM'),('L.SBK','LAB. SBK','PRAKTIKUM'),('MIKRO','LAB MIKRO TEACHING','PRAKTIKUM'),('MONTE','LAB MONTESSORI','PRAKTIKUM'),('REA1','REALINO 1','PRAKTIKUM'),('REA2','REALINO 2','PRAKTIKUM'),('REA3','REALINO 3','PRAKTIKUM'),('XAV','XAVERIUS','TEORI');
 
+/*Table structure for table `tabelaturan` */
+
+DROP TABLE IF EXISTS `tabelaturan`;
+
+CREATE TABLE `tabelaturan` (
+  `noRule` int(10) NOT NULL,
+  `idMK` varchar(100) NOT NULL,
+  `idRuang` varchar(50) NOT NULL,
+  PRIMARY KEY (`noRule`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tabelaturan` */
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
