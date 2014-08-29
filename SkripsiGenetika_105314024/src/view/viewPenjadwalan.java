@@ -37,10 +37,10 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private void initComponents() {
 
         dialogKelasMatkul = new javax.swing.JDialog();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listKelasMatkulTabel = new javax.swing.JTable();
-        listKelasMatkulCloseButton = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -51,19 +51,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         penjadwalanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         idKelasText = new javax.swing.JTextField();
-        namaKelasText = new javax.swing.JTextField();
         simpanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jumlahMahasiswaText = new javax.swing.JTextField();
         batalButton = new javax.swing.JButton();
         tabelButton = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        idDosenText = new javax.swing.JTextField();
-        idRuangText = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -72,60 +64,62 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
-        jLabel29.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
-        jLabel29.setText("Data Mata Kuliah");
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 384, Short.MAX_VALUE)
+        );
 
-        listKelasMatkulTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        listKelasMatkulTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listKelasMatkulTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(listKelasMatkulTabel);
+        jPanel9.setBackground(new java.awt.Color(153, 51, 0));
 
-        listKelasMatkulCloseButton.setText("Tutup");
-        listKelasMatkulCloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listKelasMatkulCloseButtonActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("ATURAN TAMBAHAN PENJADWALAN");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout dialogKelasMatkulLayout = new javax.swing.GroupLayout(dialogKelasMatkul.getContentPane());
         dialogKelasMatkul.getContentPane().setLayout(dialogKelasMatkulLayout);
         dialogKelasMatkulLayout.setHorizontalGroup(
             dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                .addGroup(dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listKelasMatkulCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel29)))
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         dialogKelasMatkulLayout.setVerticalGroup(
             dialogKelasMatkulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogKelasMatkulLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listKelasMatkulCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -193,21 +187,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel1.setText("ID Kelas");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Nama Kelas");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Jumlah Mahasiswa");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
-
         idKelasText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idKelasTextActionPerformed(evt);
             }
         });
         jPanel4.add(idKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 206, -1));
-        jPanel4.add(namaKelasText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
 
         simpanButton.setText("Simpan");
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
@@ -215,35 +200,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("DATA KELAS MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-        jPanel4.add(jumlahMahasiswaText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 70, -1));
 
         batalButton.setText("Batal");
         jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 70, -1));
 
         tabelButton.setText("Tabel");
         jPanel4.add(tabelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 70, -1));
-
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("ID Dosen");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("ID Ruang");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, -1, -1));
-
-        idDosenText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idDosenTextActionPerformed(evt);
-            }
-        });
-        jPanel4.add(idDosenText, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 206, -1));
-
-        idRuangText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idRuangTextActionPerformed(evt);
-            }
-        });
-        jPanel4.add(idRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 206, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -281,7 +243,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
             .addGap(0, 940, Short.MAX_VALUE)
-            .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -290,7 +251,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,35 +303,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_idKelasTextActionPerformed
 
-    private void idDosenTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idDosenTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idDosenTextActionPerformed
-
-    private void idRuangTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRuangTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idRuangTextActionPerformed
-
-    private void listKelasMatkulTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listKelasMatkulTabelMouseClicked
-        int row1 = listKelasMatkulTabel.getSelectedRow();
-        String idKelas = listKelasMatkulTabel.getValueAt(row1, 1).toString();
-        String namaKelas = listKelasMatkulTabel.getValueAt(row1, 2).toString();
-        String jmlmahasiswa = listKelasMatkulTabel.getValueAt(row1, 3).toString();
-        String idDosen = listKelasMatkulTabel.getValueAt(row1, 4).toString();
-        String idRuang = listKelasMatkulTabel.getValueAt(row1, 5).toString();
-        
-        idKelasText.setText(idKelas);
-        namaKelasText.setText(namaKelas);
-        jumlahMahasiswaText.setText(jmlmahasiswa);
-        idDosenText.setText(idDosen);
-        idRuangText.setText(idRuang);
-        
-        dialogKelasMatkul.setVisible(false);
-}//GEN-LAST:event_listKelasMatkulTabelMouseClicked
-
-    private void listKelasMatkulCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listKelasMatkulCloseButtonActionPerformed
-        dialogKelasMatkul.setVisible(false);
-}//GEN-LAST:event_listKelasMatkulCloseButtonActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -400,17 +331,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JDialog dialogKelasMatkul;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
-    private javax.swing.JTextField idDosenText;
     private javax.swing.JTextField idKelasText;
-    private javax.swing.JTextField idRuangText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -420,13 +345,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextField jumlahMahasiswaText;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JButton kelasButton;
-    private javax.swing.JButton listKelasMatkulCloseButton;
-    private javax.swing.JTable listKelasMatkulTabel;
     private javax.swing.JButton matkulButton;
-    private javax.swing.JTextField namaKelasText;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
