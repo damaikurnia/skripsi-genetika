@@ -56,7 +56,9 @@ public class Genetika {
         return popul;
     }
 
-    public void Mutasi() {
+    public static Kromosom[] Mutasi(Kromosom[] parent) {
+        
+        return null;
     }
 
 }
