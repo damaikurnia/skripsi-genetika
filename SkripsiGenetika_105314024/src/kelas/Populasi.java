@@ -84,24 +84,24 @@ public class Populasi {
 //        System.out.println("------");
 //        routleWheelSelection();
 
-        for (int i = 0; i < 1; i++) { // parent.length
-            for (int j = 0; j < parent[i].getData().length; j++) {
-//            for (int j = 0; j < 1; j++) {
-                System.out.println("Gen[" + i + "]");
-                System.out.println("Index "+j);
-                System.out.println("idKelas     : " + parent[i].getData()[j].getAllele().getIdKelas());
-                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getAllele().getIdDosen().idDosen);
-                System.out.println("kelas       : " + parent[i].getData()[j].getAllele().getKelas());
-                System.out.println("hari        : " + parent[i].getData()[j].getHari());
-                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
-                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
-                System.out.println("Semester    : " + parent[i].getData()[j].getAllele().getIdMK().getSemester());
-                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
-                System.out.println("");
-
-            }
-            System.out.println("------------------------------------------------------------------------------------");
-        }
+//        for (int i = 0; i < 1; i++) { // parent.length
+//            for (int j = 0; j < parent[i].getData().length; j++) {
+////            for (int j = 0; j < 1; j++) {
+//                System.out.println("Gen[" + i + "]");
+//                System.out.println("Index "+j);
+//                System.out.println("idKelas     : " + parent[i].getData()[j].getAllele().getIdKelas());
+//                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[i].getData()[j].getAllele().getIdDosen().idDosen);
+//                System.out.println("kelas       : " + parent[i].getData()[j].getAllele().getKelas());
+//                System.out.println("hari        : " + parent[i].getData()[j].getHari());
+//                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
+//                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+//                System.out.println("Semester    : " + parent[i].getData()[j].getAllele().getIdMK().getSemester());
+//                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
+//                System.out.println("");
+//
+//            }
+//            System.out.println("------------------------------------------------------------------------------------");
+//        }
     }
 
     public static void main(String[] args) {
