@@ -20,7 +20,8 @@ public class Genetika {
 
     List<KelasKuliah> kelasKuliah;
     List<MataKuliah> matkul;
-    String[] checklist_kk; // <-- untuk cek kk sdh ada di dlm kromosom apa blm.
+    static String[] checklist_kk; // <-- untuk cek kk sdh ada di dlm kromosom apa blm.
+    static String simsem = "";
 
     public Genetika() {
         ambilDatabase();
@@ -74,14 +75,23 @@ public class Genetika {
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
-        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
+//        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
+        for (int i = 2; i < 3; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
             for (int j = 0; j < krom[i].data.length; j++) {
                 if (krom[i].data[j].allele.getIdKelas() != 0) {
-//                    if () {
-//                    }
-//<<-sampe disini
+                    int tangkap = sercing(krom[i].data[j].allele.getIdKelas());
+                    if(Integer.parseInt(checklist_kk[tangkap].split("-")[1])!=0){
+                        simsem = simsem + tangkap+"-";
+                    }
+                    else{
+                        checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0]+"-1";
+                    }
                 }
+                else{}
             }
+        }
+        for (int i = 0; i < simsem.split("-").length; i++) {
+            System.out.print(simsem.split("-")[i]+" ");
         }
 
         //pindahkah 1 gen
@@ -117,14 +127,15 @@ public class Genetika {
         }
     }
 
-    public int sercing(int key) {
+    public static int sercing(int key) {
         int awal = 0;
-        int akhir = checklist_kk.length - 1;
+        int akhir = checklist_kk.length;
+        int tengah = 0;
         while (awal < akhir) {
-            int tengah = (awal + akhir) / 2;
+            tengah = (awal + akhir) / 2;
             int banding = Integer.parseInt(checklist_kk[tengah].split("-")[0]);
             if (banding == key) {
-                return tengah;
+                break;
             } else {
                 if (banding > key) {
                     akhir = tengah - 1;
@@ -133,7 +144,7 @@ public class Genetika {
                 }
             }
         }
-        return -1;
+        return tengah;
     }
 
     public static void main(String[] args) {
