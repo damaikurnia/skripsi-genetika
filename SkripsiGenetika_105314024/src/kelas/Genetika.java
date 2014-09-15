@@ -6,6 +6,7 @@
 package kelas;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,6 +73,7 @@ public class Genetika {
     }
 
     public static Kromosom[] Mutasi(Kromosom[] parent) {
+        new Genetika();
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
@@ -80,18 +82,20 @@ public class Genetika {
             for (int j = 0; j < krom[i].data.length; j++) {
                 if (krom[i].data[j].allele.getIdKelas() != 0) {
                     int tangkap = sercing(krom[i].data[j].allele.getIdKelas());
-                    if(Integer.parseInt(checklist_kk[tangkap].split("-")[1])!=0){
-                        simsem = simsem + tangkap+"-";
+                    if (Integer.parseInt(checklist_kk[tangkap].split("-")[1]) != 0) {
+                        simsem = simsem + tangkap + "-";
+                    } else {
+                        checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";
                     }
-                    else{
-                        checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0]+"-1";
-                    }
+                } else {
                 }
-                else{}
+            }
+            for (int j = 0; j < checklist_kk.length; j++) {
+                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
             }
         }
         for (int i = 0; i < simsem.split("-").length; i++) {
-            System.out.print(simsem.split("-")[i]+" ");
+            System.out.print(simsem.split("-")[i] + " ");
         }
 
         //pindahkah 1 gen
@@ -104,47 +108,39 @@ public class Genetika {
             matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
             checklist_kk = new String[kelasKuliah.size()];
             //addOn checklist_kk
-            for (int i = 0; i < kelasKuliah.size(); i++) {
+            for (int i = 0; i < checklist_kk.length; i++) {
                 checklist_kk[i] = Integer.toString(kelasKuliah.get(i).getIdKelas()) + "-0";
             }
-            sorting();
+//            sorting();
         } catch (SQLException ex) {
             Logger.getLogger(Genetika.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void sorting() { //<--insertion sort method
-        for (int i = 1; i <= checklist_kk.length - 1; i++) {
-            for (int j = i; j >= 1; j--) {
-                int banding1 = Integer.parseInt(checklist_kk[j].split("-")[0]);
-                int banding2 = Integer.parseInt(checklist_kk[j - 1].split("-")[0]);
-                if (banding1 < banding2) {
-                    String temp = checklist_kk[j];
-                    checklist_kk[j] = checklist_kk[j - 1];
-                    checklist_kk[j - 1] = temp;
-                }
-            }
-        }
-    }
+//    public void sorting() { //<--insertion sort method
+//        for (int i = 1; i <= (checklist_kk.length - 1); i++) {
+//            for (int e = i; e >= 1; e--) {
+//                if (Integer.parseInt(checklist_kk[e].split("-")[0]) < Integer.parseInt(checklist_kk[e - 1].split("-")[0])) {
+//                    String simSem = checklist_kk[e];
+//                    checklist_kk[e] = checklist_kk[e - 1];
+//                    checklist_kk[e - 1] = simSem;
+//                }
+//            }
+//        }
+//    }
 
-    public static int sercing(int key) {
-        int awal = 0;
-        int akhir = checklist_kk.length;
-        int tengah = 0;
-        while (awal < akhir) {
-            tengah = (awal + akhir) / 2;
-            int banding = Integer.parseInt(checklist_kk[tengah].split("-")[0]);
-            if (banding == key) {
+    public static int sercing(int key) { //<-- Sequential Search
+        int counter=0;
+        for(int a=0;a<(checklist_kk.length);a++){
+            if(Integer.parseInt(checklist_kk[a].split("-")[0]) == key){
+                counter=a;
                 break;
-            } else {
-                if (banding > key) {
-                    akhir = tengah - 1;
-                } else {
-                    awal = tengah + 1;
-                }
+            }
+            else {
+                counter=-1;
             }
         }
-        return tengah;
+        return counter;
     }
 
     public static void main(String[] args) {
