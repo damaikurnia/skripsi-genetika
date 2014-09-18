@@ -22,7 +22,6 @@ public class Genetika {
     List<KelasKuliah> kelasKuliah;
     List<MataKuliah> matkul;
     static String[] checklist_kk; // <-- untuk cek kk sdh ada di dlm kromosom apa blm.
-    static String simsem = "";
 
     public Genetika() {
         ambilDatabase();
@@ -79,23 +78,24 @@ public class Genetika {
         //replace id duplikat (setelah di cross)
 //        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
         for (int i = 2; i < 3; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
+            String simsem = "";
             for (int j = 0; j < krom[i].data.length; j++) {
-                if (krom[i].data[j].allele.getIdKelas() != 0) {
-                    int tangkap = sercing(krom[i].data[j].allele.getIdKelas());
-                    if (Integer.parseInt(checklist_kk[tangkap].split("-")[1]) != 0) {
-                        simsem = simsem + tangkap + "-";
-                    } else {
-                        checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";
-                    }
+                if (krom[i].data[j].allele.getIdKelas() == 0) {
                 } else {
+                    int tangkap = sercing(krom[i].data[j].allele.getIdKelas());
+                    if (checklist_kk[tangkap].split("-")[1].equals("0")) {
+                        checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";
+                    } else {
+                        simsem = simsem + checklist_kk[tangkap].split("-")[0] + "-";
+                    }
                 }
             }
-            for (int j = 0; j < checklist_kk.length; j++) {
-                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
+//            for (int j = 0; j < checklist_kk.length; j++) {
+//                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
+//            }
+            for (int a = 0;a<simsem.split("-").length;a++) {
+                System.out.print(simsem.split("-")[a]+" ");
             }
-        }
-        for (int i = 0; i < simsem.split("-").length; i++) {
-            System.out.print(simsem.split("-")[i] + " ");
         }
 
         //pindahkah 1 gen
@@ -128,16 +128,14 @@ public class Genetika {
 //            }
 //        }
 //    }
-
     public static int sercing(int key) { //<-- Sequential Search
-        int counter=0;
-        for(int a=0;a<(checklist_kk.length);a++){
-            if(Integer.parseInt(checklist_kk[a].split("-")[0]) == key){
-                counter=a;
+        int counter = 0;
+        for (int a = 0; a < (checklist_kk.length); a++) {
+            if (Integer.parseInt(checklist_kk[a].split("-")[0]) == key) {
+                counter = a;
                 break;
-            }
-            else {
-                counter=-1;
+            } else {
+                counter = -1;
             }
         }
         return counter;
@@ -145,5 +143,9 @@ public class Genetika {
 
     public static void main(String[] args) {
         Genetika a = new Genetika();
+//        for (int i = 1; i < checklist_kk.length; i++) {
+//            int tangkap = a.sercing(i);
+//            System.out.println("i : " + i + " = " + tangkap + " isi checklist " + checklist_kk[tangkap]);
+//        }
     }
 }
