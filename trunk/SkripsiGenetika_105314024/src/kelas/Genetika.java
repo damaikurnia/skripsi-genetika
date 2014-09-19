@@ -86,15 +86,23 @@ public class Genetika {
                     if (checklist_kk[tangkap].split("-")[1].equals("0")) {
                         checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";
                     } else {
-                        simsem = simsem + checklist_kk[tangkap].split("-")[0] + "-";
+                        simsem = simsem + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
                     }
                 }
             }
-//            for (int j = 0; j < checklist_kk.length; j++) {
+            for (int j = 0; j < simsem.split("-").length; j++) {//<<--sampe sini
+                for (int k = 0; k < krom[i].data.length; k++) {
+                    int temp = Integer.parseInt(simsem.split("-")[j]);
+                    if (krom[i].data[k].allele.getIdKelas() == temp) {
+//                        krom[i].data[k].allele = 
+                    }
+                }
+            }
+//            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
 //                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
 //            }
-            for (int a = 0;a<simsem.split("-").length;a++) {
-                System.out.print(simsem.split("-")[a]+" ");
+            for (int a = 0; a < simsem.split("-").length; a++) {
+                System.out.print(simsem.split("-")[a] + " ");
             }
         }
 
