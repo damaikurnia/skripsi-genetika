@@ -34,6 +34,9 @@ public class Kromosom {
             Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public Kromosom(int a) {
+    }
 
     /**
      * @return the data

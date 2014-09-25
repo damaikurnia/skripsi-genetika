@@ -77,13 +77,15 @@ public class Populasi {
     public void prosesGenetika() {
         solusiAwalIterasi();
         HitungFitness();
-//        cetak();
+        System.out.println("Semula");
+        cetak();
+        System.out.println("Setelah Di Cross");
         parent = Genetika.crossover(parent);
-        System.out.println("");
         cetak();
         System.out.println("MUTASI");
         parent = Genetika.Mutasi(parent);
-//        cetak();
+        System.out.println("\nHasil Mutasi");
+        cetak();
 //        System.out.println("------");
 //        routleWheelSelection();
 

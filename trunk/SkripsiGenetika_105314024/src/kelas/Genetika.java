@@ -19,7 +19,7 @@ import kontrol.MataKuliahKontrol;
  */
 public class Genetika {
 
-    List<KelasKuliah> kelasKuliah;
+    static List<KelasKuliah> kelasKuliah;
     List<MataKuliah> matkul;
     static String[] checklist_kk; // <-- untuk cek kk sdh ada di dlm kromosom apa blm.
 
@@ -90,24 +90,33 @@ public class Genetika {
                     }
                 }
             }
-            for (int j = 0; j < simsem.split("-").length; j++) {//<<--sampe sini
+            
+            for (int a = 0; a < simsem.split("-").length; a++) {
+                System.out.print(simsem.split("-")[a] + " ");
+            }
+            
+            for (int j = 0; j < simsem.split("-").length; j++) { //replace
                 for (int k = 0; k < krom[i].data.length; k++) {
                     int temp = Integer.parseInt(simsem.split("-")[j]);
                     if (krom[i].data[k].allele.getIdKelas() == temp) {
-//                        krom[i].data[k].allele = 
+                        for (int l = 0; l < checklist_kk.length; l++) {
+                            if (checklist_kk[l].split("-")[1].equals("0")) {
+                                krom[i].data[k].setAllele(gantiKelasKuliah(checklist_kk[l].split("-")[0]));
+                                checklist_kk[l] = checklist_kk[l].split("-")[0] + "-1";
+                            }
+
+                        }
+//                        
                     }
                 }
             }
 //            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
 //                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
 //            }
-            for (int a = 0; a < simsem.split("-").length; a++) {
-                System.out.print(simsem.split("-")[a] + " ");
-            }
         }
 
         //pindahkah 1 gen
-        return null;
+        return krom;
     }
 
     public void ambilDatabase() {
@@ -115,6 +124,16 @@ public class Genetika {
             kelasKuliah = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
             matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
             checklist_kk = new String[kelasKuliah.size()];
+            Kromosom a = new Kromosom(0);
+            for (int i = 0; i < kelasKuliah.size(); i++) {
+                String idMK = kelasKuliah.get(i).getIdMK().getIdMK();
+                for (int j = 0; j < matkul.size(); j++) {
+                    if (idMK.equals(matkul.get(j).getIdMK())) {
+                        kelasKuliah.get(i).getIdMK().setSemester(matkul.get(j).getSemester());
+                    }
+                }
+
+            }
             //addOn checklist_kk
             for (int i = 0; i < checklist_kk.length; i++) {
                 checklist_kk[i] = Integer.toString(kelasKuliah.get(i).getIdKelas()) + "-0";
@@ -147,6 +166,15 @@ public class Genetika {
             }
         }
         return counter;
+    }
+
+    public static KelasKuliah gantiKelasKuliah(String kelas) {
+        for (int i = 0; i < kelasKuliah.size(); i++) {
+            if (kelasKuliah.get(i).getIdKelas() == Integer.parseInt(kelas)) {
+                return kelasKuliah.get(i);
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
