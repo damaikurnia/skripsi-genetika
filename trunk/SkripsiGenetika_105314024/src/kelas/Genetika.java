@@ -8,6 +8,7 @@ package kelas;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kontrol.KelasMatkulKontrol;
@@ -87,6 +88,7 @@ public class Genetika {
                         checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";
                     } else {
                         simsem = simsem + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
+                        krom[i].data[j].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //langsung menghapus matkul duplikat
                     }
                 }
             }
@@ -95,27 +97,20 @@ public class Genetika {
                 System.out.print(simsem.split("-")[a] + " ");
             }
             
-            for (int j = 0; j < simsem.split("-").length; j++) { //replace
-                for (int k = 0; k < krom[i].data.length; k++) {
-                    int temp = Integer.parseInt(simsem.split("-")[j]);
-                    if (krom[i].data[k].allele.getIdKelas() == temp) {
-                        for (int l = 0; l < checklist_kk.length; l++) {
-                            if (checklist_kk[l].split("-")[1].equals("0")) {
-                                krom[i].data[k].setAllele(gantiKelasKuliah(checklist_kk[l].split("-")[0]));
-                                checklist_kk[l] = checklist_kk[l].split("-")[0] + "-1";
-                            }
-
-                        }
-//                        
+            for (int j = 0; j < checklist_kk.length; j++) { //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
+                Random r = new Random();//sampe sini
+                if(checklist_kk[j].split("-")[1].equals("0")){
+                    int tangkap = r.nextInt(krom[i].data.length);
+                    if(krom[i].data[tangkap].getAllele().getIdKelas()==0){
+                        
                     }
                 }
-            }
+            }   
 //            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
 //                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
 //            }
         }
 
-        //pindahkah 1 gen
         return krom;
     }
 
@@ -143,18 +138,6 @@ public class Genetika {
             Logger.getLogger(Genetika.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-//    public void sorting() { //<--insertion sort method
-//        for (int i = 1; i <= (checklist_kk.length - 1); i++) {
-//            for (int e = i; e >= 1; e--) {
-//                if (Integer.parseInt(checklist_kk[e].split("-")[0]) < Integer.parseInt(checklist_kk[e - 1].split("-")[0])) {
-//                    String simSem = checklist_kk[e];
-//                    checklist_kk[e] = checklist_kk[e - 1];
-//                    checklist_kk[e - 1] = simSem;
-//                }
-//            }
-//        }
-//    }
     public static int sercing(int key) { //<-- Sequential Search
         int counter = 0;
         for (int a = 0; a < (checklist_kk.length); a++) {
