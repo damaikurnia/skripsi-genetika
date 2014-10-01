@@ -47,7 +47,7 @@ public class Populasi {
 //        }
 //    }
     public void cetak() {
-        for (int i = 2; i < parent.length; i++) {
+        for (int i = 2; i < 3; i++) {
             for (int j = 0; j < parent[i].getData().length; j++) {
                 if (j == 110) {
 //                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
@@ -92,10 +92,10 @@ public class Populasi {
         solusiAwalIterasi();
         HitungFitness();
         System.out.println("Semula");
-//        cetak();
+        cetak();
         System.out.println("Setelah Di Cross");
         parent = Genetika.crossover(parent);
-//        cetak();
+        cetak();
         System.out.println("MUTASI");
         parent = Genetika.Mutasi(parent);
         System.out.println("\nHasil Mutasi");
