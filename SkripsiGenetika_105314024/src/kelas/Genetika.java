@@ -79,7 +79,8 @@ public class Genetika {
         //replace id duplikat (setelah di cross)
 //        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
         for (int i = 2; i < 3; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
-            String simsem = "";
+            String simsem_duplikat = "";
+            String simsem_hilang = "";
             for (int j = 0; j < krom[i].data.length; j++) {
                 if (krom[i].data[j].allele.getIdKelas() == 0) {
                 } else {
@@ -87,45 +88,49 @@ public class Genetika {
                     if (checklist_kk[tangkap].split("-")[1].equals("0")) {
                         checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";//idkelas-<1/0>-index gen
                     } else {
-//                        simsem = simsem + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
+                        simsem_duplikat = simsem_duplikat + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
                         krom[i].data[j].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //langsung menghapus matkul duplikat
                     }
                 }
             }
 
-//            for (int a = 0; a < simsem.split("-").length; a++) {
-//                System.out.print(simsem.split("-")[a] + " ");
-//            }
+            for (int a = 0; a < simsem_duplikat.split("-").length; a++) {
+                System.out.print(simsem_duplikat.split("-")[a] + " ");
+            }
 
             //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
             for (int j = 0; j < checklist_kk.length; j++) { //menyaring id yang belum ada di gen[]
                 if(checklist_kk[j].split("-")[1].equals("0")){
-                    simsem = simsem + checklist_kk[j].split("-")[0]+"-";
+                    simsem_hilang = simsem_hilang + checklist_kk[j].split("-")[0]+"-";
                 }
+            }
+            System.out.println("Yang HILANG");
+            for (int a = 0; a < simsem_hilang.split("-").length; a++) {
+                System.out.print(simsem_hilang.split("-")[a] + " ");
             }
                 
-            for (int x = 0; x < simsem.split("-").length; x++) {
-                Random r = new Random();
-                while(true){
-                    int tangkap = r.nextInt(krom[i].data.length);
-                    if(krom[i].data[tangkap].getAllele().getIdKelas()==0){
-                        krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
-                        break;
-                    }
-                }
-//                if (Integer.parseInt(checklist_kk[x].split("-")[1]) == 1) {
-//                    Random r = new Random();
+//            for (int x = 0; x < simsem_duplikat.split("-").length; x++) {
+//                Random r = new Random();
+//                while(true){
 //                    int tangkap = r.nextInt(krom[i].data.length);
-//                    while (krom[i].data[tangkap].getAllele().getIdKelas() != 0) {
-//                        tangkap = r.nextInt(krom[i].data.length);
+//                    if(krom[i].data[tangkap].getAllele().getIdKelas()==0){
+//                        krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
+//                        break;
 //                    }
-//                    int index_dihapus = Integer.parseInt(checklist_kk[x].split("-")[2]);
-//                    krom[i].data[index_dihapus].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));//hapus
-//                    krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
-//                    System.out.println("h " + index_dihapus + " g " + tangkap);
-//                } else {
 //                }
-            }
+////                if (Integer.parseInt(checklist_kk[x].split("-")[1]) == 1) {
+////                    Random r = new Random();
+////                    int tangkap = r.nextInt(krom[i].data.length);
+////                    while (krom[i].data[tangkap].getAllele().getIdKelas() != 0) {
+////                        tangkap = r.nextInt(krom[i].data.length);
+////                    }
+////                    int index_dihapus = Integer.parseInt(checklist_kk[x].split("-")[2]);
+////                    krom[i].data[index_dihapus].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));//hapus
+////                    krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
+////                    System.out.println("h " + index_dihapus + " g " + tangkap);
+////                } else {
+////                }
+//            }
 //            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
 //                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
 //            }
