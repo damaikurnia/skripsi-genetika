@@ -92,10 +92,10 @@ public class Populasi {
         solusiAwalIterasi();
         HitungFitness();
         System.out.println("Semula");
-        cetak();
+//        cetak();
         System.out.println("Setelah Di Cross");
         parent = Genetika.crossover(parent);
-        cetak();
+//        cetak();
         System.out.println("MUTASI");
         parent = Genetika.Mutasi(parent);
         System.out.println("\nHasil Mutasi");
