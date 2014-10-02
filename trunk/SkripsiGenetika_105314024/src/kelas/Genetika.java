@@ -58,7 +58,7 @@ public class Genetika {
 
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
-            if (i < point) { // samakan gen A dan C ke child 1 dan 2
+            if (i < point ) { // samakan gen A dan C ke child 1 dan 2
                 krom[2].getData()[i].setAllele(krom[0].getData()[i].getAllele());
                 krom[3].getData()[i].setAllele(krom[1].getData()[i].getAllele());
             } else {
@@ -100,24 +100,24 @@ public class Genetika {
 
             //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
             for (int j = 0; j < checklist_kk.length; j++) { //menyaring id yang belum ada di gen[]
-                if(checklist_kk[j].split("-")[1].equals("0")){
-                    simsem_hilang = simsem_hilang + checklist_kk[j].split("-")[0]+"-";
+                if (checklist_kk[j].split("-")[1].equals("0")) {
+                    simsem_hilang = simsem_hilang + checklist_kk[j].split("-")[0] + "-";
                 }
             }
             System.out.println("Yang HILANG");
             for (int a = 0; a < simsem_hilang.split("-").length; a++) {
                 System.out.print(simsem_hilang.split("-")[a] + " ");
             }
-                
-//            for (int x = 0; x < simsem_duplikat.split("-").length; x++) {
-//                Random r = new Random();
-//                while(true){
-//                    int tangkap = r.nextInt(krom[i].data.length);
-//                    if(krom[i].data[tangkap].getAllele().getIdKelas()==0){
-//                        krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
-//                        break;
-//                    }
-//                }
+
+////            for (int x = 0; x < simsem_duplikat.split("-").length; x++) {
+////                Random r = new Random();
+////                while(true){
+////                    int tangkap = r.nextInt(krom[i].data.length);
+////                    if(krom[i].data[tangkap].getAllele().getIdKelas()==0){
+////                        krom[i].data[tangkap].setAllele(gantiKelasKuliah(checklist_kk[x].split("-")[0]));//add
+////                        break;
+////                    }
+////                }
 ////                if (Integer.parseInt(checklist_kk[x].split("-")[1]) == 1) {
 ////                    Random r = new Random();
 ////                    int tangkap = r.nextInt(krom[i].data.length);
@@ -130,11 +130,10 @@ public class Genetika {
 ////                    System.out.println("h " + index_dihapus + " g " + tangkap);
 ////                } else {
 ////                }
-//            }
-//            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
-//                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
-//            }
-
+////            }
+////            for (int j = 0; j < checklist_kk.length; j++) { //reset checklist_kk
+////                checklist_kk[j] = checklist_kk[j].split("-")[0] + "-0";
+////            }
             //menggeser 1 gen yang memiliki nilai fitness
         }
 
