@@ -58,7 +58,7 @@ public class Genetika {
 
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
-            if (i < point ) { // samakan gen A dan C ke child 1 dan 2
+            if (i < point) { // samakan gen A dan C ke child 1 dan 2
                 krom[2].getData()[i].setAllele(krom[0].getData()[i].getAllele());
                 krom[3].getData()[i].setAllele(krom[1].getData()[i].getAllele());
             } else {
@@ -89,7 +89,7 @@ public class Genetika {
                         checklist_kk[tangkap] = checklist_kk[tangkap].split("-")[0] + "-1";//idkelas-<1/0>-index gen
                     } else {
                         simsem_duplikat = simsem_duplikat + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
-                        krom[i].data[j].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //langsung menghapus matkul duplikat
+//                        krom[i].data[j].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //langsung menghapus matkul duplikat
                     }
                 }
             }
@@ -109,6 +109,20 @@ public class Genetika {
                 System.out.print(simsem_hilang.split("-")[a] + " ");
             }
 
+            int point = krom[i].data.length / 2;
+            for (int j = point; j < krom[i].data.length; j++) {
+                if (krom[i].data[point].allele.getIdKelas() != 0) {
+                    int simpanid = 0;
+                    for (int k = 0; k < simsem_duplikat.split("-").length; k++) {
+                        if (Integer.parseInt(simsem_duplikat.split("-")[k])==krom[i].data[j].allele.getIdKelas()) {
+                            krom[i].data[j].allele = new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"));//hapus
+//                            simpanid++;
+//                            System.out.println("hapus " + simpanid);
+//                            System.out.println("cek "+Integer.parseInt(simsem_duplikat.split("-")[k])+"-"+krom[i].data[j].allele.getIdKelas());
+                        }
+                    }
+                }
+            }
 ////            for (int x = 0; x < simsem_duplikat.split("-").length; x++) {
 ////                Random r = new Random();
 ////                while(true){
