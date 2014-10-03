@@ -103,9 +103,8 @@ public class Populasi {
 //        System.out.println("------");
 //        routleWheelSelection();
 
-//        for (int i = 0; i < parent.length; i++) { // parent.length
-//            for (int j = 110; j < parent[i].getData().length; j++) {
-////            for (int j = 0; j < 1; j++) {
+//        for (int i = 2; i < 3; i++) { // parent.length
+//            for (int j = 0; j < parent[i].getData().length; j++) {
 //                System.out.println("Gen[" + i + "]");
 //                System.out.println("Index "+j);
 //                System.out.println("idKelas     : " + parent[i].getData()[j].getAllele().getIdKelas());
