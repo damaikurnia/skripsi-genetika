@@ -51,10 +51,10 @@ public class Genetika {
     public static Kromosom[] crossover(Kromosom[] parent) {
 //        routleWheelSelection();
         Kromosom[] krom = parent;
-//        popul[0] = parent1;//parent 1 A - B
-//        popul[1] = parent2;//parent 2 C - D
-//        popul[2] = parent1;//child 1 A - D
-//        popul[3] = parent2;//child 2 C - B
+        //parent 1 A - B
+        //parent 2 C - D
+        //child 1 A - D
+        //child 2 C - B
 
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
@@ -93,7 +93,6 @@ public class Genetika {
                     }
                 }
             }
-
 //            for (int a = 0; a < simsem_duplikat.split("-").length; a++) {
 //                System.out.print(simsem_duplikat.split("-")[a] + " ");
 //            }
@@ -103,21 +102,21 @@ public class Genetika {
                     simsem_hilang = simsem_hilang + checklist_kk[j].split("-")[0] + "-";
                 }
             }
-            System.out.println("Yang HILANG");
-            for (int a = 0; a < simsem_hilang.split("-").length; a++) {
-                System.out.print(simsem_hilang.split("-")[a] + " ");
-            }
+//            System.out.println("Yang HILANG");
+//            for (int a = 0; a < simsem_hilang.split("-").length; a++) {
+//                System.out.print(simsem_hilang.split("-")[a] + " ");
+//            }
 
+            //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
             int point = krom[i].data.length / 2;
             for (int s = 0; s < simsem_hilang.split("-").length; s++) {
                 int tangkap = 0;
                 Random r = new Random();
                 while (tangkap < point) {
                     tangkap = r.nextInt(krom[i].data.length);
-                    if(krom[i].data[tangkap].allele.getIdKelas()!=0){
+                    if (krom[i].data[tangkap].allele.getIdKelas() != 0) {
                         tangkap = 0;
-                    }
-                    else{
+                    } else {
                         tangkap = tangkap;
                     }
                 }
@@ -125,8 +124,59 @@ public class Genetika {
                 krom[i].data[tangkap].setAllele(gantiKelasKuliah(id));
             }
 
-            //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
             //menggeser 1 gen yang memiliki nilai fitness
+            int kiri = 0, kanan = 0;
+            for (int t = 0; t < krom[i].data.length; t++) {
+                if (krom[i].data[t].getAllele().getIdKelas() == 0) {
+                    kiri = kiri;
+                    kanan = kanan;
+                } else {
+                    if (t < point) {
+                        kiri++;
+                    } else {
+                        kanan++;
+                    }
+                }
+            }
+            while (true) {
+                int posisiAsal = 0;
+                int posisiTujuan = 0;
+                Random r = new Random();
+                if (kiri > kanan) {
+                    posisiAsal = r.nextInt(point);
+                    posisiTujuan = r.nextInt(krom[i].data.length);
+                    if(krom[i].data[posisiAsal].getAllele().getIdKelas() != 0&&
+                            krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0&&
+                            posisiTujuan>=point){
+                        krom[i].data[posisiTujuan].setAllele(krom[i].data[posisiAsal].getAllele());
+                        krom[i].data[posisiAsal].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
+                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
+                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
+                        break;
+                    }
+                    else{
+                        posisiAsal = 0;
+                        posisiTujuan = 0;
+                    }
+                }
+                else {
+                    posisiAsal = r.nextInt(krom[i].data.length);
+                    posisiTujuan = r.nextInt(point);
+                    if(krom[i].data[posisiAsal].getAllele().getIdKelas() != 0&&
+                            krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0&&
+                            posisiAsal>=point){
+                        krom[i].data[posisiTujuan].setAllele(krom[i].data[posisiAsal].getAllele());
+                        krom[i].data[posisiAsal].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
+                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
+                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
+                        break;
+                    }
+                    else{
+                        posisiAsal = 0;
+                        posisiTujuan = 0;
+                    }
+                }
+            }
         }
 
         return krom;
