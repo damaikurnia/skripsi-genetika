@@ -99,7 +99,7 @@ public class Populasi {
         System.out.println("MUTASI");
         parent = Genetika.Mutasi(parent);
         System.out.println("\nHasil Mutasi");
-        cetak();
+//        cetak();
 //        System.out.println("------");
 //        routleWheelSelection();
 
@@ -120,6 +120,11 @@ public class Populasi {
 //            }
 //            System.out.println("------------------------------------------------------------------------------------");
 //        }
+        for (int i = 2; i < 3; i++) { // parent.length
+            for (int j = 0; j < parent[i].getData().length; j++) {
+                System.out.println(parent[i].getData()[j].getRuang().getIdRuang());
+            }
+        }
     }
 
     public static void main(String[] args) {
