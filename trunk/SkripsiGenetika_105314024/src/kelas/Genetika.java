@@ -77,8 +77,7 @@ public class Genetika {
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
-//        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
-        for (int i = 2; i < 3; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
+        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
 //            String simsem_duplikat = "";
             String simsem_hilang = "";
             for (int j = 0; j < krom[i].data.length; j++) {
@@ -176,6 +175,9 @@ public class Genetika {
                         posisiTujuan = 0;
                     }
                 }
+            }
+            for (int p = 0; i < checklist_kk.length; i++) {
+                checklist_kk[p] = checklist_kk[p].split("-") + "-0";
             }
         }
 

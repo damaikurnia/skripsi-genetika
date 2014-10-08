@@ -33,6 +33,7 @@ public class MataKuliahKontrol {
         
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void updateMataKuliah(MataKuliah mk) throws SQLException {
@@ -50,6 +51,7 @@ public class MataKuliahKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void deleteMataKuliah(MataKuliah mk) throws SQLException {
@@ -61,6 +63,7 @@ public class MataKuliahKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
     
     public List<MataKuliah> tampilMataKuliah() throws SQLException {
@@ -82,6 +85,7 @@ public class MataKuliahKontrol {
             temp.setJP(result.getInt(5));
             mk.add(temp);
         }
+        conn.close();
         return mk;
     }
     
@@ -98,7 +102,7 @@ public class MataKuliahKontrol {
         while (result.next()) {
             semester = result.getInt(1);
         }
-        
+        conn.close();
         return semester;
     } 
     
@@ -125,6 +129,7 @@ public class MataKuliahKontrol {
             mk.add(temp);
         }
         conn.commit();
+        conn.close();
         return mk;
     }
     
@@ -142,6 +147,7 @@ public class MataKuliahKontrol {
             kel.add(result.getString(1)+"-"+result.getString(2)+"-0");
         }
         conn.commit();
+        conn.close();
         return kel;
     }
 }
