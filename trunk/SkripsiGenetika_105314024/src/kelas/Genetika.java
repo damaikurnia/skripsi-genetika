@@ -120,8 +120,11 @@ public class Genetika {
                         tangkap = tangkap;
                     }
                 }
-                String id = simsem_hilang.split("-")[s];
-                krom[i].data[tangkap].setAllele(gantiKelasKuliah(id));
+                if (simsem_hilang.equals("")) {
+                } else {
+                    String id = simsem_hilang.split("-")[s];
+                    krom[i].data[tangkap].setAllele(gantiKelasKuliah(id));
+                }
             }
 
             //menggeser 1 gen yang memiliki nilai fitness
@@ -145,33 +148,30 @@ public class Genetika {
                 if (kiri > kanan) {
                     posisiAsal = r.nextInt(point);
                     posisiTujuan = r.nextInt(krom[i].data.length);
-                    if(krom[i].data[posisiAsal].getAllele().getIdKelas() != 0&&
-                            krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0&&
-                            posisiTujuan>=point){
+                    if (krom[i].data[posisiAsal].getAllele().getIdKelas() != 0
+                            && krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0
+                            && posisiTujuan >= point) {
                         krom[i].data[posisiTujuan].setAllele(krom[i].data[posisiAsal].getAllele());
                         krom[i].data[posisiAsal].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
-                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
-                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
+//                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
+//                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
                         break;
-                    }
-                    else{
+                    } else {
                         posisiAsal = 0;
                         posisiTujuan = 0;
                     }
-                }
-                else {
+                } else {
                     posisiAsal = r.nextInt(krom[i].data.length);
                     posisiTujuan = r.nextInt(point);
-                    if(krom[i].data[posisiAsal].getAllele().getIdKelas() != 0&&
-                            krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0&&
-                            posisiAsal>=point){
+                    if (krom[i].data[posisiAsal].getAllele().getIdKelas() != 0
+                            && krom[i].data[posisiTujuan].getAllele().getIdKelas() == 0
+                            && posisiAsal >= point) {
                         krom[i].data[posisiTujuan].setAllele(krom[i].data[posisiAsal].getAllele());
                         krom[i].data[posisiAsal].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
-                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
-                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
+//                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
+//                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
                         break;
-                    }
-                    else{
+                    } else {
                         posisiAsal = 0;
                         posisiTujuan = 0;
                     }

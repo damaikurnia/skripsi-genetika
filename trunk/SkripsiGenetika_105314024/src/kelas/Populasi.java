@@ -14,6 +14,8 @@ public class Populasi {
     Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
     int[] N_fitness = new int[4];
     int iterasi = 0;
+    int indexSolusi = 0;
+    int[] score = new int[4];
 
     public void solusiAwalIterasi() {
         for (int i = 0; i < parent.length; i++) {
@@ -22,7 +24,7 @@ public class Populasi {
         iterasi++;
     }
 
-    public void HitungFitness() {
+    public void EvaluasiFitness() {
         for (int i = 0; i < getParent().length; i++) {
             parent[i] = Pelanggaran.eksekusiAturan(parent[i]);
             N_fitness[i] = 0;
@@ -30,6 +32,21 @@ public class Populasi {
                 N_fitness[i] = N_fitness[i] + parent[i].getData()[j].getNilaiFitness();
             }
 //            System.out.println(N_fitness[i]); //tampilkan nilai fitnes kromosom ke i
+        }
+    }
+
+    public void kriteriaBerhenti() {
+        for (int i = 0; i < parent.length; i++) {
+            for (int j = 0; j < parent[i].data.length; j++) {
+                if (parent[i].data[j].getNilaiFitness() != 0) {
+                    score[i] = score[i] + parent[i].data[j].getNilaiFitness();
+                } else {
+                    score[i] = score[i];
+                }
+            }
+            if (score[i] == 0) {
+                indexSolusi = i;
+            }
         }
     }
 
@@ -61,17 +78,6 @@ public class Populasi {
 //    }
 
     public void RouleteWheelSelection() {
-        int[] score = new int[4];
-        for (int i = 0; i < parent.length; i++) {
-            for (int j = 0; j < parent[i].data.length; j++) {
-                if (parent[i].data[j].getNilaiFitness() != 0) {
-                    score[i] = score[i] + parent[i].data[j].getNilaiFitness();
-                } else {
-                    score[i] = score[i];
-                }
-            }
-        }
-
         for (int iterasi = 0; iterasi <= score.length - 2; iterasi++) {//selection Sort Method
             int minIndex = iterasi;
             for (int elemen = iterasi + 1; elemen <= score.length - 1; elemen++) {
@@ -86,6 +92,10 @@ public class Populasi {
             int temp1 = score[iterasi];
             score[iterasi] = score[minIndex];
             score[minIndex] = temp1;
+        }
+
+        for (int i = 0; i < score.length; i++) { //reset score
+            score[i] = 0;
         }
     }
 
@@ -119,20 +129,19 @@ public class Populasi {
 
     public void prosesGenetika() {
         solusiAwalIterasi();
-        HitungFitness();
-        cetak();
-        RouleteWheelSelection();
-        System.out.println("Semula");
-        cetak();
-        System.out.println("Setelah Di Cross");
-        parent = Genetika.crossover(parent);
-//        cetak();
-        System.out.println("MUTASI");
-//        parent = Genetika.Mutasi(parent);
-        System.out.println("\nHasil Mutasi");
-//        cetak();
-//        System.out.println("------");
-//        routleWheelSelection();
+        EvaluasiFitness();
+        kriteriaBerhenti();
+        while (indexSolusi == 0) {
+            iterasi++;
+            System.out.println(iterasi);
+            RouleteWheelSelection();
+            parent = Genetika.crossover(parent);
+            parent = Genetika.Mutasi(parent);
+            EvaluasiFitness();
+            kriteriaBerhenti();
+        }
+        System.out.println("Solusi : "+indexSolusi);
+        System.out.println("Selama : "+iterasi+" iterasi");
 
 //        for (int i = 0; i < parent.length; i++) { // parent.length
 //            for (int j = 0; j < parent[i].getData().length; j++) {
