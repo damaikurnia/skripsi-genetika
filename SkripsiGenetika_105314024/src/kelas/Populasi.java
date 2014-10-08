@@ -33,30 +33,59 @@ public class Populasi {
         }
     }
 
-//    public void cetak() {
-//        for (int i = 0; i < parent.length; i++) {
-//            for (int j = 0; j < parent[i].getData().length; j++) {
-//                if (j == 110) {
-////                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                } else {
-//                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                }
-//            }
-//            System.out.println("");
-//        }
-//    }
     public void cetak() {
-        for (int i = 2; i < 3; i++) {
+        for (int i = 0; i < parent.length; i++) {
             for (int j = 0; j < parent[i].getData().length; j++) {
                 if (j == 110) {
 //                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
                 } else {
-                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
                 }
             }
-//            System.out.println("");
+            System.out.println("");
+        }
+    }
+//    public void cetak() {
+//        for (int i = 2; i < 3; i++) {
+//            for (int j = 0; j < parent[i].getData().length; j++) {
+//                if (j == 110) {
+////                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
+//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+//                } else {
+//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+//                }
+//            }
+////            System.out.println("");
+//        }
+//    }
+
+    public void RouleteWheelSelection() {
+        int[] score = new int[4];
+        for (int i = 0; i < parent.length; i++) {
+            for (int j = 0; j < parent[i].data.length; j++) {
+                if (parent[i].data[j].getNilaiFitness() != 0) {
+                    score[i] = score[i] + parent[i].data[j].getNilaiFitness();
+                } else {
+                    score[i] = score[i];
+                }
+            }
+        }
+
+        for (int iterasi = 0; iterasi <= score.length - 2; iterasi++) {//selection Sort Method
+            int minIndex = iterasi;
+            for (int elemen = iterasi + 1; elemen <= score.length - 1; elemen++) {
+                if (score[elemen] < score[minIndex]) {
+                    minIndex = elemen;
+                }
+            }
+            Kromosom temp = parent[iterasi];
+            parent[iterasi] = parent[minIndex];
+            parent[minIndex] = temp;
+
+            int temp1 = score[iterasi];
+            score[iterasi] = score[minIndex];
+            score[minIndex] = temp1;
         }
     }
 
@@ -91,19 +120,21 @@ public class Populasi {
     public void prosesGenetika() {
         solusiAwalIterasi();
         HitungFitness();
+        cetak();
+        RouleteWheelSelection();
         System.out.println("Semula");
-//        cetak();
+        cetak();
         System.out.println("Setelah Di Cross");
         parent = Genetika.crossover(parent);
 //        cetak();
         System.out.println("MUTASI");
-        parent = Genetika.Mutasi(parent);
+//        parent = Genetika.Mutasi(parent);
         System.out.println("\nHasil Mutasi");
 //        cetak();
 //        System.out.println("------");
 //        routleWheelSelection();
 
-//        for (int i = 2; i < 3; i++) { // parent.length
+//        for (int i = 0; i < parent.length; i++) { // parent.length
 //            for (int j = 0; j < parent[i].getData().length; j++) {
 //                System.out.println("Gen[" + i + "]");
 //                System.out.println("Index "+j);
@@ -120,11 +151,11 @@ public class Populasi {
 //            }
 //            System.out.println("------------------------------------------------------------------------------------");
 //        }
-        for (int i = 2; i < 3; i++) { // parent.length
-            for (int j = 0; j < parent[i].getData().length; j++) {
-                System.out.println(parent[i].getData()[j].getRuang().getIdRuang());
-            }
-        }
+//        for (int i = 2; i < 3; i++) { // parent.length
+//            for (int j = 0; j < parent[i].getData().length; j++) {
+//                System.out.println(parent[i].getData()[j].getRuang().getIdRuang());
+//            }
+//        }
     }
 
     public static void main(String[] args) {
