@@ -42,6 +42,7 @@ public class KelasMatkulKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void updateKelasMataKuliah(KelasKuliah kk) throws SQLException {
@@ -58,6 +59,7 @@ public class KelasMatkulKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void deleteKelasMataKuliah(KelasKuliah kk) throws SQLException {
@@ -69,6 +71,7 @@ public class KelasMatkulKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public List<KelasKuliah> tampilKelasMataKuliah() throws SQLException {
@@ -89,6 +92,7 @@ public class KelasMatkulKontrol {
             temp.setKelas(result.getString(4));
             mk.add(temp);
         }
+        conn.close();
         return mk;
     }
 
@@ -106,6 +110,7 @@ public class KelasMatkulKontrol {
             mk.setNamaMK(result.getString(2));
         }
         conn.commit();
+        conn.close();
         return mk;
     }
 
@@ -121,6 +126,7 @@ public class KelasMatkulKontrol {
         while (result.next()) {
             mk = new Dosen(result.getString(1), result.getString(2), "");
         }
+        conn.close();
         return mk;
     }
     
@@ -136,6 +142,7 @@ public class KelasMatkulKontrol {
         while (result.next()) {
             mk = "TOTAL MATAKULIAH : "+result.getInt(1);
         }
+        conn.close();
         return mk;
     }
 }

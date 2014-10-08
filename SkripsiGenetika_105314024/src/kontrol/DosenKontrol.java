@@ -31,6 +31,7 @@ public class DosenKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void updateDosen(Dosen dosen) throws SQLException {
@@ -44,6 +45,7 @@ public class DosenKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void deleteDosen(Dosen dosen) throws SQLException {
@@ -55,6 +57,7 @@ public class DosenKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
     
     public List<Dosen> tampilDosen() throws SQLException {
@@ -71,6 +74,7 @@ public class DosenKontrol {
             temp = new Dosen(result.getString(1), result.getString(2),result.getString(3));
             dsn.add(temp);
         }
+        conn.close();
         return dsn;
     }
     
@@ -89,6 +93,7 @@ public class DosenKontrol {
             dosen.add(new Dosen(rset.getString(1), rset.getString(2), rset.getString(1)));
         }
         conn.commit();
+        conn.close();
         return dosen;
     }
     
@@ -104,6 +109,7 @@ public class DosenKontrol {
             kel.add(result.getString(1)+"-0");
         }
         conn.commit();
+        conn.close();
         return kel;
     }
 }

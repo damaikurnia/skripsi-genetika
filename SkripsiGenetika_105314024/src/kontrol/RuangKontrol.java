@@ -44,6 +44,7 @@ public class RuangKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void updateRuang(Ruang ruang) throws SQLException {
@@ -57,6 +58,7 @@ public class RuangKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
 
     public void deleteRuang(Ruang ruang) throws SQLException {
@@ -68,6 +70,7 @@ public class RuangKontrol {
 
         stmt.executeUpdate();
         conn.commit();
+        conn.close();
     }
     
     public List<Ruang> tampilRuang() throws SQLException {
@@ -84,6 +87,7 @@ public class RuangKontrol {
             temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
             ruang.add(temp);
         }
+        conn.close();
         return ruang;
     }
     
@@ -99,6 +103,7 @@ public class RuangKontrol {
         while (result.next()) {
             jumlah = result.getInt(1);
         }
+        conn.close();
         return jumlah;
     }
     
@@ -117,6 +122,7 @@ public class RuangKontrol {
             temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
             ruang.add(temp);
         }
+        conn.close();
         return ruang;
     }
 }
