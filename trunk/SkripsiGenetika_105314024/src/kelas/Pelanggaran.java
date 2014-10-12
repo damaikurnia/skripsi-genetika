@@ -20,6 +20,9 @@ import kontrol.RuangKontrol;
 public class Pelanggaran {
 
     static int jumlah_ruang;
+    static List<Dosen> dataDosen;
+    static List<KelasKuliah> dataKelasMakul;
+    static List<MataKuliah> dataMatakuliah;
 
     public Pelanggaran() {
     }
@@ -154,6 +157,7 @@ public class Pelanggaran {
         int temp_count = 0;
         List<String> kel = null;
         try {
+//            kel = MataKuliahKontrol.getKoneksi().cariKelompokKelas(dataKelasMakul,dataMatakuliah);//
             kel = MataKuliahKontrol.getKoneksi().cariKelompokKelas();
         } catch (SQLException ex) {
             Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,12 +206,7 @@ public class Pelanggaran {
         int count = 0;
         int temp_count = 0;
         List<String> kel = null;
-        try {
-            kel = DosenKontrol.getKoneksi().cariKelompokDosen();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        kel = DosenKontrol.cariKelompokDosen(dataDosen);
         while (true) { //mencari rentang hari
             if (x.getData()[count].getHari().equals(hari[0])) {
                 count++;
@@ -244,19 +243,17 @@ public class Pelanggaran {
         return x;
     } //aturan 5
 
-    public static Kromosom eksekusiAturan(Kromosom x) {
-        try {
-            jumlah_ruang = RuangKontrol.getKoneksi().jumlahRuang();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static Kromosom eksekusiAturan(Kromosom x, List<Ruang> dataRuang, List<Dosen> dtDosen) {
+        jumlah_ruang = RuangKontrol.jumlahRuang(dataRuang);
+        dataDosen = dtDosen;
+
         Kromosom parent;
 //        parent = Pelanggaran.cekRuang(x);
 //        parent = Pelanggaran.cekDosen(x);
 //        parent = Pelanggaran.cekMatakuliah(x);
 //        parent = Pelanggaran.cekJumlahMatakuliah(x);
 //        parent = Pelanggaran.cekDosenMengajar(x);
-        
+
         parent = Pelanggaran.cekRuang(x);
         parent = Pelanggaran.cekDosen(parent);
         parent = Pelanggaran.cekMatakuliah(parent);

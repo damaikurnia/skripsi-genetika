@@ -1,14 +1,17 @@
-
 package kontrol;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import koneksi.Koneksi;
 import kelas.Dosen;
+import kelas.KelasKuliah;
 import kelas.MataKuliah;
 
 public class MataKuliahKontrol {
+
     private Connection conn;
 
     public MataKuliahKontrol(Connection conn) {
@@ -30,7 +33,7 @@ public class MataKuliahKontrol {
         stmt.setInt(3, mk.getSks());
         stmt.setInt(4, mk.getSemester());
         stmt.setInt(5, mk.getJP());
-        
+
         stmt.executeUpdate();
         conn.commit();
         conn.close();
@@ -42,7 +45,7 @@ public class MataKuliahKontrol {
         String query = "update MATAKULIAH set namaMK = ?, sks = ?,"
                 + "semester = ?, JP = ? where idMK = ?";
         stmt = conn.prepareStatement(query);
-        
+
         stmt.setString(1, mk.getNamaMK());
         stmt.setInt(2, mk.getSks());
         stmt.setInt(3, mk.getSemester());
@@ -65,7 +68,7 @@ public class MataKuliahKontrol {
         conn.commit();
         conn.close();
     }
-    
+
     public List<MataKuliah> tampilMataKuliah() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -74,7 +77,7 @@ public class MataKuliahKontrol {
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<MataKuliah> mk = new ArrayList<MataKuliah>();
-        
+
         MataKuliah temp = null;
         while (result.next()) {
             temp = new MataKuliah();
@@ -88,24 +91,17 @@ public class MataKuliahKontrol {
         conn.close();
         return mk;
     }
-    
-    public int cariSemester(String idMK) throws SQLException{
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT semester FROM matakuliah WHERE idMK = ?";
-        stmt = conn.prepareStatement(query);
-        stmt.setString(1, idMK);
-        result = stmt.executeQuery();
+
+    public static int cariSemester(String idMK, List<MataKuliah> makul) {
         int semester = 0;
-        
-        while (result.next()) {
-            semester = result.getInt(1);
+        for (int i = 0; i < makul.size(); i++) {
+            if (makul.get(i).getIdMK().equals(idMK)) {
+                semester = makul.get(i).getSemester();
+            }
         }
-        conn.close();
         return semester;
-    } 
-    
+    }
+
     public List<MataKuliah> cariMatakuliah(String key) throws SQLException {
         PreparedStatement psmt = null;
         ResultSet result = null;
@@ -132,7 +128,43 @@ public class MataKuliahKontrol {
         conn.close();
         return mk;
     }
-    
+
+//    public List<String> cariKelompokKelas(List<KelasKuliah> datakelasMakul, List<MataKuliah> datamakul) {
+//        for (int i = 0; i < datakelasMakul.size(); i++) {
+//            for (int j = 0; j < datamakul.size(); j++) {
+//                if (datakelasMakul.get(i).getIdMK().getIdMK().equals(datamakul.get(j).getIdMK())) {
+//                    datakelasMakul.get(i).setIdMK(datamakul.get(j));
+//                }
+//            }
+//        }
+//
+//        List<String> kel = new ArrayList<String>();
+//        kel.add(datakelasMakul.get(0).getIdMK().getSemester() + "-" + datakelasMakul.get(0).getKelas() + "-0");
+//        for (int i = 0; i < datakelasMakul.size(); i++) {
+//            int semester = 0;
+//            String kelas = "";
+//            int point = 0;
+//
+//            //result.getString(1)+"-"+result.getString(2)+"-0"
+//            for (int j = 0; j < kel.size(); j++) {
+//                semester = datakelasMakul.get(i).getIdMK().getSemester();
+//                kelas = datakelasMakul.get(0).getKelas();
+//                if (kel.get(j).split("-")[0].equals(Integer.toString(semester)) && kel.get(j).split("-")[1].equals(kelas)) {
+//                    point = 1;//1 kalo ada
+//                } else {
+//                    point = point;//0 kalo tidak ada
+//                }
+//            }
+//            if (point == 0) {
+//                kel.add(datakelasMakul.get(i).getIdMK().getSemester() + "-" + datakelasMakul.get(i).getKelas() + "-0");
+//                point = 1;
+//            } else {
+//                point = 0;
+//            }
+//        }
+//        return kel;
+//    }
+
     public List<String> cariKelompokKelas() throws SQLException {
         PreparedStatement psmt = null;
         ResultSet result = null;
@@ -150,4 +182,21 @@ public class MataKuliahKontrol {
         conn.close();
         return kel;
     }
+    
+//    public static void main(String[] args) {
+//        List<KelasKuliah> datakelasMakul = null;
+//        List<MataKuliah> datamakul = null;
+//        try {
+//            datakelasMakul = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
+//            datamakul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MataKuliahKontrol.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        List<String> data = MataKuliahKontrol.getKoneksi().cariKelompokKelas(datakelasMakul, datamakul);
+//        
+//        for (int i = 0; i < data.size(); i++) {
+//            System.out.println(data.get(i));
+//        }
+//    }
 }

@@ -72,7 +72,7 @@ public class RuangKontrol {
         conn.commit();
         conn.close();
     }
-    
+
     public List<Ruang> tampilRuang() throws SQLException {
         PreparedStatement stmt = null;
         Ruang temp = null;
@@ -82,7 +82,7 @@ public class RuangKontrol {
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
-        
+
         while (result.next()) {
             temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
             ruang.add(temp);
@@ -90,23 +90,19 @@ public class RuangKontrol {
         conn.close();
         return ruang;
     }
-    
-    public int jumlahRuang() throws SQLException{
-        PreparedStatement stmt = null;
-        Ruang temp = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT COUNT(jenisRuang) FROM ruang WHERE jenisRuang LIKE ('TEORI%')";
-        stmt = conn.prepareStatement(query);
-        result = stmt.executeQuery();
+
+    public static int jumlahRuang(List<Ruang> dataruang) {
         int jumlah = 0;
-        while (result.next()) {
-            jumlah = result.getInt(1);
+        for (int i = 0; i < dataruang.size(); i++) {
+            if (dataruang.get(i).getJenisRuang().contains("TEORI")) {
+                jumlah = jumlah + 1;
+            } else {
+                jumlah = jumlah;
+            }
         }
-        conn.close();
         return jumlah;
     }
-    
+
     public List<Ruang> tampilRuangTeori() throws SQLException {
         PreparedStatement stmt = null;
         Ruang temp = null;
@@ -117,7 +113,7 @@ public class RuangKontrol {
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
-        
+
         while (result.next()) {
             temp = new Ruang(result.getString(1), result.getString(2), result.getString(3));
             ruang.add(temp);

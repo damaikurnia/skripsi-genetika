@@ -24,20 +24,24 @@ public class Kromosom {
     List<KelasKuliah> dataa = null;
     int ruang = 0;
     List<Ruang> rng = null;
+    List<MataKuliah> makul = null; //buat method isisemester
 
     public Kromosom() {
-        try {
-            dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
-            ruang = RuangKontrol.getKoneksi().jumlahRuang();//jumlah ruang teori
-            rng = RuangKontrol.getKoneksi().tampilRuangTeori();//list nama ruang teori
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            dataa = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();//1
+//            ruang = RuangKontrol.getKoneksi().jumlahRuang();//jumlah ruang teori
+//            rng = RuangKontrol.getKoneksi().tampilRuangTeori();//list nama ruang teori
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    public Kromosom(int a) {
+    public Kromosom(List<KelasKuliah> kelasKuliah, List<Ruang> ruang) {
+        dataa = kelasKuliah;
+        this.ruang = RuangKontrol.jumlahRuang(ruang);
+        rng = ruang;
     }
-
+    
     /**
      * @return the data
      */
@@ -52,51 +56,6 @@ public class Kromosom {
         this.data = data;
     }
 
-//    public Gen[] prosesRandom() { //yg di random matakuliahnya
-//        Random r = new Random();
-//        int hari = 5;
-//        int waktu = 12;
-//        
-//        int N = (hari * ruang * waktu) / 3;
-//        int matkul = dataa.size();
-//        data = new Gen[N];
-//
-//        boolean cek[] = new boolean[matkul + 1];
-//        for (int i = 0; i < cek.length; i++) {
-//            cek[i] = false;
-//        }
-//
-//        int index = 0; //untuk index gen
-//        while (N != 0) {
-//            int tangkap = r.nextInt(matkul + 1);
-//            if (tangkap - 1 == -1) {
-//                data[index] = new Gen();
-//                data[index].setTimeSlot(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
-//                data[index].setHari(tentukanHari(index));//generate
-//                data[index].setJam(tentukanJam(index));//generate
-//                data[index].setRuang(tentukanRuang(index));//generate
-//                data[index].setNilaiFitness(0);
-//                index++;
-//                N--;
-//
-//            } else {
-//                if (cek[tangkap - 1] == false) {
-//                    data[index] = new Gen();
-//                    int temp = tangkap;
-//                    temp = temp - 1;
-//                    data[index].setTimeSlot(dataa.get(temp));
-//                    data[index].setHari(tentukanHari(index));//generate
-//                    data[index].setJam(tentukanJam(index));//generate
-//                    data[index].setRuang(tentukanRuang(index));//generate
-//                    data[index].setNilaiFitness(0);
-//                    index++;
-//                    cek[temp] = true;
-//                    N--;
-//                }
-//            }
-//        }
-//        return data;
-//    }
     public Gen[] prosesRandom() { //yang di random slot gennya
         Random r = new Random();
         int hari = 5;
@@ -137,13 +96,7 @@ public class Kromosom {
 
     public int isiSemester(String idMK) {
         int semester = 0;
-
-        try {
-            semester = MataKuliahKontrol.getKoneksi().cariSemester(idMK);
-        } catch (SQLException ex) {
-            Logger.getLogger(Kromosom.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        semester = MataKuliahKontrol.cariSemester(idMK, makul);
         return semester;
     }
 
@@ -188,7 +141,7 @@ public class Kromosom {
             if (count_bagiruang < bagiruang) {
                 data[i].setRuang(rng.get(count_ruang));
                 count_bagiruang++;
-                if (count_ruang == rng.size()-1 &&count_bagiruang==bagiruang) {
+                if (count_ruang == rng.size() - 1 && count_bagiruang == bagiruang) {
                     count_ruang = 0;
                     count_bagiruang = 0;
                 } else {
@@ -203,8 +156,9 @@ public class Kromosom {
         return data;
     }
 
-    public Kromosom solusiAwal() {
-        Kromosom krom = new Kromosom();
+    public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul) {//
+        Kromosom krom = new Kromosom(kelasKuliah, ruang);
+        this.makul = makul;
         krom.setData(prosesRandom());
         return krom;
     }

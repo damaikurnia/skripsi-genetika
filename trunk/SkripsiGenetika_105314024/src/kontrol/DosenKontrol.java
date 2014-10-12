@@ -1,4 +1,3 @@
-
 package kontrol;
 
 import java.sql.*;
@@ -9,6 +8,7 @@ import kelas.Dosen;
 import kelas.Ruang;
 
 public class DosenKontrol {
+
     private Connection conn;
 
     public DosenKontrol(Connection conn) {
@@ -59,7 +59,7 @@ public class DosenKontrol {
         conn.commit();
         conn.close();
     }
-    
+
     public List<Dosen> tampilDosen() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -68,16 +68,16 @@ public class DosenKontrol {
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Dosen> dsn = new ArrayList<Dosen>();
-        
+
         Dosen temp = null;
         while (result.next()) {
-            temp = new Dosen(result.getString(1), result.getString(2),result.getString(3));
+            temp = new Dosen(result.getString(1), result.getString(2), result.getString(3));
             dsn.add(temp);
         }
         conn.close();
         return dsn;
     }
-    
+
     public List<Dosen> cariDosen(String key) throws SQLException {
         PreparedStatement psmt = null;
         ResultSet rset = null;
@@ -96,20 +96,27 @@ public class DosenKontrol {
         conn.close();
         return dosen;
     }
-    
-    public List<String> cariKelompokDosen() throws SQLException {
-        PreparedStatement psmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String sql = "SELECT idDosen FROM dosen";
-        psmt = conn.prepareStatement(sql);
-        result = psmt.executeQuery();
+
+//    public List<String> cariKelompokDosen() throws SQLException {
+//        PreparedStatement psmt = null;
+//        ResultSet result = null;
+//        conn.setAutoCommit(false);
+//        String sql = "SELECT idDosen FROM dosen";
+//        psmt = conn.prepareStatement(sql);
+//        result = psmt.executeQuery();
+//        List<String> kel = new ArrayList<String>();
+//        while (result.next()) {
+//            kel.add(result.getString(1)+"-0");
+//        }
+//        conn.commit();
+//        conn.close();
+//        return kel;
+//    }
+    public static List<String> cariKelompokDosen(List<Dosen> dataDosen) {
         List<String> kel = new ArrayList<String>();
-        while (result.next()) {
-            kel.add(result.getString(1)+"-0");
+        for (int i = 0; i < dataDosen.size(); i++) {
+            kel.add(dataDosen.get(i).getIdDosen() + "-0");
         }
-        conn.commit();
-        conn.close();
         return kel;
     }
 }

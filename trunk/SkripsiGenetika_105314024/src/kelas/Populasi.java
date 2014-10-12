@@ -5,33 +5,52 @@
  */
 package kelas;
 
+import java.sql.SQLException;
+import java.util.List;
+import kontrol.DosenKontrol;
+import kontrol.KelasMatkulKontrol;
+import kontrol.MataKuliahKontrol;
+import kontrol.RuangKontrol;
+
 /**
  *
  * @author Adhi
  */
 public class Populasi {
-
     Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
-    int[] N_fitness = new int[4];
     int iterasi = 0;
     int indexSolusi = 0;
     int[] score = new int[4];
 
+    //databasenya
+    List<Ruang> dataRuang;
+    List<KelasKuliah> dataKelasKuliah;
+    List<MataKuliah> dataMakul;
+    List<Dosen> dataDosen;
+    
+    public void ambilData() throws SQLException{ //untuk select database
+        dataRuang = RuangKontrol.getKoneksi().tampilRuangTeori();//KELAS PELANGGARAN
+        dataKelasKuliah = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();//KELAS KROMOSOM
+        dataMakul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+        dataDosen = DosenKontrol.getKoneksi().tampilDosen();//KELAS PELANGGARAN
+    }
+    
     public void solusiAwalIterasi() {
         for (int i = 0; i < parent.length; i++) {
-            parent[i] = new Kromosom().solusiAwal();
+            parent[i] = new Kromosom(dataKelasKuliah,dataRuang).solusiAwal(dataKelasKuliah,dataRuang,dataMakul);
         }
         iterasi++;
     }
 
     public void EvaluasiFitness() {
         for (int i = 0; i < getParent().length; i++) {
-            parent[i] = Pelanggaran.eksekusiAturan(parent[i]);
-            N_fitness[i] = 0;
-            for (int j = 0; j < parent[i].getData().length; j++) {
-                N_fitness[i] = N_fitness[i] + parent[i].getData()[j].getNilaiFitness();
-            }
-//            System.out.println(N_fitness[i]); //tampilkan nilai fitnes kromosom ke i
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i],dataRuang,dataDosen);
+        }
+    }
+    
+    public void EvaluasiFitness_child() {
+        for (int i = 2; i < getParent().length; i++) {
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i],dataRuang,dataDosen);
         }
     }
 
@@ -63,19 +82,6 @@ public class Populasi {
             System.out.println("");
         }
     }
-//    public void cetak() {
-//        for (int i = 2; i < 3; i++) {
-//            for (int j = 0; j < parent[i].getData().length; j++) {
-//                if (j == 110) {
-////                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
-//                } else {
-//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
-//                }
-//            }
-////            System.out.println("");
-//        }
-//    }
 
     public void RouleteWheelSelection() {
         for (int iterasi = 0; iterasi <= score.length - 2; iterasi++) {//selection Sort Method
@@ -127,18 +133,19 @@ public class Populasi {
         this.iterasi = iterasi;
     }
 
-    public void prosesGenetika() {
+    public void prosesGenetika() throws SQLException {
+        ambilData();
         solusiAwalIterasi();
         EvaluasiFitness();
         kriteriaBerhenti();
 //        cetak();
         while (indexSolusi == 0) {
             iterasi++;
-//            System.out.println(iterasi);
+            System.out.println(iterasi);
             RouleteWheelSelection();
-            parent = Genetika.crossover(parent);
-            parent = Genetika.Mutasi(parent);
-            EvaluasiFitness();
+            parent = Genetika.crossover(parent,dataKelasKuliah,dataMakul);
+            parent = Genetika.Mutasi(parent,dataKelasKuliah,dataMakul);
+            EvaluasiFitness_child();
             kriteriaBerhenti();
         }
 //        for (int i = 0; i < parent.length; i++) {
@@ -178,7 +185,7 @@ public class Populasi {
 //        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Populasi pop = new Populasi();
         pop.prosesGenetika();
     }
