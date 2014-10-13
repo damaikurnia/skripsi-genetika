@@ -19,7 +19,7 @@ import kontrol.RuangKontrol;
 public class Populasi {
     Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
     int iterasi = 0;
-    int indexSolusi = 0;
+    int indexSolusi = -1;
     int[] score = new int[4];
 
     //databasenya
@@ -70,17 +70,28 @@ public class Populasi {
     }
 
     public void cetak() {
-        for (int i = 0; i < parent.length; i++) {
-            for (int j = 0; j < parent[i].getData().length; j++) {
+//        for (int i = 0; i < parent.length; i++) {
+//            for (int j = 0; j < parent[i].getData().length; j++) {
+//                if (j == 110) {
+////                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
+////                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
+//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+//                } else {
+//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
+//                }
+//            }
+//            System.out.println("");
+//        }
+            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
                 if (j == 110) {
 //                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
+//                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
+                    System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
                 } else {
-                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
+                    System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
                 }
             }
             System.out.println("");
-        }
     }
 
     public void RouleteWheelSelection() {
@@ -139,9 +150,9 @@ public class Populasi {
         EvaluasiFitness();
         kriteriaBerhenti();
 //        cetak();
-        while (indexSolusi == 0) {
+        while (indexSolusi == -1) {
             iterasi++;
-            System.out.println(iterasi);
+//            System.out.println(iterasi);
             RouleteWheelSelection();
             parent = Genetika.crossover(parent,dataKelasKuliah,dataMakul);
             parent = Genetika.Mutasi(parent,dataKelasKuliah,dataMakul);
@@ -160,7 +171,8 @@ public class Populasi {
 //        cetak();
         System.out.println("Solusi : "+indexSolusi);
         System.out.println("Selama : "+iterasi+" iterasi");
-
+        cetak();
+        System.out.println("");
 //        for (int i = 0; i < parent.length; i++) { // parent.length
             for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
                 System.out.println("Gen[" + indexSolusi + "]");
