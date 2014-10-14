@@ -27,11 +27,6 @@ public class Pelanggaran {
     public Pelanggaran() {
     }
 
-    public static Kromosom cekRuang(Kromosom x) {
-        return x;//satu ruang hanya dapat dipakai oleh 1 1 matkul dihari dan jam yang sama
-        //syarat ini sudah terpenuhi secara otomatis oleh sistem.
-    } //aturan 1 - return kromosom
-
     public static Kromosom cekDosen(Kromosom x) {
         int[] posisi_jam = new int[jumlah_ruang];//menetukan jam ke x di setiap ruang
         String[] hari = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat"};
@@ -248,14 +243,8 @@ public class Pelanggaran {
         dataDosen = dtDosen;
 
         Kromosom parent;
-//        parent = Pelanggaran.cekRuang(x);
-//        parent = Pelanggaran.cekDosen(x);
-//        parent = Pelanggaran.cekMatakuliah(x);
-//        parent = Pelanggaran.cekJumlahMatakuliah(x);
-//        parent = Pelanggaran.cekDosenMengajar(x);
 
-        parent = Pelanggaran.cekRuang(x);
-        parent = Pelanggaran.cekDosen(parent);
+        parent = Pelanggaran.cekDosen(x);
         parent = Pelanggaran.cekMatakuliah(parent);
         parent = Pelanggaran.cekJumlahMatakuliah(parent);
         parent = Pelanggaran.cekDosenMengajar(parent);
