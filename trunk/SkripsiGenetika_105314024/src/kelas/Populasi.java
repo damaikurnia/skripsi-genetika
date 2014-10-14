@@ -27,30 +27,30 @@ public class Populasi {
     List<KelasKuliah> dataKelasKuliah;
     List<MataKuliah> dataMakul;
     List<Dosen> dataDosen;
-    
-    public void ambilData() throws SQLException{ //untuk select database
+
+    public void ambilData() throws SQLException { //untuk select database
         dataRuang = RuangKontrol.getKoneksi().tampilRuangTeori();//KELAS PELANGGARAN
         dataKelasKuliah = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();//KELAS KROMOSOM
         dataMakul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
         dataDosen = DosenKontrol.getKoneksi().tampilDosen();//KELAS PELANGGARAN
     }
-    
+
     public void solusiAwalIterasi() {
         for (int i = 0; i < parent.length; i++) {
-            parent[i] = new Kromosom(dataKelasKuliah,dataRuang).solusiAwal(dataKelasKuliah,dataRuang,dataMakul);
+            parent[i] = new Kromosom(dataKelasKuliah, dataRuang).solusiAwal(dataKelasKuliah, dataRuang, dataMakul);
         }
         iterasi++;
     }
 
     public void EvaluasiFitness() {
         for (int i = 0; i < getParent().length; i++) {
-            parent[i] = Pelanggaran.eksekusiAturan(parent[i],dataRuang,dataDosen);
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen);
         }
     }
-    
+
     public void EvaluasiFitness_child() {
         for (int i = 2; i < getParent().length; i++) {
-            parent[i] = Pelanggaran.eksekusiAturan(parent[i],dataRuang,dataDosen);
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen);
         }
     }
 
@@ -82,16 +82,16 @@ public class Populasi {
 //            }
 //            System.out.println("");
 //        }
-            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
-                if (j == 110) {
+        for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
+            if (j == 110) {
 //                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
 //                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
-                    System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
-                } else {
-                    System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
-                }
+                System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
+            } else {
+                System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
             }
-            System.out.println("");
+        }
+        System.out.println("");
     }
 
     public void RouleteWheelSelection() {
@@ -154,46 +154,31 @@ public class Populasi {
             iterasi++;
 //            System.out.println(iterasi);
             RouleteWheelSelection();
-            parent = Genetika.crossover(parent,dataKelasKuliah,dataMakul);
-            parent = Genetika.Mutasi(parent,dataKelasKuliah,dataMakul);
+            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul);
+            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul);
             EvaluasiFitness_child();
             kriteriaBerhenti();
         }
-//        for (int i = 0; i < parent.length; i++) {
-//            iterasi++;
-//            System.out.println(iterasi);
-//            RouleteWheelSelection();
-//            parent = Genetika.crossover(parent);
-//            parent = Genetika.Mutasi(parent);
-//            EvaluasiFitness();
-//            kriteriaBerhenti();
-//        }
+        System.out.println("Solusi : " + indexSolusi);
+        System.out.println("Selama : " + iterasi + " iterasi");
 //        cetak();
-        System.out.println("Solusi : "+indexSolusi);
-        System.out.println("Selama : "+iterasi+" iterasi");
-        cetak();
-        System.out.println("");
-//        for (int i = 0; i < parent.length; i++) { // parent.length
-            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
-                System.out.println("Gen[" + indexSolusi + "]");
-                System.out.println("Index "+j);
-                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
-                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
-                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
-                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
-                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
-                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
-                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
-                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
-                System.out.println("");
-
-            }
-//            System.out.println("------------------------------------------------------------------------------------");
-//        }
-//        for (int i = 2; i < 3; i++) { // parent.length
-//            for (int j = 0; j < parent[i].getData().length; j++) {
-//                System.out.println(parent[i].getData()[j].getRuang().getIdRuang());
+//        System.out.println("");
+////        for (int i = 0; i < parent.length; i++) { // parent.length
+//            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
+//                System.out.println("Gen[" + indexSolusi + "]");
+//                System.out.println("Index "+j);
+//                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
+//                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
+//                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
+//                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
+//                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
+//                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
+//                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
+//                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
+//                System.out.println("");
+//
 //            }
+//            System.out.println("------------------------------------------------------------------------------------");
 //        }
     }
 
