@@ -551,6 +551,9 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="idKelasText1">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idKelasText1ActionPerformed"/>
               </Events>
@@ -574,6 +577,9 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="idKelasText2">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idKelasText2ActionPerformed"/>
               </Events>
