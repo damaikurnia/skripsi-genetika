@@ -9,9 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import koneksi.Koneksi;
-import kelas.Dosen;
-import kelas.KelasKuliah;
-import kelas.MataKuliah;
 import kelas.tabelPermintaan;
 
 /**
@@ -31,44 +28,45 @@ public class PenjadwalanKontrol {
         return matkul;
     }
 
-    public void insertKelasMataKuliah(KelasKuliah kk) throws SQLException {
+    public void insertTabelPermintaan(tabelPermintaan tab_permintaan) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "INSERT INTO KELAS_MAKUL VALUES(?,?,?,?)";
+        String query = "INSERT INTO tabelPermintaan VALUES(?,?,?,?,?)";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, Integer.toString(kk.getIdKelas()));
-        stmt.setString(2, kk.getIdMK().getIdMK());
-        stmt.setString(3, kk.getIdDosen().getIdDosen());
-        stmt.setString(4, kk.getKelas());
+        stmt.setInt(1, tab_permintaan.getNoRule());
+        stmt.setString(2, tab_permintaan.getIdKelas());
+        stmt.setString(3, tab_permintaan.getIdRuang());
+        stmt.setString(4, tab_permintaan.getHari());
+        stmt.setInt(5, tab_permintaan.getJam());
 
         stmt.executeUpdate();
         conn.commit();
         conn.close();
     }
 
-    public void updateKelasMataKuliah(KelasKuliah kk) throws SQLException {
+    public void updateTabelPermintaan(tabelPermintaan tab_permintaan) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update KELAS_MAKUL set idMK = ?, idDosen = ?,"
-                + "Kelas = ? where idKelas = ?";
+        String query = "update tabelPermintaan set idKelas = ?, idRuang = ?,"
+                + "Hari = ?, Jam = ? where noRule = ?";
         stmt = conn.prepareStatement(query);
-
-        stmt.setString(1, kk.getIdMK().getIdMK());
-        stmt.setString(2, kk.getIdDosen().getIdDosen());
-        stmt.setString(3, kk.getKelas());
-        stmt.setString(4, Integer.toString(kk.getIdKelas()));
+        stmt.setString(1, tab_permintaan.getIdKelas());
+        stmt.setString(2, tab_permintaan.getIdRuang());
+        stmt.setString(3, tab_permintaan.getHari());
+        stmt.setInt(4, tab_permintaan.getJam());
+        stmt.setInt(5, tab_permintaan.getNoRule());
 
         stmt.executeUpdate();
         conn.commit();
         conn.close();
     }
 
-    public void deleteKelasMataKuliah(KelasKuliah kk) throws SQLException {
+    public void deleteTabelPermintaan(tabelPermintaan tab_permintaan) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "delete from KELAS_MAKUL where idKelas = ?";
+        String query = "delete from tabelPermintaan where noRule = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, Integer.toString(kk.getIdKelas()));
+        stmt.setInt(1, tab_permintaan.getNoRule());
 
         stmt.executeUpdate();
         conn.commit();
@@ -96,55 +94,5 @@ public class PenjadwalanKontrol {
         }
         conn.close();
         return tab;
-    }
-
-    public MataKuliah tampilMatakuliah(String idMK) throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT idMK,namaMk FROM MATAKULIAH WHERE idMK = ?";
-        stmt = conn.prepareStatement(query);
-        stmt.setString(1, idMK);
-        result = stmt.executeQuery();
-        MataKuliah mk = new MataKuliah();
-        while (result.next()) {
-            mk.setIdMK(result.getString(1));
-            mk.setNamaMK(result.getString(2));
-        }
-        conn.commit();
-        conn.close();
-        return mk;
-    }
-
-    public Dosen tampilDosen(String idDosen) throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT idDosen,namaDosen FROM DOSEN WHERE idDosen = ?";
-        stmt = conn.prepareStatement(query);
-        stmt.setString(1, idDosen);
-        result = stmt.executeQuery();
-        Dosen mk = null;
-        while (result.next()) {
-            mk = new Dosen(result.getString(1), result.getString(2), "");
-        }
-        conn.close();
-        return mk;
-    }
-    
-    
-    public String jumlahMatkul() throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT COUNT(idKelas) FROM kelas_makul";
-        stmt = conn.prepareStatement(query);
-        result = stmt.executeQuery();
-        String mk = null;
-        while (result.next()) {
-            mk = "TOTAL MATAKULIAH : "+result.getInt(1);
-        }
-        conn.close();
-        return mk;
     }
 }
