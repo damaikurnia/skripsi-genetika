@@ -10,10 +10,15 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import kelas.MataKuliah;
+import kontrol.MataKuliahKontrol;
+import tabelModel.MataKuliah_TM;
 
 /**
  *
@@ -34,9 +39,26 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_matkul.setVisible(false);
         dialog_matkul.setSize(777, 480);
         dialog_matkul.setLocationRelativeTo(null);
-        dialog_matkul.setTitle("DATA DOSEN");
+        dialog_matkul.setTitle("DATA MATAKULIAH");
     }
 
+    private void updateTabelMataKuliah() throws SQLException {
+//        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+//        MataKuliah_TM model = new MataKuliah_TM(mktm);
+//        tabelMatakuliah.setModel(model);
+    }
+    
+    private void updateTabelDosen() throws SQLException {
+//        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+//        MataKuliah_TM model = new MataKuliah_TM(mktm);
+//        tabelMatakuliah.setModel(model);
+    }
+    
+    private void updateTabelAturan() throws SQLException {
+//        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+//        MataKuliah_TM model = new MataKuliah_TM(mktm);
+//        tabelMatakuliah.setModel(model);
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -382,6 +404,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel3.setText("DOSEN");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
+        idKelasText1.setEditable(false);
         idKelasText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idKelasText1ActionPerformed(evt);
@@ -393,6 +416,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel5.setText("MATKUL");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
+        idKelasText2.setEditable(false);
         idKelasText2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idKelasText2ActionPerformed(evt);
