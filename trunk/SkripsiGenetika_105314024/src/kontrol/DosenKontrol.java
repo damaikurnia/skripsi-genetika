@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import koneksi.Koneksi;
 import kelas.Dosen;
-import kelas.Ruang;
 
 public class DosenKontrol {
 
