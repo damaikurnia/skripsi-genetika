@@ -84,14 +84,16 @@ DROP TABLE IF EXISTS `tabelpermintaan`;
 
 CREATE TABLE `tabelpermintaan` (
   `noRule` int(10) NOT NULL,
-  `idKelas` varchar(3) NOT NULL,
+  `idKelas` varchar(100) NOT NULL,
   `idRuang` varchar(50) NOT NULL,
   `Hari` varchar(50) NOT NULL,
-  `Jam` int(2) NOT NULL,
+  `Jam` varchar(50) NOT NULL,
   PRIMARY KEY (`noRule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tabelpermintaan` */
+
+insert  into `tabelpermintaan`(`noRule`,`idKelas`,`idRuang`,`Hari`,`Jam`) values (1,'115-PDW 2557-Metode Penelitian Pendidikan','13-I PGSD 3 / LAB IPS/PKN','Senin','10:00-12:59'),(2,'100-PDW 2553-Pengembangan Kurikulum dan Pembelajaran','XAV-XAVERIUS','Senin','16:00-18:59');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

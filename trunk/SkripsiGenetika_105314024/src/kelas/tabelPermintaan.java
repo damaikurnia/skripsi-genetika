@@ -15,9 +15,9 @@ public class tabelPermintaan {
     private String idKelas; //id kelas makul
     private String idRuang;
     private String Hari;
-    private int Jam;
+    private String Jam;
     
-    public tabelPermintaan(int noRule,String idKelas,String idRuang,String Hari,int Jam){
+    public tabelPermintaan(int noRule,String idKelas,String idRuang,String Hari,String Jam){
         this.noRule = noRule;
         this.idKelas = idKelas;
         this.idRuang = idRuang;
@@ -86,14 +86,14 @@ public class tabelPermintaan {
     /**
      * @return the Jam
      */
-    public int getJam() {
+    public String getJam() {
         return Jam;
     }
 
     /**
      * @param Jam the Jam to set
      */
-    public void setJam(int Jam) {
+    public void setJam(String Jam) {
         this.Jam = Jam;
     }
     
