@@ -129,8 +129,7 @@ public class KelasMatkulKontrol {
         conn.close();
         return mk;
     }
-    
-    
+
     public String jumlahMatkul() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -140,7 +139,32 @@ public class KelasMatkulKontrol {
         result = stmt.executeQuery();
         String mk = null;
         while (result.next()) {
-            mk = "TOTAL MATAKULIAH : "+result.getInt(1);
+            mk = "TOTAL MATAKULIAH : " + result.getInt(1);
+        }
+        conn.close();
+        return mk;
+    }
+
+//======================METHOD KHUSUS FRAME VIEW PENJADWALAN===================
+    public List<KelasKuliah> tampilMakulDosen(String idDosen) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT a.idKelas,CONCAT(a.idMK,\"-\",b.namaMK) AS \"Matakuliah\","
+                + "a.kelas,b.semester FROM kelas_makul a, matakuliah b "
+                + "WHERE a.idMK = b.idMK AND a.idDosen = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setString(1, idDosen);
+        result = stmt.executeQuery();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+
+        KelasKuliah temp = null;
+        while (result.next()) {
+            temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(result.getString(1)));
+            temp.setIdMK(new MataKuliah(result.getString(2),result.getInt(4)));// outputnya USD 120 -Pendidikan Agama
+            temp.setKelas(result.getString(3));
+            mk.add(temp);
         }
         conn.close();
         return mk;

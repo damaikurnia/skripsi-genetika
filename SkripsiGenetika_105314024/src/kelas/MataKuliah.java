@@ -21,6 +21,11 @@ public class MataKuliah {
         this.idMK = idMK;
     }
     
+    public MataKuliah(String idMK,int Semester) {
+        this.idMK = idMK;
+        this.semester = Semester;
+    }
+    
     public MataKuliah() {}
     
     public MataKuliah(String idMK, String namaMK, int sks, int semester, int JP) {

@@ -8,17 +8,17 @@ package tabelModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import kelas.tabelPermintaan;
+import kelas.KelasKuliah;
 
 /**
  *
- * @author Adhi
+ * @author Mich
  */
-public class TabelPermintaan_TM extends AbstractTableModel {
+public class KelasMatkulPenjadwalan_TM extends AbstractTableModel {
 
-    private List<tabelPermintaan> kk = new ArrayList<tabelPermintaan>();
+    private List<KelasKuliah> kk = new ArrayList<KelasKuliah>();
 
-    public TabelPermintaan_TM(List<tabelPermintaan> kk) {
+    public KelasMatkulPenjadwalan_TM(List<KelasKuliah> kk) {
         this.kk = kk;
     }
 
@@ -34,18 +34,16 @@ public class TabelPermintaan_TM extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        tabelPermintaan r = kk.get(rowIndex);
+        KelasKuliah r = kk.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return r.getNoRule();
-            case 1:
                 return r.getIdKelas();
+            case 1:
+                return r.getIdMK().getIdMK();
             case 2:
-                return r.getIdRuang();
+                return r.getKelas();
             case 3:
-                return r.getHari();
-            case 4:
-                return r.getJam();
+                return r.getIdMK().getSemester();
             default:
                 return "";
         }
@@ -55,15 +53,13 @@ public class TabelPermintaan_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "NO";
+                return "No";
             case 1:
-                return "NAMA KELAS-DOSEN PENGAMPU";
+                return "MATAKULIAH";
             case 2:
-                return "RUANG";
+                return "KELAS";
             case 3:
-                return "HARI";
-            case 4:
-                return "JAM";
+                return "SEMESTER";
             default:
                 return "";
         }
