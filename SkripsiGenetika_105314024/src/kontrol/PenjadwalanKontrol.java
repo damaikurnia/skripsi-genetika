@@ -37,7 +37,7 @@ public class PenjadwalanKontrol {
         stmt.setString(2, tab_permintaan.getIdKelas());
         stmt.setString(3, tab_permintaan.getIdRuang());
         stmt.setString(4, tab_permintaan.getHari());
-        stmt.setInt(5, tab_permintaan.getJam());
+        stmt.setString(5, tab_permintaan.getJam());
 
         stmt.executeUpdate();
         conn.commit();
@@ -53,7 +53,7 @@ public class PenjadwalanKontrol {
         stmt.setString(1, tab_permintaan.getIdKelas());
         stmt.setString(2, tab_permintaan.getIdRuang());
         stmt.setString(3, tab_permintaan.getHari());
-        stmt.setInt(4, tab_permintaan.getJam());
+        stmt.setString(4, tab_permintaan.getJam());
         stmt.setInt(5, tab_permintaan.getNoRule());
 
         stmt.executeUpdate();
@@ -89,10 +89,25 @@ public class PenjadwalanKontrol {
             temp.setIdKelas(result.getString(2));
             temp.setIdRuang(result.getString(3));
             temp.setHari(result.getString(4));
-            temp.setJam(result.getInt(5));
+            temp.setJam(result.getString(5));
             tab.add(temp);
         }
         conn.close();
         return tab;
+    }
+    
+    public int cariNoRule() throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT IFNULL(MAX(noRule),0) FROM tabelpermintaan";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        int temp = 0;
+        while (result.next()) {
+            temp = result.getInt(1);
+        }
+        conn.close();
+        return temp;
     }
 }

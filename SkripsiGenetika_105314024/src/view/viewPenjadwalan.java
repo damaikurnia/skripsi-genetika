@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
@@ -66,7 +67,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         KelasMatkulPenjadwalan_TM model = new KelasMatkulPenjadwalan_TM(mktm);
         tabel_kelasmatakuliah.setModel(model);
     }
-    
+
     private void updateTabelDosen() throws SQLException {
         List<Dosen> mktm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(mktm);
@@ -142,6 +143,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         combo_ruang = new javax.swing.JComboBox();
         tombol_tambahPermintaan = new javax.swing.JButton();
         button_batal = new javax.swing.JButton();
+        labelKelas = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -459,7 +462,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 text_klsMatkulActionPerformed(evt);
             }
         });
-        jPanel4.add(text_klsMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 320, -1));
+        jPanel4.add(text_klsMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("HARI");
@@ -508,6 +511,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         tombol_tambahPermintaan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         tombol_tambahPermintaan.setText("TAMBAH PERMINTAAN");
+        tombol_tambahPermintaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombol_tambahPermintaanActionPerformed(evt);
+            }
+        });
         jPanel4.add(tombol_tambahPermintaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 90));
 
         button_batal.setText("BATAL");
@@ -517,6 +525,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             }
         });
         jPanel4.add(button_batal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPanel4.add(labelKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 30, 20));
+
+        jLabel16.setText("KELAS");
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 40, 20));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 330));
 
@@ -648,8 +662,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private void tabel_kelasmatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kelasmatakuliahMouseClicked
         int row1 = tabel_kelasmatakuliah.getSelectedRow();
         String namaMatkul = tabel_kelasmatakuliah.getValueAt(row1, 0).toString() + "-"
-                + tabel_kelasmatakuliah.getValueAt(row1, 1).toString() + " "
-                + tabel_kelasmatakuliah.getValueAt(row1, 2).toString();
+                + tabel_kelasmatakuliah.getValueAt(row1, 1).toString();
+        labelKelas.setText(tabel_kelasmatakuliah.getValueAt(row1, 2).toString());
         text_klsMatkul.setText(namaMatkul);
         dialog_matkul.setVisible(false);
     }//GEN-LAST:event_tabel_kelasmatakuliahMouseClicked
@@ -686,6 +700,40 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_button_batalActionPerformed
+
+    private void tombol_tambahPermintaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_tambahPermintaanActionPerformed
+        try {
+            int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
+            if (noRule == 0) {
+                noRule = 1;
+            } else {
+                noRule++;
+            }
+            String idKelas = text_klsMatkul.getText();
+            String ruang = combo_ruang.getSelectedItem().toString();
+            String hari = combo_hari.getSelectedItem().toString();
+            String jam = combo_jam.getSelectedItem().toString();
+
+            tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
+
+            if (tombol_tambahPermintaan.getText().equals("TAMBAH PERMINTAAN")) {
+                PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
+                JOptionPane.showMessageDialog(null, "DATA PERMINTAAN"+"\n"+
+                        "MATAKULIAH         : "+idKelas+"\n"+
+                        "KELAS              : "+labelKelas.getText()+"\n"+
+                        "DOSEN PENGAMPU     : "+text_dosen.getText().split("-")[1]+"\n"+
+                        "JADWAL PERMINTAAN  : "+"HARI "+hari+" RUANG "+ruang+"\n"+
+                        "JAM                : "+jam+"\n"+
+                        "BERHASIL DITAMBAHKAN");
+                updateTabelPermintaan();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        
+
+    }//GEN-LAST:event_tombol_tambahPermintaanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -728,6 +776,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -752,6 +801,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton kelasButton;
+    private javax.swing.JLabel labelKelas;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
