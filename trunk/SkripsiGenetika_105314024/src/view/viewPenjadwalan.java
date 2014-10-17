@@ -116,6 +116,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         text_matkul = new javax.swing.JTextField();
         tomboldialog_matkul = new javax.swing.JButton();
+        klikKanan = new javax.swing.JPopupMenu();
+        EDIT = new javax.swing.JMenuItem();
+        HAPUS = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -359,6 +362,22 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_matkul.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        EDIT.setText("EDIT");
+        EDIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EDITActionPerformed(evt);
+            }
+        });
+        klikKanan.add(EDIT);
+
+        HAPUS.setText("HAPUS");
+        HAPUS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HAPUSActionPerformed(evt);
+            }
+        });
+        klikKanan.add(HAPUS);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -492,8 +511,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             }
         ));
         Tabel_Permintaan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabel_PermintaanMouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Tabel_PermintaanMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(Tabel_Permintaan);
@@ -668,25 +687,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_matkul.setVisible(false);
     }//GEN-LAST:event_tabel_kelasmatakuliahMouseClicked
 
-    private void Tabel_PermintaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel_PermintaanMouseClicked
-//        int row1 = tabelKelasMatakuliah.getSelectedRow();
-//        String noKelas = tabelKelasMatakuliah.getValueAt(row1, 0).toString();
-//        String namaMatakuliah = tabelKelasMatakuliah.getValueAt(row1, 1).toString();
-//        String namaDosen = tabelKelasMatakuliah.getValueAt(row1, 2).toString();
-//        String kelas = tabelKelasMatakuliah.getValueAt(row1, 3).toString();
-//        try {
-//            MataKuliah mk = KelasMatkulKontrol.getKoneksi().tampilMatakuliah(namaMatakuliah);
-//            Dosen dsn = KelasMatkulKontrol.getKoneksi().tampilDosen(namaDosen);
-//            idKelasText.setText(noKelas);
-//            MatakuliahComboBox.setSelectedItem(mk.getIdMK() + " - " + mk.getNamaMK());
-//            DosenComboBox.setSelectedItem(dsn.getIdDosen() + " - " + dsn.getNamaDosen());
-//            KelasComboBox.setSelectedItem(kelas);
-//            idKelasText.setEditable(false);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_Tabel_PermintaanMouseClicked
-
     private void button_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_batalActionPerformed
         try {
             text_dosen.setText("");
@@ -714,18 +714,22 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             String hari = combo_hari.getSelectedItem().toString();
             String jam = combo_jam.getSelectedItem().toString();
 
-            tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
-
-            if (tombol_tambahPermintaan.getText().equals("TAMBAH PERMINTAAN")) {
+            boolean cek = PenjadwalanKontrol.getKoneksi().cekRuang(ruang, hari, jam);
+            if (cek == true) {
+                tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
                 PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
-                JOptionPane.showMessageDialog(null, "DATA PERMINTAAN"+"\n"+
-                        "MATAKULIAH         : "+idKelas+"\n"+
-                        "KELAS              : "+labelKelas.getText()+"\n"+
-                        "DOSEN PENGAMPU     : "+text_dosen.getText().split("-")[1]+"\n"+
-                        "JADWAL PERMINTAAN  : "+"HARI "+hari+" RUANG "+ruang+"\n"+
-                        "JAM                : "+jam+"\n"+
-                        "BERHASIL DITAMBAHKAN");
+                JOptionPane.showMessageDialog(null, "DATA PERMINTAAN" + "\n"
+                        + "MATAKULIAH         : " + idKelas + "\n"
+                        + "KELAS              : " + labelKelas.getText() + "\n"
+                        + "DOSEN PENGAMPU     : " + text_dosen.getText().split("-")[1] + "\n"
+                        + "JADWAL PERMINTAAN  : " + "HARI " + hari + " RUANG " + ruang + "\n"
+                        + "JAM                : " + jam + "\n"
+                        + "BERHASIL DITAMBAHKAN");
                 updateTabelPermintaan();
+            } else {
+                JOptionPane.showMessageDialog(null, "RUANG " + ruang + " HARI " + hari + " JAM " + jam + " "
+                        + "Telah dipakai oleh matakuliah lain. \n"
+                        + "Silahkan pilih Ruang/Hari/Jam lain untuk matakuliah ini.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
@@ -734,6 +738,36 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 //        
 
     }//GEN-LAST:event_tombol_tambahPermintaanActionPerformed
+
+    private void Tabel_PermintaanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel_PermintaanMouseReleased
+        if (evt.isPopupTrigger()) {
+            klikKanan.show(this, evt.getX(), evt.getYOnScreen());
+        }
+    }//GEN-LAST:event_Tabel_PermintaanMouseReleased
+
+    private void EDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EDITActionPerformed
+        int row1 = Tabel_Permintaan.getSelectedRow();
+        if (row1 == -1) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih Matakuliah yang hendak di EDIT / HAPUS");
+        } else {
+//            String idDosen = Tabel_Permintaan.getValueAt(row1, 0).toString();
+//            String namaDosen = tabelDosen.getValueAt(row1, 1).toString();
+//            String status = tabelDosen.getValueAt(row1, 2).toString();
+//            idDosenText.setText(idDosen);
+//            namaDosenText.setText(namaDosen);
+//            Status_ComboBox.setSelectedItem(status);
+//
+//            idDosenText.setEditable(false);
+        }
+    }//GEN-LAST:event_EDITActionPerformed
+
+    private void HAPUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HAPUSActionPerformed
+        int row1 = Tabel_Permintaan.getSelectedRow();
+        if (row1 == -1) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih Matakuliah yang hendak di EDIT / HAPUS");
+        }
+
+    }//GEN-LAST:event_HAPUSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -759,6 +793,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem EDIT;
+    private javax.swing.JMenuItem HAPUS;
     private javax.swing.JTable Tabel_Dosen;
     private javax.swing.JTable Tabel_Permintaan;
     private javax.swing.JButton button_batal;
@@ -801,6 +837,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton kelasButton;
+    private javax.swing.JPopupMenu klikKanan;
     private javax.swing.JLabel labelKelas;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;

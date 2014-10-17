@@ -95,8 +95,8 @@ public class PenjadwalanKontrol {
         conn.close();
         return tab;
     }
-    
-    public int cariNoRule() throws SQLException{
+
+    public int cariNoRule() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
@@ -109,5 +109,27 @@ public class PenjadwalanKontrol {
         }
         conn.close();
         return temp;
+    }
+
+    public boolean cekRuang(String idRuang, String hari, String jam) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT TRUE FROM tabelpermintaan WHERE idRuang = ? AND Hari = ? AND Jam = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setString(1, idRuang);
+        stmt.setString(2, hari);
+        stmt.setString(3, jam);
+        result = stmt.executeQuery();
+        int temp = 0;
+        while (result.next()) {
+            temp = result.getInt(1);
+        }
+        conn.close();
+        if (temp == 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
