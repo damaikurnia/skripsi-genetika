@@ -11,22 +11,26 @@ package kelas;
  * @author Adhi
  */
 public class tabelPermintaan {
-    private int noRule;
-    private String idKelas; //id kelas makul
-    private String idRuang;
-    private String Hari;
-    private String Jam;
+    int noRule;
+    KelasKuliah idKelas;
+    Ruang idRuang;
+    String hari;
+    String jam;
     
-    public tabelPermintaan(int noRule,String idKelas,String idRuang,String Hari,String Jam){
+    //buat tampilan
+    String matakuliah;
+    String namaDosen;
+    
+    public tabelPermintaan(int noRule,int idKelas,String idRuang,String hari,String jam){ //untuk input
         this.noRule = noRule;
-        this.idKelas = idKelas;
-        this.idRuang = idRuang;
-        this.Hari = Hari;
-        this.Jam = Jam;
+        this.idKelas = new KelasKuliah(idKelas);
+        this.idRuang = new Ruang(idRuang);
+        this.hari = hari;
+        this.jam = jam;
     }
     
     public tabelPermintaan(){}
-    
+
     /**
      * @return the noRule
      */
@@ -44,57 +48,84 @@ public class tabelPermintaan {
     /**
      * @return the idKelas
      */
-    public String getIdKelas() {
+    public KelasKuliah getIdKelas() {
         return idKelas;
     }
 
     /**
      * @param idKelas the idKelas to set
      */
-    public void setIdKelas(String idKelas) {
+    public void setIdKelas(KelasKuliah idKelas) {
         this.idKelas = idKelas;
     }
 
     /**
      * @return the idRuang
      */
-    public String getIdRuang() {
+    public Ruang getIdRuang() {
         return idRuang;
     }
 
     /**
      * @param idRuang the idRuang to set
      */
-    public void setIdRuang(String idRuang) {
+    public void setIdRuang(Ruang idRuang) {
         this.idRuang = idRuang;
     }
 
     /**
-     * @return the Hari
+     * @return the hari
      */
     public String getHari() {
-        return Hari;
+        return hari;
     }
 
     /**
-     * @param Hari the Hari to set
+     * @param hari the hari to set
      */
-    public void setHari(String Hari) {
-        this.Hari = Hari;
+    public void setHari(String hari) {
+        this.hari = hari;
     }
 
     /**
-     * @return the Jam
+     * @return the jam
      */
     public String getJam() {
-        return Jam;
+        return jam;
     }
 
     /**
-     * @param Jam the Jam to set
+     * @param jam the jam to set
      */
-    public void setJam(String Jam) {
-        this.Jam = Jam;
+    public void setJam(String jam) {
+        this.jam = jam;
     }
-    
-}
+
+    /**
+     * @return the matakuliah
+     */
+    public String getMatakuliah() {
+        return matakuliah;
+    }
+
+    /**
+     * @param matakuliah the matakuliah to set
+     */
+    public void setMatakuliah(String matakuliah) {
+        this.matakuliah = matakuliah;
+    }
+
+    /**
+     * @return the namaDosen
+     */
+    public String getNamaDosen() {
+        return namaDosen;
+    }
+
+    /**
+     * @param namaDosen the namaDosen to set
+     */
+    public void setNamaDosen(String namaDosen) {
+        this.namaDosen = namaDosen;
+    }
+  }

@@ -20,6 +20,11 @@ public class Ruang {
         this.namaRuang = nama;
         this.jenisRuang = jenis;
     }
+    
+    public Ruang(String id){
+        this.idRuang = id;
+    }
+    
     /**
      * @return the idRuang
      */
