@@ -10,7 +10,7 @@ import kelas.Dosen;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class KelasKuliah {
 
@@ -18,9 +18,6 @@ public class KelasKuliah {
     private MataKuliah idMK;
     private String kelas;//A B C
     private Dosen idDosen;
-//=======================DIPAKAI DI FRAME PENJADWALAN==========================
-    private String hari;
-    private int jam;
     
     public KelasKuliah() {}
 
@@ -92,33 +89,5 @@ public class KelasKuliah {
      */
     public void setIdDosen(Dosen idDosen) {
         this.idDosen = idDosen;
-    }
-//=======================DIPAKAI DI VIEW PENJADWALAN==========================
-    /**
-     * @return the hari
-     */
-    public String getHari() {
-        return hari;
-    }
-
-    /**
-     * @param hari the hari to set
-     */
-    public void setHari(String hari) {
-        this.hari = hari;
-    }
-
-    /**
-     * @return the jam
-     */
-    public int getJam() {
-        return jam;
-    }
-
-    /**
-     * @param jam the jam to set
-     */
-    public void setJam(int jam) {
-        this.jam = jam;
     }
 }

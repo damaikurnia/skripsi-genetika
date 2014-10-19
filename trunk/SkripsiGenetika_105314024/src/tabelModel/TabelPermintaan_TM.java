@@ -29,7 +29,7 @@ public class TabelPermintaan_TM extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -37,14 +37,16 @@ public class TabelPermintaan_TM extends AbstractTableModel {
         tabelPermintaan r = kk.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return r.getNoRule();
+                return r.getIdKelas().getIdKelas();
             case 1:
-                return r.getIdKelas();
+                return r.getMatakuliah();
             case 2:
-                return r.getIdRuang();
+                return r.getNamaDosen();
             case 3:
-                return r.getHari();
+                return r.getIdRuang().getNamaRuang();
             case 4:
+                return r.getHari();
+            case 5:
                 return r.getJam();
             default:
                 return "";
@@ -55,14 +57,16 @@ public class TabelPermintaan_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "NO";
+                return "KODE";
             case 1:
-                return "NAMA KELAS-DOSEN PENGAMPU";
+                return "MATAKULIAH";
             case 2:
-                return "RUANG";
+                return "NAMA DOSEN";
             case 3:
-                return "HARI";
+                return "RUANG";
             case 4:
+                return "HARI";
+            case 5:
                 return "JAM";
             default:
                 return "";

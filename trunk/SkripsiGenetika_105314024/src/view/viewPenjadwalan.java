@@ -86,6 +86,21 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             combo_ruang.addItem(k.getIdRuang() + "-" + k.getNamaRuang());
         }
     }
+    
+    private void kosongkan(){
+        text_dosen.setText("");
+        text_matkul.setText("");
+        text_klsMatkul.setText("");
+        labelKelas.setText("");
+        combo_hari.setSelectedIndex(0);
+        combo_jam.setSelectedIndex(0);
+        combo_ruang.setSelectedIndex(0);
+        try {
+            updateTabelMataKuliah();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,7 +132,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         text_matkul = new javax.swing.JTextField();
         tomboldialog_matkul = new javax.swing.JButton();
         klikKanan = new javax.swing.JPopupMenu();
-        EDIT = new javax.swing.JMenuItem();
         HAPUS = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -361,14 +375,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         );
 
         dialog_matkul.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        EDIT.setText("EDIT");
-        EDIT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EDITActionPerformed(evt);
-            }
-        });
-        klikKanan.add(EDIT);
 
         HAPUS.setText("HAPUS");
         HAPUS.addActionListener(new java.awt.event.ActionListener() {
@@ -688,17 +694,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     }//GEN-LAST:event_tabel_kelasmatakuliahMouseClicked
 
     private void button_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_batalActionPerformed
-        try {
-            text_dosen.setText("");
-            text_klsMatkul.setText("");
-            text_matkul.setText("");
-            updateTabelMataKuliah();
-            combo_ruang.setSelectedIndex(0);
-            combo_hari.setSelectedIndex(0);
-            combo_jam.setSelectedIndex(0);
-        } catch (SQLException ex) {
-            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        kosongkan();
     }//GEN-LAST:event_button_batalActionPerformed
 
     private void tombol_tambahPermintaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_tambahPermintaanActionPerformed
@@ -709,11 +705,15 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             } else {
                 noRule++;
             }
-            String idKelas = text_klsMatkul.getText();
-            String ruang = combo_ruang.getSelectedItem().toString();
+            int idKelas = Integer.parseInt(text_klsMatkul.getText().split("-")[0]);
+            String ruang;
+            if (combo_ruang.getSelectedItem().toString().equals("-")) {
+                ruang = combo_ruang.getSelectedItem().toString();
+            } else {
+                ruang = combo_ruang.getSelectedItem().toString().split("-")[0];
+            }
             String hari = combo_hari.getSelectedItem().toString();
             String jam = combo_jam.getSelectedItem().toString();
-
             boolean cek = PenjadwalanKontrol.getKoneksi().cekRuang(ruang, hari, jam);
             if (cek == true) {
                 tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
@@ -726,6 +726,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                         + "JAM                : " + jam + "\n"
                         + "BERHASIL DITAMBAHKAN");
                 updateTabelPermintaan();
+                kosongkan();
             } else {
                 JOptionPane.showMessageDialog(null, "RUANG " + ruang + " HARI " + hari + " JAM " + jam + " "
                         + "Telah dipakai oleh matakuliah lain. \n"
@@ -745,28 +746,24 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Tabel_PermintaanMouseReleased
 
-    private void EDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EDITActionPerformed
-        int row1 = Tabel_Permintaan.getSelectedRow();
-        if (row1 == -1) {
-            JOptionPane.showMessageDialog(null, "Silahkan pilih Matakuliah yang hendak di EDIT / HAPUS");
-        } else {
-//            String idDosen = Tabel_Permintaan.getValueAt(row1, 0).toString();
-//            String namaDosen = tabelDosen.getValueAt(row1, 1).toString();
-//            String status = tabelDosen.getValueAt(row1, 2).toString();
-//            idDosenText.setText(idDosen);
-//            namaDosenText.setText(namaDosen);
-//            Status_ComboBox.setSelectedItem(status);
-//
-//            idDosenText.setEditable(false);
-        }
-    }//GEN-LAST:event_EDITActionPerformed
-
     private void HAPUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HAPUSActionPerformed
         int row1 = Tabel_Permintaan.getSelectedRow();
         if (row1 == -1) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih Matakuliah yang hendak di EDIT / HAPUS");
+        } else {
+            String idKelas = Tabel_Permintaan.getValueAt(row1, 0).toString();
+            int data = JOptionPane.showConfirmDialog(null, "Apakah Mau menghapus?", "MENGHAPUS DATA " + idKelas, 1);
+            if (data == 0) {
+                try {
+                    PenjadwalanKontrol.getKoneksi().deleteTabelPermintaan(idKelas);
+                    updateTabelPermintaan();
+                    JOptionPane.showMessageDialog(null, "Data Permintaan kode " + idKelas + " berhasil dihapus");
+                } catch (SQLException ex) {
+                    Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+            }
         }
-
     }//GEN-LAST:event_HAPUSActionPerformed
 
     /**
@@ -793,7 +790,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem EDIT;
     private javax.swing.JMenuItem HAPUS;
     private javax.swing.JTable Tabel_Dosen;
     private javax.swing.JTable Tabel_Permintaan;

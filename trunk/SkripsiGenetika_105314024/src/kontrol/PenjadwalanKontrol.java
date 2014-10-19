@@ -8,6 +8,8 @@ package kontrol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import kelas.KelasKuliah;
+import kelas.Ruang;
 import koneksi.Koneksi;
 import kelas.tabelPermintaan;
 
@@ -34,8 +36,8 @@ public class PenjadwalanKontrol {
         String query = "INSERT INTO tabelPermintaan VALUES(?,?,?,?,?)";
         stmt = conn.prepareStatement(query);
         stmt.setInt(1, tab_permintaan.getNoRule());
-        stmt.setString(2, tab_permintaan.getIdKelas());
-        stmt.setString(3, tab_permintaan.getIdRuang());
+        stmt.setString(2, Integer.toString(tab_permintaan.getIdKelas().getIdKelas()));
+        stmt.setString(3, tab_permintaan.getIdRuang().getIdRuang());
         stmt.setString(4, tab_permintaan.getHari());
         stmt.setString(5, tab_permintaan.getJam());
 
@@ -50,8 +52,8 @@ public class PenjadwalanKontrol {
         String query = "update tabelPermintaan set idKelas = ?, idRuang = ?,"
                 + "Hari = ?, Jam = ? where noRule = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, tab_permintaan.getIdKelas());
-        stmt.setString(2, tab_permintaan.getIdRuang());
+        stmt.setString(1, Integer.toString(tab_permintaan.getIdKelas().getIdKelas()));
+        stmt.setString(2, tab_permintaan.getIdRuang().getIdRuang());
         stmt.setString(3, tab_permintaan.getHari());
         stmt.setString(4, tab_permintaan.getJam());
         stmt.setInt(5, tab_permintaan.getNoRule());
@@ -61,12 +63,12 @@ public class PenjadwalanKontrol {
         conn.close();
     }
 
-    public void deleteTabelPermintaan(tabelPermintaan tab_permintaan) throws SQLException {
+    public void deleteTabelPermintaan(String idKelas) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "delete from tabelPermintaan where noRule = ?";
+        String query = "delete from tabelPermintaan where idKelas = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setInt(1, tab_permintaan.getNoRule());
+        stmt.setString(1, idKelas);
 
         stmt.executeUpdate();
         conn.commit();
@@ -77,7 +79,10 @@ public class PenjadwalanKontrol {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM tabelPermintaan";
+        String query = "SELECT a.idKelas,CONCAT(b.idMK,'-',c.namaMK,'-',b.Kelas) AS \"MATAKULIAH\", "
+                + "e.namaDosen, CONCAT(a.idRuang,'-',d.namaRuang) AS \"RUANG\",a.Hari,a.Jam \n"
+                + "FROM tabelpermintaan a,kelas_makul b,matakuliah c, ruang d, dosen e \n"
+                + "WHERE a.idKelas = b.idKelas AND a.idRuang = d.idRuang AND b.idMK = c.idMK AND b.idDosen = e.idDosen;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<tabelPermintaan> tab = new ArrayList<tabelPermintaan>();
@@ -85,11 +90,12 @@ public class PenjadwalanKontrol {
         tabelPermintaan temp = null;
         while (result.next()) {
             temp = new tabelPermintaan();
-            temp.setNoRule(result.getInt(1));
-            temp.setIdKelas(result.getString(2));
-            temp.setIdRuang(result.getString(3));
-            temp.setHari(result.getString(4));
-            temp.setJam(result.getString(5));
+            temp.setIdKelas(new KelasKuliah(result.getInt(1)));
+            temp.setMatakuliah(result.getString(2));
+            temp.setNamaDosen(result.getString(3));
+            temp.setIdRuang(new Ruang("-", result.getString(4), "-"));
+            temp.setHari(result.getString(5));
+            temp.setJam(result.getString(6));
             tab.add(temp);
         }
         conn.close();
@@ -110,6 +116,22 @@ public class PenjadwalanKontrol {
         conn.close();
         return temp;
     }
+    
+//    public int cariNoRule2(String idKelas) throws SQLException {
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        conn.setAutoCommit(false);
+//        String query = "SELECT noRule FROM tabelpermintaan where idKelas = ?";
+//        stmt = conn.prepareStatement(query);
+//        stmt.setString(1, idKelas);
+//        result = stmt.executeQuery();
+//        int temp = 0;
+//        while (result.next()) {
+//            temp = result.getInt(1);
+//        }
+//        conn.close();
+//        return temp;
+//    }
 
     public boolean cekRuang(String idRuang, String hari, String jam) throws SQLException {
         PreparedStatement stmt = null;
