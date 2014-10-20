@@ -10,6 +10,7 @@ import java.util.List;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
+import kontrol.PenjadwalanKontrol;
 import kontrol.RuangKontrol;
 
 /**
@@ -27,12 +28,14 @@ public class Populasi {
     List<KelasKuliah> dataKelasKuliah;
     List<MataKuliah> dataMakul;
     List<Dosen> dataDosen;
+    List<tabelPermintaan> dataPermintaan;
 
     public void ambilData() throws SQLException { //untuk select database
         dataRuang = RuangKontrol.getKoneksi().tampilRuangTeori();//KELAS PELANGGARAN
         dataKelasKuliah = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();//KELAS KROMOSOM
         dataMakul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
         dataDosen = DosenKontrol.getKoneksi().tampilDosen();//KELAS PELANGGARAN
+        dataPermintaan = PenjadwalanKontrol.getKoneksi().selectTabelPermintaan();
     }
 
     public void solusiAwalIterasi() {
