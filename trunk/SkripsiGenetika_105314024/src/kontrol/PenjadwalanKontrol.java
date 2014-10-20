@@ -154,4 +154,27 @@ public class PenjadwalanKontrol {
             return true;
         }
     }
+    
+    public List<tabelPermintaan> selectTabelPermintaan() throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT * FROM tabelpermintaan";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<tabelPermintaan> tab = new ArrayList<tabelPermintaan>();
+
+        tabelPermintaan temp = null;
+        while (result.next()) {
+            temp = new tabelPermintaan();
+            temp.setNoRule(result.getInt(1));
+            temp.setIdKelas(new KelasKuliah(result.getInt(2)));
+            temp.setIdRuang(new Ruang(result.getString(3)));
+            temp.setHari(result.getString(4));
+            temp.setJam(result.getString(5));
+            tab.add(temp);
+        }
+        conn.close();
+        return tab;
+    }
 }

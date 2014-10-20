@@ -5,12 +5,8 @@
  */
 package kelas;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
 import kontrol.RuangKontrol;
 
@@ -25,6 +21,7 @@ public class Kromosom {
     int ruang = 0;
     List<Ruang> rng = null;
     List<MataKuliah> makul = null; //buat method isisemester
+    List<tabelPermintaan> dataPermintaan;
 
     public Kromosom() {
 //        try {
@@ -56,6 +53,44 @@ public class Kromosom {
         this.data = data;
     }
 
+//    public Gen[] prosesRandom() { //yang di random slot gennya
+//        Random r = new Random();
+//        int hari = 5;
+//        int waktu = 12;
+//
+//        int matkul = dataa.size();
+//        data = new Gen[(hari * ruang * waktu) / 3]; //220
+//
+//        boolean cek[] = new boolean[matkul]; //126
+//        int N = matkul;
+//
+//        for (int i = 0; i < data.length; i++) {
+//            data[i] = new Gen();
+//            data[i].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-")));
+//            data[i].setHari(tentukanHari(i));//generate
+//            data[i].setJam(tentukanJam(i));//generate
+////            data[i].setRuang(tentukanRuang(i));//generate
+//            data[i].setNilaiFitness(0);
+//        }
+//        data = tentukanRuang(data);
+//        for (int i = 0; i < matkul; i++) {
+//            cek[i] = false;
+//        }
+//
+//        int index = 0; //untuk index matakuliah
+//        while (N != 0) {
+//            int tangkap = r.nextInt(data.length);
+//            if (data[tangkap].getAllele().getIdKelas() == 0) {
+//                data[tangkap].setAllele(dataa.get(index));
+//                String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
+//                data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
+//                index++;
+//                N--;
+//            }
+//        }
+//        return data;
+//    }
+    
     public Gen[] prosesRandom() { //yang di random slot gennya
         Random r = new Random();
         int hari = 5;
@@ -82,6 +117,9 @@ public class Kromosom {
 
         int index = 0; //untuk index matakuliah
         while (N != 0) {
+            
+            
+            //random
             int tangkap = r.nextInt(data.length);
             if (data[tangkap].getAllele().getIdKelas() == 0) {
                 data[tangkap].setAllele(dataa.get(index));
@@ -156,9 +194,10 @@ public class Kromosom {
         return data;
     }
 
-    public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul) {//
+    public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul,List<tabelPermintaan> dataPer) {//
         Kromosom krom = new Kromosom(kelasKuliah, ruang);
         this.makul = makul;
+        this.dataPermintaan = dataPer;
         krom.setData(prosesRandom());
         return krom;
     }
