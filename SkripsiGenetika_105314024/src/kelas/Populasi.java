@@ -18,6 +18,7 @@ import kontrol.RuangKontrol;
  * @author Adhi
  */
 public class Populasi {
+
     Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
     int iterasi = 0;
     int indexSolusi = -1;
@@ -40,7 +41,7 @@ public class Populasi {
 
     public void solusiAwalIterasi() {
         for (int i = 0; i < parent.length; i++) {
-            parent[i] = new Kromosom(dataKelasKuliah, dataRuang).solusiAwal(dataKelasKuliah, dataRuang, dataMakul,dataPermintaan);
+            parent[i] = new Kromosom(dataKelasKuliah, dataRuang).solusiAwal(dataKelasKuliah, dataRuang, dataMakul, dataPermintaan);
         }
         iterasi++;
     }
@@ -157,8 +158,8 @@ public class Populasi {
             iterasi++;
 //            System.out.println(iterasi);
             RouleteWheelSelection();
-            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul);
-            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul);
+            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul,dataPermintaan);
+            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul,dataPermintaan);
             EvaluasiFitness_child();
             kriteriaBerhenti();
         }
@@ -167,24 +168,24 @@ public class Populasi {
 //        cetak();
 //        System.out.println("");
 //        for (int i = 0; i < parent.length; i++) { // parent.length
-            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
-                System.out.println("Gen[" + indexSolusi + "]");
-                System.out.println("Index "+j);
-                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
-                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
-                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
-                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
-                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
-                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
-                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
-                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
-                System.out.println("");
-
-            }
-            System.out.println("------------------------------------------------------------------------------------");
+//            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
+//                System.out.println("Gen[" + indexSolusi + "]");
+//                System.out.println("Index "+j);
+//                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
+//                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK()+" - "+parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
+//                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
+//                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
+//                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
+//                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
+//                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
+//                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
+//                System.out.println("KUNCI?      : " + parent[indexSolusi].getData()[j].kunci);
+//                System.out.println("");
+//
+//            }
+//            System.out.println("------------------------------------------------------------------------------------");
         }
-//    }
-
+    
     public static void main(String[] args) throws SQLException {
         Populasi pop = new Populasi();
         pop.prosesGenetika();

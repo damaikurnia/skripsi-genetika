@@ -110,43 +110,39 @@ public class Kromosom {
             data[i].setNilaiFitness(0);
         }
         data = tentukanRuang(data);
-        
+
         for (int i = 0; i < matkul; i++) {//checklist kelasmatkul (sdh dimasukkan/blm)
             cek[i] = false;
         }
 
-        for (int i = 0; i < dataPermintaan.size(); i++) {
-            String ruang_permintaan = dataPermintaan.get(i).getIdRuang().idRuang;
-            String hari_permintaan = dataPermintaan.get(i).getHari();
-            int jam_permintaan = tentukanJamPermintaan(dataPermintaan.get(i).getJam());
-            KelasKuliah matkulPermintaan = dataa.get(cariIndexKelasKuliah(i));
+        for (int i = 0; i < dataPermintaan.size(); i++) { //memasukkan permintaan terlebih dalulu
+            KelasKuliah matkulPermintaan = dataa.get(cariIndexKelasKuliah(dataPermintaan.get(i).getIdKelas().getIdKelas()));
+            int posisiGen = penentuanLokasiGen(dataPermintaan.get(i));
 
-            for (int j = 0; j < data.length; j++) {
-                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
-                        && data[j].getHari().equals(hari_permintaan)
-                        && data[j].getJam() == jam_permintaan) {
-                    data[j].setAllele(matkulPermintaan);
-                    String idMK = data[j].getAllele().getIdMK().getIdMK();
-                    data[j].getAllele().getIdMK().setSemester(isiSemester(idMK));
-                    data[j].setKunci(true);
-                    cek[cariIndexKelasKuliah(i)] = true;
-                    N--;
-                }
-            }
-
+            data[posisiGen].setAllele(matkulPermintaan);
+            String idMK = data[posisiGen].getAllele().getIdMK().getIdMK();
+            data[posisiGen].getAllele().getIdMK().setSemester(isiSemester(idMK));
+            data[posisiGen].setKunci(true);
+            cek[cariIndexKelasKuliah(dataPermintaan.get(i).getIdKelas().getIdKelas())] = true;
+//            System.out.println("NoRule "+dataPermintaan.get(i).getNoRule()+" berada di index " + posisiGen);
+            N--;
         }
-        
+
         int index = 0; //untuk index matakuliah
         while (N != 0) {//untuk kelas non permintaan
             //random
             int tangkap = r.nextInt(data.length);
-            if (data[tangkap].getAllele().getIdKelas() == 0) {
-                data[tangkap].setAllele(dataa.get(index));
-                String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
-                data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
-                data[tangkap].setKunci(false);
+            if (cek[index] == true) {
                 index++;
-                N--;
+            } else {
+                if (data[tangkap].getAllele().getIdKelas() == 0) {
+                    data[tangkap].setAllele(dataa.get(index));
+                    String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
+                    data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
+                    data[tangkap].setKunci(false);
+                    index++;
+                    N--;
+                }
             }
         }
         return data;
@@ -237,6 +233,70 @@ public class Kromosom {
             }
         }
         return temp;
+    }
+
+    public int penentuanLokasiGen(tabelPermintaan kelasPermintaan) {
+        String ruang_permintaan = kelasPermintaan.getIdRuang().idRuang;
+        String hari_permintaan = kelasPermintaan.getHari();
+        int jam_permintaan = tentukanJamPermintaan(kelasPermintaan.getJam());
+
+        int posisiGen = 0;
+        if (!ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan != 0) {//semua ditentukan
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                        && data[j].getHari().equals(hari_permintaan)
+                        && data[j].getJam() == jam_permintaan) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta hari dan jam tertentu
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getHari().equals(hari_permintaan)
+                        && data[j].getJam() == jam_permintaan) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta ruang dan jam tertentu
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                        && data[j].getJam() == jam_permintaan) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (!ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) { //meminta ruang dan hari tertentu
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                        && data[j].getHari().equals(hari_permintaan)) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan == 0) {//hanya meminta ruang
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) {//Hanya meminta hari
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getHari().equals(hari_permintaan)) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        } else if (ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) {//Hanya meminta waktu
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getJam() == jam_permintaan) {
+                    posisiGen = j;
+                    break;
+                }
+            }
+        }
+        return posisiGen;
     }
 
     public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul, List<tabelPermintaan> dataPer) {//

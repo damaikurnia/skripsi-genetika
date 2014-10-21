@@ -17,17 +17,18 @@ public class Genetika {
     static List<KelasKuliah> kelasKuliah;
     List<MataKuliah> matkul;
     static String[] checklist_kk; // <-- untuk cek kk sdh ada di dlm kromosom apa blm.
+    static List<tabelPermintaan> dataPermintaan;
 
     public Genetika() {
 //        ambilDatabase();
     }
 
-    public Genetika(List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul) {
-        ambilDatabase(datakelaskuliah, datamakul);
+    public Genetika(List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
+        ambilDatabase(datakelaskuliah, datamakul, Permintaan);
     }
 
-    public static Kromosom[] crossover(Kromosom[] parent, List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul) {
-        new Genetika(datakelaskuliah, datamakul);
+    public static Kromosom[] crossover(Kromosom[] parent, List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
+        new Genetika(datakelaskuliah, datamakul, Permintaan);
         Kromosom[] krom = parent;
         //parent 1 A - B
         //parent 2 C - D
@@ -50,8 +51,8 @@ public class Genetika {
         return krom;
     }
 
-    public static Kromosom[] Mutasi(Kromosom[] parent, List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul) {
-        new Genetika(datakelaskuliah, datamakul);
+    public static Kromosom[] Mutasi(Kromosom[] parent, List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
+        new Genetika(datakelaskuliah, datamakul, Permintaan);
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
@@ -97,21 +98,63 @@ public class Genetika {
                 }
             }
 
-            //menggeser 1 gen yang memiliki nilai fitness
+            //menggeser 1 gen tertentu secara acak
             int indexawal = 0, indextujuan = 0;
 
             while (true) {
                 Random r = new Random();
                 indexawal = r.nextInt(krom[i].data.length);
                 indextujuan = r.nextInt(krom[i].data.length);
-                if (krom[i].data[indextujuan].getAllele().getIdKelas() == 0 && krom[i].data[indexawal].getAllele().getIdKelas() != 0) {
-                    krom[i].data[indextujuan].setAllele(krom[i].data[indexawal].getAllele());
-                    krom[i].data[indexawal].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
-                    break;
-                } 
 
+                if (krom[i].data[indexawal].isKunci() == true || krom[i].data[indextujuan].isKunci() == true) {
+                    if (krom[i].data[indexawal].isKunci() == true && krom[i].data[indextujuan].isKunci() == true) {
+                        tabelPermintaan isitPermintaan_awal = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indexawal].getAllele().getIdKelas());
+                        tabelPermintaan isitPermintaan_tujuan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());
+                        boolean kesimpulan_awal = new Genetika().penentuanLokasiGen(isitPermintaan_awal, krom[i].data[indextujuan]);
+                        boolean kesimpulan_tujuan = new Genetika().penentuanLokasiGen(isitPermintaan_tujuan, krom[i].data[indexawal]);
+                        if (kesimpulan_awal == true && kesimpulan_tujuan == true) {
+                            KelasKuliah temp = krom[i].data[indexawal].getAllele();
+                            krom[i].data[indexawal].setAllele(krom[i].data[indextujuan].getAllele());
+                            krom[i].data[indextujuan].setAllele(temp);
+                            krom[i].data[indexawal].setNilaiFitness(0);
+                            krom[i].data[indextujuan].setNilaiFitness(0);
+                            break;
+                        }
+                    } else if (krom[i].data[indexawal].isKunci() == true) { //jika index awal yang true
+                        tabelPermintaan isitPermintaan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indexawal].getAllele().getIdKelas());
+                        boolean kesimpulan = new Genetika().penentuanLokasiGen(isitPermintaan, krom[i].data[indextujuan]);
+                        if (kesimpulan == true) {
+                            KelasKuliah temp = krom[i].data[indexawal].getAllele();
+                            krom[i].data[indexawal].setAllele(krom[i].data[indextujuan].getAllele());
+                            krom[i].data[indextujuan].setAllele(temp);
+                            krom[i].data[indexawal].setNilaiFitness(0);
+                            krom[i].data[indextujuan].setNilaiFitness(0);
+                            break;
+                        }
+                    } else { //jika index tujuan yang true
+                        tabelPermintaan isitPermintaan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());
+                        boolean kesimpulan = new Genetika().penentuanLokasiGen(isitPermintaan, krom[i].data[indexawal]);
+                        if (kesimpulan == true) {
+                            KelasKuliah temp = krom[i].data[indexawal].getAllele();
+                            krom[i].data[indexawal].setAllele(krom[i].data[indextujuan].getAllele());
+                            krom[i].data[indextujuan].setAllele(temp);
+                            krom[i].data[indexawal].setNilaiFitness(0);
+                            krom[i].data[indextujuan].setNilaiFitness(0);
+                            break;
+                        }
+                    }
+                } else {
+                    if (krom[i].data[indextujuan].getAllele().getIdKelas() != 0 || krom[i].data[indexawal].getAllele().getIdKelas() != 0) {
+                        KelasKuliah temp = krom[i].data[indexawal].getAllele();
+                        krom[i].data[indexawal].setAllele(krom[i].data[indextujuan].getAllele());
+                        krom[i].data[indextujuan].setAllele(temp);
+                        krom[i].data[indexawal].setNilaiFitness(0);
+                        krom[i].data[indextujuan].setNilaiFitness(0);
+                        break;
+                    }
+                }
             }
-            
+
 //            krom[i] = Pelanggaran.eksekusiAturan(krom[i], dataruang, datadosen);
 //            int maxFitness = 0, index = 0;
 //
@@ -170,9 +213,10 @@ public class Genetika {
 //            Logger.getLogger(Genetika.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    public void ambilDatabase(List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul) {
+    public void ambilDatabase(List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
         kelasKuliah = datakelaskuliah;
         matkul = datamakul;
+        dataPermintaan = Permintaan;
         checklist_kk = new String[kelasKuliah.size()];
         for (int i = 0; i < kelasKuliah.size(); i++) {
             String idMK = kelasKuliah.get(i).getIdMK().getIdMK();
@@ -211,4 +255,71 @@ public class Genetika {
         return null;
     }
 
+    public tabelPermintaan cariKelasKuliahPermintaan(int idKelas) {
+        tabelPermintaan posisi = null;
+        for (int i = 0; i < dataPermintaan.size(); i++) {
+            if (dataPermintaan.get(i).getIdKelas().getIdKelas() == idKelas) {
+                posisi = dataPermintaan.get(i);
+                break;
+            }
+        }
+        return posisi;
+    }
+
+    public int tentukanJamPermintaan(String jam) {
+        if (jam.equals("07:00-09:59")) {
+            return 1;
+        } else if (jam.equals("10:00-12:59")) {
+            return 2;
+        } else if (jam.equals("13:00-15:59")) {
+            return 3;
+        } else if (jam.equals("16:00-18:59")) {
+            return 4;
+        } else {
+            return 0;//0 berarti bisa jam berapa aja
+        }
+    }
+
+    public boolean penentuanLokasiGen(tabelPermintaan kelasPermintaan, Gen targetGen) {
+        String ruang_permintaan = kelasPermintaan.getIdRuang().idRuang;
+        String hari_permintaan = kelasPermintaan.getHari();
+        int jam_permintaan = tentukanJamPermintaan(kelasPermintaan.getJam());
+
+        boolean kesimpulan = false;
+        if (!ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan != 0) {//semua ditentukan
+            if (targetGen.getRuang().getIdRuang().equals(ruang_permintaan)
+                    && targetGen.getHari().equals(hari_permintaan)
+                    && targetGen.getJam() == jam_permintaan) {
+                kesimpulan = true;
+            }
+        } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta hari dan jam tertentu
+            if (targetGen.getHari().equals(hari_permintaan)
+                    && targetGen.getJam() == jam_permintaan) {
+                kesimpulan = true;
+            }
+        } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta ruang dan jam tertentu
+            if (targetGen.getRuang().getIdRuang().equals(ruang_permintaan)
+                    && targetGen.getJam() == jam_permintaan) {
+                kesimpulan = true;
+            }
+        } else if (!ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) { //meminta ruang dan hari tertentu
+            if (targetGen.getRuang().getIdRuang().equals(ruang_permintaan)
+                    && targetGen.getHari().equals(hari_permintaan)) {
+                kesimpulan = true;
+            }
+        } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan == 0) {//hanya meminta ruang
+            if (targetGen.getRuang().getIdRuang().equals(ruang_permintaan)) {
+                kesimpulan = true;
+            }
+        } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) {//Hanya meminta hari
+            if (targetGen.getHari().equals(hari_permintaan)) {
+                kesimpulan = true;
+            }
+        } else if (ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) {//Hanya meminta waktu
+            if (targetGen.getJam() == jam_permintaan) {
+                kesimpulan = true;
+            }
+        }
+        return kesimpulan;
+    }
 }
