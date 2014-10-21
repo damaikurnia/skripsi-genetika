@@ -17,8 +17,13 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int data;
-        data = JOptionPane.showConfirmDialog(null, "Apakah Mau menghapus?", "MENGHAPUS DATA", 1);
-        System.out.println(data);
+        int[] data = {1,2,3,4,5,6};
+        
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(i);
+            if(data[i]==4){
+                break;
+            }
+        }
     }
 }

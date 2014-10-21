@@ -38,7 +38,7 @@ public class Kromosom {
         this.ruang = RuangKontrol.jumlahRuang(ruang);
         rng = ruang;
     }
-    
+
     /**
      * @return the data
      */
@@ -90,7 +90,6 @@ public class Kromosom {
 //        }
 //        return data;
 //    }
-    
     public Gen[] prosesRandom() { //yang di random slot gennya
         Random r = new Random();
         int hari = 5;
@@ -111,20 +110,41 @@ public class Kromosom {
             data[i].setNilaiFitness(0);
         }
         data = tentukanRuang(data);
-        for (int i = 0; i < matkul; i++) {
+        
+        for (int i = 0; i < matkul; i++) {//checklist kelasmatkul (sdh dimasukkan/blm)
             cek[i] = false;
         }
 
+        for (int i = 0; i < dataPermintaan.size(); i++) {
+            String ruang_permintaan = dataPermintaan.get(i).getIdRuang().idRuang;
+            String hari_permintaan = dataPermintaan.get(i).getHari();
+            int jam_permintaan = tentukanJamPermintaan(dataPermintaan.get(i).getJam());
+            KelasKuliah matkulPermintaan = dataa.get(cariIndexKelasKuliah(i));
+
+            for (int j = 0; j < data.length; j++) {
+                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                        && data[j].getHari().equals(hari_permintaan)
+                        && data[j].getJam() == jam_permintaan) {
+                    data[j].setAllele(matkulPermintaan);
+                    String idMK = data[j].getAllele().getIdMK().getIdMK();
+                    data[j].getAllele().getIdMK().setSemester(isiSemester(idMK));
+                    data[j].setKunci(true);
+                    cek[cariIndexKelasKuliah(i)] = true;
+                    N--;
+                }
+            }
+
+        }
+        
         int index = 0; //untuk index matakuliah
-        while (N != 0) {
-            
-            
+        while (N != 0) {//untuk kelas non permintaan
             //random
             int tangkap = r.nextInt(data.length);
             if (data[tangkap].getAllele().getIdKelas() == 0) {
                 data[tangkap].setAllele(dataa.get(index));
                 String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
                 data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
+                data[tangkap].setKunci(false);
                 index++;
                 N--;
             }
@@ -194,7 +214,32 @@ public class Kromosom {
         return data;
     }
 
-    public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul,List<tabelPermintaan> dataPer) {//
+    public int tentukanJamPermintaan(String jam) {
+        if (jam.equals("07:00-09:59")) {
+            return 1;
+        } else if (jam.equals("10:00-12:59")) {
+            return 2;
+        } else if (jam.equals("13:00-15:59")) {
+            return 3;
+        } else if (jam.equals("16:00-18:59")) {
+            return 4;
+        } else {
+            return 0;//0 berarti bisa jam berapa aja
+        }
+    }
+
+    public int cariIndexKelasKuliah(int idKelas) {
+        int temp = 0;
+        for (int i = 0; i < dataa.size(); i++) {
+            if (dataa.get(i).getIdKelas() == idKelas) {
+                temp = i;
+                break;
+            }
+        }
+        return temp;
+    }
+
+    public Kromosom solusiAwal(List<KelasKuliah> kelasKuliah, List<Ruang> ruang, List<MataKuliah> makul, List<tabelPermintaan> dataPer) {//
         Kromosom krom = new Kromosom(kelasKuliah, ruang);
         this.makul = makul;
         this.dataPermintaan = dataPer;

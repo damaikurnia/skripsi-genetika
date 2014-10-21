@@ -16,6 +16,7 @@ public class Gen {
     String hari;
     int jam;
     int nilaiFitness;
+    boolean kunci;
 
     /**
      * @return the timeSlot
@@ -85,6 +86,20 @@ public class Gen {
      */
     public void setNilaiFitness(int nilaiFitness) {
         this.nilaiFitness = nilaiFitness;
+    }
+
+    /**
+     * @return the kunci
+     */
+    public boolean isKunci() {
+        return kunci;
+    }
+
+    /**
+     * @param kunci the kunci to set
+     */
+    public void setKunci(boolean kunci) {
+        this.kunci = kunci;
     }
     
 }
