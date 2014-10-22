@@ -158,7 +158,6 @@ public class Populasi {
 //        cetak();
         while (indexSolusi == -1) {
             iterasi++;
-//            System.out.println(iterasi);
             RouleteWheelSelection();
             parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul, dataPermintaan);
             parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul, dataPermintaan);
