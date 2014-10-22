@@ -133,6 +133,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         tomboldialog_matkul = new javax.swing.JButton();
         klikKanan = new javax.swing.JPopupMenu();
         HAPUS = new javax.swing.JMenuItem();
+        dialog_pleasewait = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        progres_barnya = new javax.swing.JProgressBar();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -383,6 +388,44 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             }
         });
         klikKanan.add(HAPUS);
+
+        dialog_pleasewait.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel12.setBackground(new java.awt.Color(204, 102, 0));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("PEMBUATAN JADWAL");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("PEMBUATAN JADWAL SEDANG DALAM PROSES. SILAHKAN MENUNGGU....");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(progres_barnya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(progres_barnya, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        dialog_pleasewait.getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 140));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -799,6 +842,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JComboBox combo_ruang;
     private javax.swing.JDialog dialog_dosen;
     private javax.swing.JDialog dialog_matkul;
+    private javax.swing.JDialog dialog_pleasewait;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel jLabel1;
@@ -809,6 +853,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -820,6 +866,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -837,6 +884,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel labelKelas;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
+    private javax.swing.JProgressBar progres_barnya;
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton1;
     private javax.swing.JTable tabel_kelasmatakuliah;
