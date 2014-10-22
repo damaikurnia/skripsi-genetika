@@ -177,4 +177,21 @@ public class PenjadwalanKontrol {
         conn.close();
         return tab;
     }
+    
+    //==========================UNTUK JADWAL SOLUSI============================
+    public void insertJadwal(tabelPermintaan tab_permintaan) throws SQLException{
+        PreparedStatement stmt = null;
+        conn.setAutoCommit(false);
+        String query = "INSERT INTO tabel_jadwal VALUES(?,?,?,?,?)";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1, tab_permintaan.getNoRule());
+        stmt.setString(2, Integer.toString(tab_permintaan.getIdKelas().getIdKelas()));
+        stmt.setString(3, tab_permintaan.getIdRuang().getIdRuang());
+        stmt.setString(4, tab_permintaan.getHari());
+        stmt.setString(5, tab_permintaan.getJam());
+
+        stmt.executeUpdate();
+        conn.commit();
+        conn.close();
+    }
 }

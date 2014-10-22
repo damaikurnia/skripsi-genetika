@@ -30,11 +30,6 @@ public class Genetika {
     public static Kromosom[] crossover(Kromosom[] parent, List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
         new Genetika(datakelaskuliah, datamakul, Permintaan);
         Kromosom[] krom = parent;
-        //parent 1 A - B
-        //parent 2 C - D
-        //child 1 A - D
-        //child 2 C - B
-
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
             if (i < point) { // samakan gen A dan C ke child 1 dan 2
@@ -118,6 +113,7 @@ public class Genetika {
                             krom[i].data[indextujuan].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
+                            System.out.println("Geser Keduanya");
                             break;
                         }
                     } else if (krom[i].data[indexawal].isKunci() == true) { //jika index awal yang true
@@ -129,17 +125,23 @@ public class Genetika {
                             krom[i].data[indextujuan].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
+                            krom[i].data[indextujuan].setKunci(true);
+                            krom[i].data[indexawal].setKunci(false);
+                            System.out.println("Geser Index Awal");
                             break;
                         }
-                    } else { //jika index tujuan yang true
+                    } else if (krom[i].data[indextujuan].isKunci() == true){ //jika index tujuan yang true
                         tabelPermintaan isitPermintaan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());
                         boolean kesimpulan = new Genetika().penentuanLokasiGen(isitPermintaan, krom[i].data[indexawal]);
                         if (kesimpulan == true) {
-                            KelasKuliah temp = krom[i].data[indexawal].getAllele();
-                            krom[i].data[indexawal].setAllele(krom[i].data[indextujuan].getAllele());
-                            krom[i].data[indextujuan].setAllele(temp);
+                            KelasKuliah temp = krom[i].data[indextujuan].getAllele();
+                            krom[i].data[indextujuan].setAllele(krom[i].data[indexawal].getAllele());
+                            krom[i].data[indexawal].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
+                            krom[i].data[indexawal].setKunci(true);
+                            krom[i].data[indextujuan].setKunci(false);
+                            System.out.println("Geser Index Tujuan");
                             break;
                         }
                     }
@@ -154,33 +156,6 @@ public class Genetika {
                     }
                 }
             }
-
-//            krom[i] = Pelanggaran.eksekusiAturan(krom[i], dataruang, datadosen);
-//            int maxFitness = 0, index = 0;
-//
-//            for (int t = 0; t < krom[i].data.length; t++) {
-//                if (krom[i].data[t].getNilaiFitness() > maxFitness) {
-//                    maxFitness = krom[i].data[t].getNilaiFitness();
-//                    index = t;
-//                } else {
-//                    maxFitness = maxFitness;
-//                    index = index;
-//                }
-//            }
-//            while (true) {
-//                int indexTujuan = 0;
-//                Random r = new Random();
-//                indexTujuan = r.nextInt(krom[i].data.length);
-//                if (krom[i].data[indexTujuan].getAllele().getIdKelas() == 0) {
-//                    krom[i].data[indexTujuan].setAllele(krom[i].data[index].getAllele());
-//                    krom[i].data[index].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //menghapus gen posisiasal
-//                    krom[i].data[index].setNilaiFitness(0);
-////                        System.out.println("Kiri "+kiri+" Kanan "+kanan);
-////                        System.out.println("Pindah Mutasi "+posisiAsal+" ke "+posisiTujuan);
-//                    break;
-//                } 
-//
-//            }
             for (int p = 0; i < checklist_kk.length; i++) {
                 checklist_kk[p] = checklist_kk[p].split("-") + "-0";
             }
@@ -189,30 +164,6 @@ public class Genetika {
         return krom;
     }
 
-//    public void ambilDatabase() {
-//        try {
-//            kelasKuliah = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
-//            matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
-//            checklist_kk = new String[kelasKuliah.size()];
-//            Kromosom a = new Kromosom(0);
-//            for (int i = 0; i < kelasKuliah.size(); i++) {
-//                String idMK = kelasKuliah.get(i).getIdMK().getIdMK();
-//                for (int j = 0; j < matkul.size(); j++) {
-//                    if (idMK.equals(matkul.get(j).getIdMK())) {
-//                        kelasKuliah.get(i).getIdMK().setSemester(matkul.get(j).getSemester());
-//                    }
-//                }
-//
-//            }
-//            //addOn checklist_kk
-//            for (int i = 0; i < checklist_kk.length; i++) {
-//                checklist_kk[i] = Integer.toString(kelasKuliah.get(i).getIdKelas()) + "-0";
-//            }
-////            sorting();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Genetika.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     public void ambilDatabase(List<KelasKuliah> datakelaskuliah, List<MataKuliah> datamakul, List<tabelPermintaan> Permintaan) {
         kelasKuliah = datakelaskuliah;
         matkul = datamakul;

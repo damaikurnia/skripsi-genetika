@@ -74,22 +74,8 @@ public class Populasi {
     }
 
     public void cetak() {
-//        for (int i = 0; i < parent.length; i++) {
-//            for (int j = 0; j < parent[i].getData().length; j++) {
-//                if (j == 110) {
-////                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-////                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
-//                } else {
-//                    System.out.println(parent[i].getData()[j].getAllele().getIdKelas());
-//                }
-//            }
-//            System.out.println("");
-//        }
         for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
             if (j == 110) {
-//                    System.out.print(" ||||| " + parent[i].getData()[j].getAllele().getIdKelas() + " ");
-//                    System.out.print(parent[i].getData()[j].getAllele().getIdKelas() + " ");
                 System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
             } else {
                 System.out.println(parent[indexSolusi].getData()[j].getAllele().getIdKelas());
@@ -185,6 +171,13 @@ public class Populasi {
 //            }
 //            System.out.println("------------------------------------------------------------------------------------");
         }
+    
+    public void simpanJadwal(Kromosom solusi){
+        for (int i = 0; i < solusi.data.length; i++) {
+            
+            
+        }
+    }
     
     public static void main(String[] args) throws SQLException {
         Populasi pop = new Populasi();
