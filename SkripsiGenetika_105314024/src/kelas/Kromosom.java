@@ -85,7 +85,6 @@ public class Kromosom {
             data[posisiGen].setAllele(matkulPermintaan);
             String idMK = data[posisiGen].getAllele().getIdMK().getIdMK();
             data[posisiGen].getAllele().getIdMK().setSemester(isiSemester(idMK));
-            data[posisiGen].setKunci(true);
             cek[cariIndexKelasKuliah(dataPermintaan.get(i).getIdKelas().getIdKelas())] = true;
 //            System.out.println("NoRule "+dataPermintaan.get(i).getNoRule()+" berada di index " + posisiGen);
             N--;
@@ -102,7 +101,6 @@ public class Kromosom {
                     data[tangkap].setAllele(dataa.get(index));
                     String idMK = data[tangkap].getAllele().getIdMK().getIdMK();
                     data[tangkap].getAllele().getIdMK().setSemester(isiSemester(idMK));
-                    data[tangkap].setKunci(false);
                     index++;
                     N--;
                 }

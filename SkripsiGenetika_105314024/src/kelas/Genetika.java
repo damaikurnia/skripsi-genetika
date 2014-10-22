@@ -100,9 +100,11 @@ public class Genetika {
                 Random r = new Random();
                 indexawal = r.nextInt(krom[i].data.length);
                 indextujuan = r.nextInt(krom[i].data.length);
+                boolean cek_indexAwal = new Genetika().cekMatkulPermintaan(krom[i].data[indexawal].getAllele().getIdKelas());
+                boolean cek_indexTujuan = new Genetika().cekMatkulPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());;
 
-                if (krom[i].data[indexawal].isKunci() == true || krom[i].data[indextujuan].isKunci() == true) {
-                    if (krom[i].data[indexawal].isKunci() == true && krom[i].data[indextujuan].isKunci() == true) {
+                if (cek_indexAwal == true || cek_indexTujuan == true) {
+                    if (cek_indexAwal == true && cek_indexTujuan == true) {
                         tabelPermintaan isitPermintaan_awal = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indexawal].getAllele().getIdKelas());
                         tabelPermintaan isitPermintaan_tujuan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());
                         boolean kesimpulan_awal = new Genetika().penentuanLokasiGen(isitPermintaan_awal, krom[i].data[indextujuan]);
@@ -116,7 +118,7 @@ public class Genetika {
                             System.out.println("Geser Keduanya");
                             break;
                         }
-                    } else if (krom[i].data[indexawal].isKunci() == true) { //jika index awal yang true
+                    } else if (cek_indexAwal == true) { //jika index awal yang true
                         tabelPermintaan isitPermintaan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indexawal].getAllele().getIdKelas());
                         boolean kesimpulan = new Genetika().penentuanLokasiGen(isitPermintaan, krom[i].data[indextujuan]);
                         if (kesimpulan == true) {
@@ -125,12 +127,10 @@ public class Genetika {
                             krom[i].data[indextujuan].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
-                            krom[i].data[indextujuan].setKunci(true);
-                            krom[i].data[indexawal].setKunci(false);
                             System.out.println("Geser Index Awal");
                             break;
                         }
-                    } else if (krom[i].data[indextujuan].isKunci() == true){ //jika index tujuan yang true
+                    } else if (cek_indexTujuan == true) { //jika index tujuan yang true
                         tabelPermintaan isitPermintaan = new Genetika().cariKelasKuliahPermintaan(krom[i].data[indextujuan].getAllele().getIdKelas());
                         boolean kesimpulan = new Genetika().penentuanLokasiGen(isitPermintaan, krom[i].data[indexawal]);
                         if (kesimpulan == true) {
@@ -139,8 +139,6 @@ public class Genetika {
                             krom[i].data[indexawal].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
-                            krom[i].data[indexawal].setKunci(true);
-                            krom[i].data[indextujuan].setKunci(false);
                             System.out.println("Geser Index Tujuan");
                             break;
                         }
@@ -269,6 +267,17 @@ public class Genetika {
         } else if (ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) {//Hanya meminta waktu
             if (targetGen.getJam() == jam_permintaan) {
                 kesimpulan = true;
+            }
+        }
+        return kesimpulan;
+    }
+
+    public boolean cekMatkulPermintaan(int idKelas) { //mengecek apakah termasuk matkul permintaan/bkn
+        boolean kesimpulan = false;
+        for (int i = 0; i < dataPermintaan.size(); i++) {
+            if (idKelas == dataPermintaan.get(i).getIdKelas().getIdKelas()) {
+                kesimpulan = true;
+                break;
             }
         }
         return kesimpulan;
