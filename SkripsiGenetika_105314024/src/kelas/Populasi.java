@@ -7,11 +7,13 @@ package kelas;
 
 import java.sql.SQLException;
 import java.util.List;
+import javafx.scene.control.ProgressBar;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
 import kontrol.PenjadwalanKontrol;
 import kontrol.RuangKontrol;
+import view.viewPenjadwalan;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Populasi {
     int iterasi = 0;
     int indexSolusi = -1;
     int[] score = new int[4];
+    
+    int fitnessTerkecil = 1000;
 
     //databasenya
     List<Ruang> dataRuang;
@@ -69,6 +73,18 @@ public class Populasi {
             }
             if (score[i] == 0) {
                 indexSolusi = i;
+                fitnessTerkecil = 0;
+                viewPenjadwalan.progres_barnya.setValue(100);
+            }
+            else{
+                int n = parent[i].data.length;
+                if(score[i]<fitnessTerkecil){
+                    fitnessTerkecil = score[i];
+                    viewPenjadwalan.progres_barnya.setValue(((n-fitnessTerkecil)/n)*100);
+                }
+                else{
+                    viewPenjadwalan.progres_barnya.setValue(((n-fitnessTerkecil)/n)*100);
+                }
             }
         }
     }
@@ -174,6 +190,7 @@ public class Populasi {
     }
 
     public void simpanJadwal(Kromosom solusi) throws SQLException {
+        PenjadwalanKontrol.getKoneksi().deleteJadwal();
         for (int i = 0; i < solusi.data.length; i++) {
             int noRule = i;
             int idKelas = solusi.getData()[i].getAllele().getIdKelas();
