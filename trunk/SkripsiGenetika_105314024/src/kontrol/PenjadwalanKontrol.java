@@ -116,7 +116,7 @@ public class PenjadwalanKontrol {
         conn.close();
         return temp;
     }
-    
+
 //    public int cariNoRule2(String idKelas) throws SQLException {
 //        PreparedStatement stmt = null;
 //        ResultSet result = null;
@@ -132,7 +132,6 @@ public class PenjadwalanKontrol {
 //        conn.close();
 //        return temp;
 //    }
-
     public boolean cekRuang(String idRuang, String hari, String jam) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -154,7 +153,7 @@ public class PenjadwalanKontrol {
             return true;
         }
     }
-    
+
     public List<tabelPermintaan> selectTabelPermintaan() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -177,9 +176,9 @@ public class PenjadwalanKontrol {
         conn.close();
         return tab;
     }
-    
+
     //==========================UNTUK JADWAL SOLUSI============================
-    public void insertJadwal(tabelPermintaan tab_permintaan) throws SQLException{
+    public void insertJadwal(tabelPermintaan tab_permintaan) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
         String query = "INSERT INTO tabel_jadwal VALUES(?,?,?,?,?)";
@@ -193,5 +192,44 @@ public class PenjadwalanKontrol {
         stmt.executeUpdate();
         conn.commit();
         conn.close();
+    }
+
+    public void deleteJadwal() throws SQLException {
+        PreparedStatement stmt = null;
+        conn.setAutoCommit(false);
+        String query = "DELETE FROM tabel_jadwal";
+        stmt = conn.prepareStatement(query);
+        stmt.executeUpdate();
+        conn.commit();
+        conn.close();
+    }
+
+    public List<tabelPermintaan> tampilTabelJadwal() throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT a.idKelas,CONCAT(b.idMK,'-',c.namaMK,'-',b.Kelas) "
+                + "AS \"MATAKULIAH\", e.namaDosen, CONCAT(a.idRuang,'-',d.namaRuang) "
+                + "AS \"RUANG\",a.Hari,a.Jam \n "
+                + "FROM tabel_jadwal a,kelas_makul b,matakuliah c, ruang d, dosen e \n"
+                + "WHERE a.idKelas = b.idKelas AND a.idRuang = d.idRuang "
+                + "AND b.idMK = c.idMK AND b.idDosen = e.idDosen;";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<tabelPermintaan> tab = new ArrayList<tabelPermintaan>();
+
+        tabelPermintaan temp = null;
+        while (result.next()) {
+            temp = new tabelPermintaan();
+            temp.setIdKelas(new KelasKuliah(result.getInt(1)));
+            temp.setMatakuliah(result.getString(2));
+            temp.setNamaDosen(result.getString(3));
+            temp.setIdRuang(new Ruang("-", result.getString(4), "-"));
+            temp.setHari(result.getString(5));
+            temp.setJam(result.getString(6));
+            tab.add(temp);
+        }
+        conn.close();
+        return tab;
     }
 }

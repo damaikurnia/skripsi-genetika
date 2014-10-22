@@ -10,15 +10,20 @@
  */
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
 import kelas.KelasKuliah;
+import kelas.Populasi;
 import kelas.Ruang;
 import kelas.tabelPermintaan;
 import kontrol.DosenKontrol;
@@ -34,6 +39,10 @@ import tabelModel.TabelPermintaan_TM;
  * @author ADHI
  */
 public class viewPenjadwalan extends javax.swing.JFrame {
+
+    private Timer timer;
+    private int jam = 0, menit = 0, detik = 0;
+    private SwingWorker<String, String> Genetic_Proses;
 
     /**
      * Creates new form viewKelas
@@ -51,6 +60,16 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_matkul.setSize(777, 480);
         dialog_matkul.setLocationRelativeTo(null);
         dialog_matkul.setTitle("DATA MATAKULIAH");
+
+        dialog_pleasewait.setVisible(false);
+        dialog_pleasewait.setSize(700, 178);
+        dialog_pleasewait.setLocationRelativeTo(null);
+        dialog_pleasewait.setTitle("PEMBUATAN JADWAL...");
+        
+        dialog_solusiJadwal.setVisible(false);
+        dialog_solusiJadwal.setSize(1033, 470);
+        dialog_solusiJadwal.setLocationRelativeTo(null);
+        dialog_solusiJadwal.setTitle("JADWAL");
 
         try {
             updateTabelPermintaan();
@@ -79,6 +98,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
         Tabel_Permintaan.setModel(model);
     }
+    
+    private void updateTabelJadwal() throws SQLException {
+        List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwal();
+        TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
+        Tabel_Solusi.setModel(model);
+    }
 
     private void isiComboRuang() throws SQLException {
         List<Ruang> ruang = RuangKontrol.getKoneksi().tampilRuangTeori();
@@ -86,8 +111,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             combo_ruang.addItem(k.getIdRuang() + "-" + k.getNamaRuang());
         }
     }
-    
-    private void kosongkan(){
+
+    private void kosongkan() {
         text_dosen.setText("");
         text_matkul.setText("");
         text_klsMatkul.setText("");
@@ -138,6 +163,15 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         progres_barnya = new javax.swing.JProgressBar();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        label_waktu = new javax.swing.JLabel();
+        dialog_solusiJadwal = new javax.swing.JDialog();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Tabel_Solusi = new javax.swing.JTable();
+        tomboldialog_dosen1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -150,7 +184,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tombol_cariMatkul = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        simpanButton1 = new javax.swing.JButton();
+        jadwalButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         text_dosen = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -401,6 +435,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("PEMBUATAN JADWAL SEDANG DALAM PROSES. SILAHKAN MENUNGGU....");
 
+        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label_waktu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -410,7 +447,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(progres_barnya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                    .addComponent(label_waktu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -420,12 +458,103 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label_waktu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progres_barnya, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         dialog_pleasewait.getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 140));
+
+        dialog_solusiJadwal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel14.setBackground(new java.awt.Color(153, 51, 0));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel19.setText("JADWAL YANG DIHASILKAN");
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        Tabel_Solusi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabel_Solusi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabel_SolusiMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(Tabel_Solusi);
+
+        tomboldialog_dosen1.setText("BATAL");
+        tomboldialog_dosen1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tomboldialog_dosen1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(454, 454, 454)
+                .addComponent(tomboldialog_dosen1)
+                .addGap(0, 493, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tomboldialog_dosen1)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dialog_solusiJadwal.getContentPane().add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -504,9 +633,14 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel4.setText("TABEL PERMINTAAN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
 
-        simpanButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        simpanButton1.setText("BUAT JADWAL");
-        jPanel4.add(simpanButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 440, 50));
+        jadwalButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jadwalButton.setText("BUAT JADWAL");
+        jadwalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jadwalButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jadwalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 440, 50));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("DOSEN");
@@ -809,6 +943,89 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_HAPUSActionPerformed
 
+    private void busy(boolean b) {
+        jadwalButton.setEnabled(!b);
+    }
+
+    public class TimerHandler implements ActionListener {
+
+        private String buff;
+
+        private void write() {
+            buff = String.format(" %s%3d:%3d:%3d", "Time", jam, menit, detik);
+            label_waktu.setText(buff);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            detik++;
+            if (detik == 60) {
+                detik = 0;
+                menit++;
+            }
+            if (menit == 60) {
+                menit = 0;
+                jam++;
+            }
+            if (jam == 24) {
+                jam = 0;
+            }
+            this.write();
+        }
+    }
+
+    public void buatJadwal() {
+        Genetic_Proses = new SwingWorker<String, String>() {
+
+            @Override
+            protected String doInBackground() throws Exception {
+                busy(true);
+                timer = new Timer(1000, new TimerHandler());
+                timer.start();
+                new Populasi().prosesGenetika();
+                return "Proses Pembuatan Jadwal selesai !!!";
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    //Cek apakah proses pembuatan jadwal selesai?
+                    timer.stop();
+                    progres_barnya.setValue(0);
+                    String pesan = get();
+                    JOptionPane.showMessageDialog(null, pesan);
+                    JOptionPane.showMessageDialog(null, "Waktu Penyelesaian Jadwal : "+label_waktu.getText());
+                    updateTabelJadwal();
+                    tutup();
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Proses tidak selesai. Alasan:\n" + ex.getMessage());
+                } finally {
+                    busy(false);
+                }
+            }
+        };
+        Genetic_Proses.execute();
+    }
+
+    public void tutup() {
+        dialog_pleasewait.setVisible(false);
+        dialog_solusiJadwal.setVisible(true);
+    }
+    
+    private void jadwalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalButtonActionPerformed
+        dialog_pleasewait.setVisible(true);
+        buatJadwal();
+    }//GEN-LAST:event_jadwalButtonActionPerformed
+
+    private void Tabel_SolusiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel_SolusiMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tabel_SolusiMouseClicked
+
+    private void tomboldialog_dosen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomboldialog_dosen1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tomboldialog_dosen1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -836,6 +1053,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JMenuItem HAPUS;
     private javax.swing.JTable Tabel_Dosen;
     private javax.swing.JTable Tabel_Permintaan;
+    private javax.swing.JTable Tabel_Solusi;
     private javax.swing.JButton button_batal;
     private javax.swing.JComboBox combo_hari;
     private javax.swing.JComboBox combo_jam;
@@ -843,6 +1061,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JDialog dialog_dosen;
     private javax.swing.JDialog dialog_matkul;
     private javax.swing.JDialog dialog_pleasewait;
+    private javax.swing.JDialog dialog_solusiJadwal;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel jLabel1;
@@ -855,6 +1074,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -867,6 +1087,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -878,15 +1101,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jadwalButton;
     private javax.swing.JButton kelasButton;
     private javax.swing.JPopupMenu klikKanan;
     private javax.swing.JLabel labelKelas;
+    private javax.swing.JLabel label_waktu;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
-    private javax.swing.JProgressBar progres_barnya;
+    public static javax.swing.JProgressBar progres_barnya;
     private javax.swing.JButton ruangButton;
-    private javax.swing.JButton simpanButton1;
     private javax.swing.JTable tabel_kelasmatakuliah;
     private javax.swing.JTextField text_dosen;
     private javax.swing.JTextField text_klsMatkul;
@@ -895,6 +1120,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JButton tombol_cariMatkul;
     private javax.swing.JButton tombol_tambahPermintaan;
     private javax.swing.JButton tomboldialog_dosen;
+    private javax.swing.JButton tomboldialog_dosen1;
     private javax.swing.JButton tomboldialog_matkul;
     // End of variables declaration//GEN-END:variables
 }
