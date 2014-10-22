@@ -115,7 +115,7 @@ public class Genetika {
                             krom[i].data[indextujuan].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
-                            System.out.println("Geser Keduanya");
+//                            System.out.println("Geser Keduanya");
                             break;
                         }
                     } else if (cek_indexAwal == true) { //jika index awal yang true
@@ -127,7 +127,7 @@ public class Genetika {
                             krom[i].data[indextujuan].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
-                            System.out.println("Geser Index Awal");
+//                            System.out.println("Geser Index Awal");
                             break;
                         }
                     } else if (cek_indexTujuan == true) { //jika index tujuan yang true
@@ -139,7 +139,7 @@ public class Genetika {
                             krom[i].data[indexawal].setAllele(temp);
                             krom[i].data[indexawal].setNilaiFitness(0);
                             krom[i].data[indextujuan].setNilaiFitness(0);
-                            System.out.println("Geser Index Tujuan");
+//                            System.out.println("Geser Index Tujuan");
                             break;
                         }
                     }
