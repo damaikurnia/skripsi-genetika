@@ -7,7 +7,6 @@ package kelas;
 
 import java.sql.SQLException;
 import java.util.List;
-import javafx.scene.control.ProgressBar;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
