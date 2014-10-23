@@ -74,7 +74,8 @@ public class Genetika {
             }
 
             //replace 0 dengan kelas makul yang tidak ada di dalam kromosom
-            int point = krom[i].data.length / 2;
+//            int point = krom[i].data.length / 2;
+            int point = krom[i].data.length;
             for (int s = 0; s < simsem_hilang.split("-").length; s++) {
                 int tangkap = 0;
                 Random r = new Random();
@@ -84,6 +85,7 @@ public class Genetika {
                         tangkap = 0;
                     } else {
                         tangkap = tangkap;
+                        break;
                     }
                 }
                 if (simsem_hilang.equals("")) {
