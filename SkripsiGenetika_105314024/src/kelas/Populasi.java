@@ -214,8 +214,8 @@ public class Populasi {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-        Populasi pop = new Populasi();
-        pop.prosesGenetika();
-    }
+//    public static void main(String[] args) throws SQLException {
+//        Populasi pop = new Populasi();
+//        pop.prosesGenetika();
+//    }
 }
