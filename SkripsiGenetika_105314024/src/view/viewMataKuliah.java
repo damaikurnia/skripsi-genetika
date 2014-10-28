@@ -10,26 +10,27 @@
  */
 package view;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import kelas.Dosen;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import jxl.Sheet;
+import jxl.Workbook;
 import kelas.MataKuliah;
-import kelas.Ruang;
-import kontrol.DosenKontrol;
 import kontrol.MataKuliahKontrol;
-import kontrol.RuangKontrol;
-import tabelModel.Dosen_TM;
 import tabelModel.MataKuliah_TM;
 
 /**
  *
- * @author ADIT
+ * @author Adhi
  */
 public class viewMataKuliah extends javax.swing.JFrame {
 
@@ -40,6 +41,12 @@ public class viewMataKuliah extends javax.swing.JFrame {
             setLocationRelativeTo(null);
            
             updateTabelMataKuliah();
+            
+            uploadData.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            uploadData.setMultiSelectionEnabled(false);
+            FileNameExtensionFilter JExcelFilter = new FileNameExtensionFilter("Excel File 2003 .xls", "xls");
+            uploadData.setFileFilter(JExcelFilter);
+            uploadData.setAcceptAllFileFilterUsed(false);
         } catch (SQLException ex) {
             Logger.getLogger(viewMataKuliah.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,6 +74,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        uploadData = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -92,6 +100,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMatakuliah = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        button_upload = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -242,6 +251,14 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel12.setText("DATA MATAKULIAH");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
+        button_upload.setText("UPLOAD");
+        button_upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_uploadActionPerformed(evt);
+            }
+        });
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 90, -1));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
@@ -372,6 +389,42 @@ public class viewMataKuliah extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tabelMatakuliahMouseClicked
 
+    private void button_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_uploadActionPerformed
+        int jes = uploadData.showOpenDialog(this);
+
+        if (jes == uploadData.APPROVE_OPTION) {
+//            File f = uploadData.getSelectedFile();
+//           jLabel1.setText(f.getPath());
+//           JOptionPane.showMessageDialog(null, f.getPath());
+
+            File excelFile = uploadData.getSelectedFile();
+
+            // buat model untuk file excel
+            if (excelFile.exists()) {
+                try {
+                    Workbook workbook = Workbook.getWorkbook(excelFile);
+                    Sheet sheet = workbook.getSheets()[0];
+
+                    TableModel model = new DefaultTableModel(sheet.getRows(), sheet.getColumns());
+                    for (int row = 1; row < sheet.getRows(); row++) {
+                        String content = "";
+                        for (int column = 0; column < sheet.getColumns(); column++) {
+                            content = content + sheet.getCell(column, row).getContents() + "-";
+                        }
+                        MataKuliah mk = new MataKuliah(content.split("-")[0], content.split("-")[1], Integer.parseInt(content.split("-")[2]), Integer.parseInt(content.split("-")[3]), Integer.parseInt(content.split("-")[4]));
+                        MataKuliahKontrol.getKoneksi().insertMataKuliah(mk);
+                    }
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist");
+            }
+        }
+    }//GEN-LAST:event_button_uploadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,6 +453,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JComboBox SKS_jComboBox;
     private javax.swing.JComboBox Smstr_jComboBox;
     private javax.swing.JButton batalButton;
+    private javax.swing.JButton button_upload;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idMataKuliahText;
@@ -428,5 +482,6 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTable tabelMatakuliah;
+    private javax.swing.JFileChooser uploadData;
     // End of variables declaration//GEN-END:variables
 }

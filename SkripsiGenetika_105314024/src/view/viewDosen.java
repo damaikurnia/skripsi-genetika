@@ -10,23 +10,27 @@
  */
 package view;
 
+import java.io.File;
 import kelas.Dosen;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import kelas.Ruang;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import jxl.Sheet;
+import jxl.Workbook;
 import kontrol.DosenKontrol;
-import kontrol.RuangKontrol;
 import tabelModel.Dosen_TM;
-import tabelModel.Ruang_TM;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class viewDosen extends javax.swing.JFrame {
 
@@ -38,6 +42,12 @@ public class viewDosen extends javax.swing.JFrame {
             initComponents();
             setLocationRelativeTo(null);
             updateTabelDosen();
+
+            uploadData.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            uploadData.setMultiSelectionEnabled(false);
+            FileNameExtensionFilter JExcelFilter = new FileNameExtensionFilter("Excel File 2003 .xls", "xls");
+            uploadData.setFileFilter(JExcelFilter);
+            uploadData.setAcceptAllFileFilterUsed(false);
         } catch (SQLException ex) {
             Logger.getLogger(viewDosen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,6 +62,7 @@ public class viewDosen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        uploadData = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -75,6 +86,7 @@ public class viewDosen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelDosen = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        button_upload = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -82,6 +94,9 @@ public class viewDosen extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+
+        uploadData.setApproveButtonToolTipText("");
+        uploadData.setDialogTitle("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -227,6 +242,14 @@ public class viewDosen extends javax.swing.JFrame {
         jLabel5.setText("DATA DOSEN");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
+        button_upload.setText("UPLOAD");
+        button_upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_uploadActionPerformed(evt);
+            }
+        });
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 90, -1));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
@@ -329,7 +352,7 @@ public class viewDosen extends javax.swing.JFrame {
         try {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
             dosenk.insertDosen(temp);
-            JOptionPane.showMessageDialog(null, "Data Dosen "+nama+" Berhasil di tambah");
+            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di tambah");
             updateTabelDosen();
             bersihkan();
             idDosenText.requestFocus();
@@ -353,7 +376,7 @@ public class viewDosen extends javax.swing.JFrame {
         try {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
             dosenk.updateDosen(temp);
-            JOptionPane.showMessageDialog(null, "Data Dosen "+nama+" Berhasil di Ubah");
+            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di Ubah");
             bersihkan();
             updateTabelDosen();
             idDosenText.requestFocus();
@@ -373,7 +396,7 @@ public class viewDosen extends javax.swing.JFrame {
         try {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
             dosenk.deleteDosen(temp);
-            JOptionPane.showMessageDialog(null, "Data Dosen "+nama+" Berhasil di Ubah");
+            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di Ubah");
             bersihkan();
             idDosenText.requestFocus();
 
@@ -385,15 +408,51 @@ public class viewDosen extends javax.swing.JFrame {
 
     private void tabelDosenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDosenMouseClicked
         int row1 = tabelDosen.getSelectedRow();
-        String idDosen = tabelDosen.getValueAt(row1,0).toString();
-        String namaDosen = tabelDosen.getValueAt(row1,1).toString();
-        String status = tabelDosen.getValueAt(row1,2).toString();
+        String idDosen = tabelDosen.getValueAt(row1, 0).toString();
+        String namaDosen = tabelDosen.getValueAt(row1, 1).toString();
+        String status = tabelDosen.getValueAt(row1, 2).toString();
         idDosenText.setText(idDosen);
         namaDosenText.setText(namaDosen);
         Status_ComboBox.setSelectedItem(status);
-        
+
         idDosenText.setEditable(false);
     }//GEN-LAST:event_tabelDosenMouseClicked
+
+    private void button_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_uploadActionPerformed
+        int jes = uploadData.showOpenDialog(this);
+
+        if (jes == uploadData.APPROVE_OPTION) {
+//            File f = uploadData.getSelectedFile();
+//           jLabel1.setText(f.getPath());
+//           JOptionPane.showMessageDialog(null, f.getPath());
+
+            File excelFile = uploadData.getSelectedFile();
+
+            // buat model untuk file excel
+            if (excelFile.exists()) {
+                try {
+                    Workbook workbook = Workbook.getWorkbook(excelFile);
+                    Sheet sheet = workbook.getSheets()[0];
+
+                    TableModel model = new DefaultTableModel(sheet.getRows(), sheet.getColumns());
+                    for (int row = 1; row < sheet.getRows(); row++) {
+                        String content = "";
+                        for (int column = 0; column < sheet.getColumns(); column++) {
+                            content = content + sheet.getCell(column, row).getContents() + "-";
+                        }
+                        Dosen dos = new Dosen(content.split("-")[0], content.split("-")[1], content.split("-")[2]);
+                        DosenKontrol.getKoneksi().insertDosen(dos);
+                    }
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist");
+            }
+        }
+    }//GEN-LAST:event_button_uploadActionPerformed
 
     private void bersihkan() {
 //        idDosenText.setText("");
@@ -430,6 +489,7 @@ public class viewDosen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Status_ComboBox;
     private javax.swing.JButton batalButton;
+    private javax.swing.JButton button_upload;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton editButton;
     private javax.swing.JButton hapusButton;
@@ -458,5 +518,6 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JButton ruangButton;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTable tabelDosen;
+    private javax.swing.JFileChooser uploadData;
     // End of variables declaration//GEN-END:variables
 }
