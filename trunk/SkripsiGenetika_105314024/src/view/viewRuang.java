@@ -10,20 +10,27 @@
  */
 package view;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import jxl.Sheet;
+import jxl.Workbook;
 import kelas.Ruang;
 import kontrol.RuangKontrol;
 import tabelModel.Ruang_TM;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class viewRuang extends javax.swing.JFrame {
 
@@ -35,6 +42,12 @@ public class viewRuang extends javax.swing.JFrame {
             initComponents();
             setLocationRelativeTo(null);
             updateTabelRuang();
+            
+            uploadData.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            uploadData.setMultiSelectionEnabled(false);
+            FileNameExtensionFilter JExcelFilter = new FileNameExtensionFilter("Excel File 2003 .xls", "xls");
+            uploadData.setFileFilter(JExcelFilter);
+            uploadData.setAcceptAllFileFilterUsed(false);
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,6 +68,7 @@ public class viewRuang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        uploadData = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -78,6 +92,7 @@ public class viewRuang extends javax.swing.JFrame {
         hapusButton = new javax.swing.JButton();
         ubahButton = new javax.swing.JButton();
         jenisComboBox = new javax.swing.JComboBox();
+        button_upload = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -147,11 +162,11 @@ public class viewRuang extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel1.setText("Kode");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel2.setText("Jenis Ruang");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
@@ -171,7 +186,7 @@ public class viewRuang extends javax.swing.JFrame {
         });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel4.setText("TABEL RUANG");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, -1, -1));
 
@@ -203,11 +218,11 @@ public class viewRuang extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 400, 190));
 
-        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel5.setText("DATA RUANG");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel3.setText("Nama Ruang");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
@@ -230,27 +245,35 @@ public class viewRuang extends javax.swing.JFrame {
         jenisComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teori", "Praktikum", "Teori Praktikum" }));
         jPanel4.add(jenisComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, -1));
 
+        button_upload.setText("UPLOAD");
+        button_upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_uploadActionPerformed(evt);
+            }
+        });
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 100, -1));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -378,6 +401,47 @@ public class viewRuang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ubahButtonActionPerformed
 
+    private void button_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_uploadActionPerformed
+        int jes = uploadData.showOpenDialog(this);
+
+        if (jes == uploadData.APPROVE_OPTION) {
+//            File f = uploadData.getSelectedFile();
+//           jLabel1.setText(f.getPath());
+//           JOptionPane.showMessageDialog(null, f.getPath());
+
+            File excelFile = uploadData.getSelectedFile();
+
+            // buat model untuk file excel
+            if (excelFile.exists()) {
+                try {
+                    Workbook workbook = Workbook.getWorkbook(excelFile);
+                    Sheet sheet = workbook.getSheets()[0];
+
+                    TableModel model = new DefaultTableModel(sheet.getRows(), sheet.getColumns());
+                    for (int row = 1; row < sheet.getRows(); row++) {
+                        String content = "";
+                        for (int column = 0; column < sheet.getColumns(); column++) {
+                            content = content + sheet.getCell(column, row).getContents() + "-";
+                        }
+                        Ruang rng = new Ruang(content.split("-")[0], content.split("-")[1], content.split("-")[2]);
+                        boolean result = RuangKontrol.getKoneksi().cekRuang(rng.getIdRuang());
+                        if (result == true) {
+                            RuangKontrol.getKoneksi().updateRuang(rng);
+                        } else {
+                            RuangKontrol.getKoneksi().insertRuang(rng);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: Format Dokumen tidak sesuai dengan database Dosen");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist");
+            }
+        }
+    }//GEN-LAST:event_button_uploadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -403,6 +467,7 @@ public class viewRuang extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalButton;
+    private javax.swing.JButton button_upload;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
@@ -432,5 +497,6 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JButton simpanButton;
     private javax.swing.JTable tabelRuang;
     private javax.swing.JButton ubahButton;
+    private javax.swing.JFileChooser uploadData;
     // End of variables declaration//GEN-END:variables
 }

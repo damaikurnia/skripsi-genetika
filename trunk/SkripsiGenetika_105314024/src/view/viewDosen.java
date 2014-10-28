@@ -440,12 +440,17 @@ public class viewDosen extends javax.swing.JFrame {
                         for (int column = 0; column < sheet.getColumns(); column++) {
                             content = content + sheet.getCell(column, row).getContents() + "-";
                         }
+                        boolean result = DosenKontrol.getKoneksi().cekDosen(content.split("-")[0]);
                         Dosen dos = new Dosen(content.split("-")[0], content.split("-")[1], content.split("-")[2]);
-                        DosenKontrol.getKoneksi().insertDosen(dos);
+                        if (result == true) {
+                            DosenKontrol.getKoneksi().updateDosen(dos);
+                        } else {
+                            DosenKontrol.getKoneksi().insertDosen(dos);
+                        }
                     }
                     JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e);
+                    JOptionPane.showMessageDialog(null, "Error: Format Dokumen tidak sesuai dengan database Dosen");
                 }
 
             } else {

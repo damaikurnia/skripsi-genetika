@@ -3,11 +3,7 @@ package kontrol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import koneksi.Koneksi;
-import kelas.Dosen;
-import kelas.KelasKuliah;
 import kelas.MataKuliah;
 
 public class MataKuliahKontrol {
@@ -181,6 +177,25 @@ public class MataKuliahKontrol {
         conn.commit();
         conn.close();
         return kel;
+    }
+    
+    public boolean cekMatakuliah(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+        String sql = "select TRUE from matakuliah where idMK = ?";
+        psmt = conn.prepareStatement(sql);
+        psmt.setString(1, key);
+        rset = psmt.executeQuery();
+        boolean result = false;
+        while (rset.next()) {
+            if(rset.getInt(1)== 1){
+                result = true;
+            }
+        }
+        conn.commit();
+        conn.close();
+        return result;
     }
     
 //    public static void main(String[] args) {

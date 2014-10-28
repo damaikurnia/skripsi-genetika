@@ -95,6 +95,25 @@ public class DosenKontrol {
         conn.close();
         return dosen;
     }
+    
+    public boolean cekDosen(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+        String sql = "select TRUE from dosen where idDosen = ?";
+        psmt = conn.prepareStatement(sql);
+        psmt.setString(1, key);
+        rset = psmt.executeQuery();
+        boolean result = false;
+        while (rset.next()) {
+            if(rset.getInt(1)== 1){
+                result = true;
+            }
+        }
+        conn.commit();
+        conn.close();
+        return result;
+    }
 
 //    public List<String> cariKelompokDosen() throws SQLException {
 //        PreparedStatement psmt = null;
