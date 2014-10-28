@@ -144,6 +144,30 @@ public class KelasMatkulKontrol {
         conn.close();
         return mk;
     }
+    
+    public List<MataKuliah> tampilMatakuliahPerSemester(int semester) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT * FROM matakuliah WHERE semester = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1, semester);
+        result = stmt.executeQuery();
+        List<MataKuliah> mk = new ArrayList<MataKuliah>();
+
+        MataKuliah temp = null;
+        while (result.next()) {
+            temp = new MataKuliah();
+            temp.setIdMK(result.getString(1));
+            temp.setNamaMK(result.getString(2));
+            temp.setSks(result.getInt(3));
+            temp.setSemester(result.getInt(4));
+            temp.setJP(result.getInt(5));
+            mk.add(temp);
+        }
+        conn.close();
+        return mk;
+    }
 
 //======================METHOD KHUSUS FRAME VIEW PENJADWALAN===================
     public List<KelasKuliah> tampilMakulDosen(String idDosen) throws SQLException{
