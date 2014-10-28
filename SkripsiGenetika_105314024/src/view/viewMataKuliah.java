@@ -412,11 +412,16 @@ public class viewMataKuliah extends javax.swing.JFrame {
                             content = content + sheet.getCell(column, row).getContents() + "-";
                         }
                         MataKuliah mk = new MataKuliah(content.split("-")[0], content.split("-")[1], Integer.parseInt(content.split("-")[2]), Integer.parseInt(content.split("-")[3]), Integer.parseInt(content.split("-")[4]));
-                        MataKuliahKontrol.getKoneksi().insertMataKuliah(mk);
+                        boolean result = MataKuliahKontrol.getKoneksi().cekMatakuliah(mk.getIdMK());
+                        if (result == true) {
+                            MataKuliahKontrol.getKoneksi().updateMataKuliah(mk);
+                        } else {
+                            MataKuliahKontrol.getKoneksi().insertMataKuliah(mk);
+                        }
                     }
                     JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e);
+                    JOptionPane.showMessageDialog(null, "Error: Format Dokumen tidak sesuai dengan database Dosen");
                 }
 
             } else {

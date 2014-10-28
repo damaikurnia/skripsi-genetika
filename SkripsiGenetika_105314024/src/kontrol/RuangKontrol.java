@@ -11,14 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import kelas.Ruang;
 import koneksi.Koneksi;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class RuangKontrol {
 
@@ -120,5 +118,24 @@ public class RuangKontrol {
         }
         conn.close();
         return ruang;
+    }
+
+    public boolean cekRuang(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+        String sql = "select TRUE from RUANG where idRuang = ?";
+        psmt = conn.prepareStatement(sql);
+        psmt.setString(1, key);
+        rset = psmt.executeQuery();
+        boolean result = false;
+        while (rset.next()) {
+            if (rset.getInt(1) == 1) {
+                result = true;
+            }
+        }
+        conn.commit();
+        conn.close();
+        return result;
     }
 }

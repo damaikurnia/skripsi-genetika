@@ -8,12 +8,12 @@ package kelas;
 
 /**
  *
- * @author Mich
+ * @author Adhi
  */
 public class Ruang {
     String idRuang;
     String namaRuang;
-    private String jenisRuang;
+    String jenisRuang;
     
     public Ruang(String id,String nama,String jenis){
         this.idRuang = id;
