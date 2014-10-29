@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import kelas.KelasKuliah;
-import kelas.Ruang;
 
 /**
  *
@@ -30,7 +29,7 @@ public class KelasMatkul_TM extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 8;
     }
 
     @Override
@@ -42,9 +41,17 @@ public class KelasMatkul_TM extends AbstractTableModel {
             case 1:
                 return r.getIdMK().getIdMK();
             case 2:
-                return r.getIdDosen().getIdDosen();
+                return r.getIdMK().getNamaMK();
             case 3:
                 return r.getKelas();
+            case 4:
+                return r.getIdMK().getSks();
+            case 5:
+                return r.getIdMK().getSemester();
+            case 6:
+                return r.getIdMK().getJP();
+            case 7:
+                return r.getIdDosen().getNamaDosen();
             default:
                 return "";
         }
@@ -54,13 +61,21 @@ public class KelasMatkul_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "No";
+                return "NO";
             case 1:
-                return "Kode Matakuliah";
+                return "KODE MK";
             case 2:
-                return "Dosen Pengampu";
+                return "NAMA MK";
             case 3:
-                return "Kelas";
+                return "KELAS";
+            case 4:
+                return "SKS";
+            case 5:
+                return "SEMESTER";
+            case 6:
+                return "JP";
+            case 7:
+                return "DOSEN PENGAMPU";
             default:
                 return "";
         }

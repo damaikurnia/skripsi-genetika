@@ -73,12 +73,27 @@ public class KelasMatkulKontrol {
         conn.commit();
         conn.close();
     }
+    
+    public void deleteAllKelasMatkul() throws SQLException {
+        PreparedStatement stmt = null;
+        conn.setAutoCommit(false);
+        String query = "DELETE FROM kelas_makul WHERE idKelas <> \"0\";";
+        stmt = conn.prepareStatement(query);
+
+        stmt.executeUpdate();
+        conn.commit();
+        conn.close();
+    }
 
     public List<KelasKuliah> tampilKelasMataKuliah() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM KELAS_MAKUL ORDER BY idKelas";
+        String query = "SELECT a.idKelas,a.idMK,b.namaMK,a.Kelas,b.sks,b.semester,b.JP,c.namaDosen\n"
+                + "FROM kelas_makul a, matakuliah b, dosen c \n"
+                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen\n"
+                + "AND a.idKelas <> \"0\"\n"
+                + "ORDER BY b.semester,a.idMK,a.Kelas;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
@@ -87,8 +102,8 @@ public class KelasMatkulKontrol {
         while (result.next()) {
             temp = new KelasKuliah();
             temp.setIdKelas(Integer.parseInt(result.getString(1)));
-            temp.setIdMK(new MataKuliah(result.getString(2)));
-            temp.setIdDosen(new Dosen(result.getString(3)));
+            temp.setIdMK(new MataKuliah(result.getString(2), result.getString(3), result.getInt(5), result.getInt(6), result.getInt(7)));
+            temp.setIdDosen(new Dosen("", result.getString(8), ""));
             temp.setKelas(result.getString(4));
             mk.add(temp);
         }
@@ -144,8 +159,8 @@ public class KelasMatkulKontrol {
         conn.close();
         return mk;
     }
-    
-    public List<MataKuliah> tampilMatakuliahPerSemester(int semester) throws SQLException{
+
+    public List<MataKuliah> tampilMatakuliahPerSemester(int semester) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
@@ -170,7 +185,7 @@ public class KelasMatkulKontrol {
     }
 
 //======================METHOD KHUSUS FRAME VIEW PENJADWALAN===================
-    public List<KelasKuliah> tampilMakulDosen(String idDosen) throws SQLException{
+    public List<KelasKuliah> tampilMakulDosen(String idDosen) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
@@ -186,7 +201,7 @@ public class KelasMatkulKontrol {
         while (result.next()) {
             temp = new KelasKuliah();
             temp.setIdKelas(Integer.parseInt(result.getString(1)));
-            temp.setIdMK(new MataKuliah(result.getString(2),result.getInt(4)));// outputnya USD 120 -Pendidikan Agama
+            temp.setIdMK(new MataKuliah(result.getString(2), result.getInt(4)));// outputnya USD 120 -Pendidikan Agama
             temp.setKelas(result.getString(3));
             mk.add(temp);
         }

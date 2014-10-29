@@ -97,6 +97,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelPermintaan();
         TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
         Tabel_Permintaan.setModel(model);
+        Tabel_Permintaan.getColumnModel().getColumn(0).setMaxWidth(0);
+        Tabel_Permintaan.getColumnModel().getColumn(1).setMinWidth(200);
     }
     
     private void updateTabelJadwal() throws SQLException {
