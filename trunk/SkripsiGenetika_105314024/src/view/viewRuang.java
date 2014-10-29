@@ -57,6 +57,11 @@ public class viewRuang extends javax.swing.JFrame {
         List<Ruang> rtm = RuangKontrol.getKoneksi().tampilRuang();
         Ruang_TM model = new Ruang_TM(rtm);
         tabelRuang.setModel(model);
+        
+        tabelRuang.getColumnModel().getColumn(0).setMinWidth(70);
+        tabelRuang.getColumnModel().getColumn(0).setMaxWidth(70);
+        tabelRuang.getColumnModel().getColumn(1).setMinWidth(200);
+        tabelRuang.getColumnModel().getColumn(1).setMaxWidth(200);
     }
 
     /**

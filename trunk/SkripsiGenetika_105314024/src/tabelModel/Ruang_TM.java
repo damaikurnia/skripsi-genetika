@@ -50,11 +50,11 @@ public class Ruang_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "Kode";
+                return "KODE";
             case 1:
-                return "Nama Ruang";
+                return "NAMA RUANG";
             case 2:
-                return "Jenis Ruang";
+                return "JENIS";
             default:
                 return "";
         }
