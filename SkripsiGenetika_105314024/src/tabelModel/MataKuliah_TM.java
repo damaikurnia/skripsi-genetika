@@ -54,15 +54,15 @@ public class MataKuliah_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "ID Mata Kuliah";
+                return "KODE";
             case 1:
-                return "Nama Mata Kuliah";
+                return "NAMA MATKUL";
             case 2:
-                return "Sks";
+                return "SKS";
             case 3:
-                return "Semester";
+                return "SMSTR";
             case 4:
-                return "Jam Pelajaran";
+                return "JP";
             default:
                 return "";
         }

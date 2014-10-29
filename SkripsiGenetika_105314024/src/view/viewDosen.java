@@ -159,15 +159,15 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel1.setText("ID Dosen");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel2.setText("Nama Dosen");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel3.setText("Status");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
@@ -190,7 +190,7 @@ public class viewDosen extends javax.swing.JFrame {
         });
         jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel4.setText("TABEL DOSEN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
 
@@ -238,7 +238,7 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 380, 190));
 
-        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel5.setText("DATA DOSEN");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
@@ -252,31 +252,31 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
-        jPanel5.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel5.setBackground(new java.awt.Color(0, 51, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 150));
 
-        jPanel2.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 940, 80));
 
@@ -469,6 +469,11 @@ public class viewDosen extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
         tabelDosen.setModel(model);
+        
+        tabelDosen.getColumnModel().getColumn(0).setMinWidth(70);
+        tabelDosen.getColumnModel().getColumn(0).setMaxWidth(70);
+        tabelDosen.getColumnModel().getColumn(1).setMinWidth(220);
+        tabelDosen.getColumnModel().getColumn(1).setMaxWidth(220);
     }
 
     public static void main(String args[]) {

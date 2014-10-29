@@ -76,7 +76,7 @@ public class RuangKontrol {
         Ruang temp = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM Ruang";
+        String query = "SELECT * FROM Ruang WHERE idRuang <> \"-\"";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
