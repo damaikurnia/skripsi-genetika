@@ -63,7 +63,7 @@ public class DosenKontrol {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM Dosen";
+        String query = "SELECT * FROM dosen WHERE idDosen <> \"-\"";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Dosen> dsn = new ArrayList<Dosen>();
@@ -83,13 +83,13 @@ public class DosenKontrol {
         conn.setAutoCommit(false);
         String sql = "select * from dosen where "
                 + "idDosen LIKE '%" + key + "%' OR namaDosen LIKE '%" + key + "%' OR "
-                + "status LIKE '%" + key + "%'"
+                + "status LIKE '%" + key + "%' AND idDosen <> \"-\""
                 + "order by idDosen";
         psmt = conn.prepareStatement(sql);
         rset = psmt.executeQuery();
         List<Dosen> dosen = new ArrayList<Dosen>();
         while (rset.next()) {
-            dosen.add(new Dosen(rset.getString(1), rset.getString(2), rset.getString(1)));
+            dosen.add(new Dosen(rset.getString(1), rset.getString(2), rset.getString(3)));
         }
         conn.commit();
         conn.close();

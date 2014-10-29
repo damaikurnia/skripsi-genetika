@@ -41,16 +41,10 @@ public class viewKelas extends javax.swing.JFrame {
             initComponents();
             setLocationRelativeTo(null);
             updateTabelKelas();
-            updateJumlahMK();
-
-            List<MataKuliah> matkul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
-            for (MataKuliah k : matkul) {
-                MatakuliahComboBox.addItem(k.getIdMK() + " - " + k.getNamaMK());
-            }
 
             List<Dosen> dosen = DosenKontrol.getKoneksi().tampilDosen();
             for (Dosen k : dosen) {
-                DosenComboBox.addItem(k.getIdDosen() + " - " + k.getNamaDosen());
+                DosenComboBox.addItem(k.getIdDosen() + "-" + k.getNamaDosen());
             }
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,9 +54,9 @@ public class viewKelas extends javax.swing.JFrame {
         cariSesuatu.setSize(515, 400);
         cariSesuatu.setLocationRelativeTo(null);
         tambahSesuatu.setVisible(false);
-        tambahSesuatu.setSize(580, 400);
+        tambahSesuatu.setSize(640, 400);
         tambahSesuatu.setLocationRelativeTo(null);
-        buatKelas.setVisible(true);
+        buatKelas.setVisible(false);
         buatKelas.setSize(700, 430);
         buatKelas.setLocationRelativeTo(null);
     }
@@ -72,12 +66,14 @@ public class viewKelas extends javax.swing.JFrame {
         KelasMatkul_TM model = new KelasMatkul_TM(mktm);
         tabelKelasMatakuliah.setModel(model);
         jLabel13.setText("TOTAL MATAKULIAH : " + mktm.size());
-    }
-
-    private void updateTabelMataKuliah() throws SQLException {
-        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
-        MataKuliah_TM model = new MataKuliah_TM(mktm);
-        Tabelnya.setModel(model);
+        
+        tabelKelasMatakuliah.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabelKelasMatakuliah.getColumnModel().getColumn(1).setMaxWidth(70);
+        tabelKelasMatakuliah.getColumnModel().getColumn(2).setMinWidth(200);
+        tabelKelasMatakuliah.getColumnModel().getColumn(3).setMaxWidth(65);
+        tabelKelasMatakuliah.getColumnModel().getColumn(4).setMaxWidth(65);
+        tabelKelasMatakuliah.getColumnModel().getColumn(5).setMaxWidth(65);
+        tabelKelasMatakuliah.getColumnModel().getColumn(6).setMaxWidth(65);
     }
 
     private void updateTabelDosen() throws SQLException {
@@ -86,32 +82,10 @@ public class viewKelas extends javax.swing.JFrame {
         Tabelnya.setModel(model);
     }
 
-    private void cariMataKuliah(String key) throws SQLException {
-        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().cariMatakuliah(key);
-        MataKuliah_TM model = new MataKuliah_TM(mktm);
-        Tabelnya.setModel(model);
-    }
-
     private void cariDosen(String key) throws SQLException {
         List<Dosen> dtm = DosenKontrol.getKoneksi().cariDosen(key);
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
-    }
-
-    private void bersihkan() {
-        idKelasText.setText("");
-        MatakuliahComboBox.setSelectedItem("-");
-        DosenComboBox.setSelectedItem("-");
-        KelasComboBox.setSelectedItem("-"); //BELUM SELESAI UNTUK YG "LAINNYA"
-        idKelasText.setEditable(true);
-    }
-
-    public void updateJumlahMK() {
-        try {
-            jLabel13.setText(KelasMatkulKontrol.getKoneksi().jumlahMatkul());
-        } catch (SQLException ex) {
-            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -145,10 +119,10 @@ public class viewKelas extends javax.swing.JFrame {
         DosenComboBox = new javax.swing.JComboBox();
         dsn_button = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        ubahButton = new javax.swing.JButton();
+        HapusButton = new javax.swing.JButton();
         lbl_kelas = new javax.swing.JLabel();
         lbl_matkul = new javax.swing.JLabel();
-        ubahButton1 = new javax.swing.JButton();
+        RubahButton = new javax.swing.JButton();
         lbl_idKelas = new javax.swing.JLabel();
         buatKelas = new javax.swing.JDialog();
         jPanel13 = new javax.swing.JPanel();
@@ -196,10 +170,8 @@ public class viewKelas extends javax.swing.JFrame {
         penjadwalanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        hapusButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelKelasMatakuliah = new javax.swing.JTable();
-        batalButton = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -228,7 +200,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(153, 51, 0));
 
-        Labelnya.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
+        Labelnya.setFont(new java.awt.Font("Wide Latin", 1, 18));
         Labelnya.setText("CARI");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -317,7 +289,7 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +298,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(153, 51, 0));
 
-        Labelnya1.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
+        Labelnya1.setFont(new java.awt.Font("Wide Latin", 1, 18));
         Labelnya1.setText("TAMBAH");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -336,7 +308,7 @@ public class viewKelas extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Labelnya1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addContainerGap(441, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,20 +319,27 @@ public class viewKelas extends javax.swing.JFrame {
         );
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel12.setText("DATA KELAS MATAKULIAH");
+        jPanel12.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("No Kelas");
+        jPanel12.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 38, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel2.setText("Matakuliah");
+        jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 66, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel3.setText("Dosen Pengampu");
+        jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
 
+        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        jPanel12.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 89, 390, -1));
 
         dsn_button.setText("Cari");
         dsn_button.addActionListener(new java.awt.event.ActionListener() {
@@ -368,124 +347,61 @@ public class viewKelas extends javax.swing.JFrame {
                 dsn_buttonActionPerformed(evt);
             }
         });
+        jPanel12.add(dsn_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 90, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel5.setText("Kelas");
+        jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
-        ubahButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ubahButton.setText("HAPUS");
-        ubahButton.addActionListener(new java.awt.event.ActionListener() {
+        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        HapusButton.setText("HAPUS");
+        HapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubahButtonActionPerformed(evt);
+                HapusButtonActionPerformed(evt);
             }
         });
+        jPanel12.add(HapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 141, 48));
 
-        lbl_kelas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_kelas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jPanel12.add(lbl_kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 119, 48, 20));
 
-        lbl_matkul.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
 
-        ubahButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ubahButton1.setText("UBAH");
-        ubahButton1.addActionListener(new java.awt.event.ActionListener() {
+        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        RubahButton.setText("UBAH");
+        RubahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubahButton1ActionPerformed(evt);
+                RubahButtonActionPerformed(evt);
             }
         });
+        jPanel12.add(RubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 141, 48));
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addContainerGap(389, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel1))
-                                    .addGap(49, 49, 49)))
-                            .addComponent(jLabel5))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(DosenComboBox, 0, 256, Short.MAX_VALUE)
-                                    .addComponent(lbl_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_matkul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dsn_button)
-                                .addGap(140, 140, 140))
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(lbl_idKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ubahButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(ubahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(194, 194, 194))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_idKelas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_matkul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(dsn_button)
-                    .addComponent(DosenComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lbl_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ubahButton, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(ubahButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addGap(21, 21, 21))
-        );
+        lbl_idKelas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jPanel12.add(lbl_idKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 38, 71, 17));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tambahSesuatu.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 360));
+        tambahSesuatu.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
 
         buatKelas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -493,7 +409,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(153, 51, 0));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel14.setText("BUAT KELAS MATAKULIAH");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -546,75 +462,75 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel16.add(radioGenap, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel15.setText("Sem 7");
         jPanel16.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 50, 20));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel16.setText("SEMESTER");
         jPanel16.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel17.setText("JUMLAH KELAS");
         jPanel16.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel18.setText("Kelas");
         jPanel16.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 40, 20));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel19.setText("Sem 3");
         jPanel16.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 50, 20));
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel20.setText("Sem 5");
         jPanel16.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 20));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel21.setText("Sem 2");
         jPanel16.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 50, 20));
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel22.setText("Sem 4");
         jPanel16.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 50, 20));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel23.setText("Sem 6");
         jPanel16.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 50, 20));
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel24.setText("Sem 8");
         jPanel16.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 50, 20));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel25.setText("Sem 1");
         jPanel16.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 50, 20));
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel26.setText("Kelas");
         jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 40, 20));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel27.setText("Kelas");
         jPanel16.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 20));
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel28.setText("Kelas");
         jPanel16.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 40, 20));
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel29.setText("Kelas");
         jPanel16.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 40, 20));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel30.setText("Kelas");
         jPanel16.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 40, 20));
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel31.setText("Kelas");
         jPanel16.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 40, 20));
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel32.setText("Kelas");
         jPanel16.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 40, 20));
 
@@ -739,17 +655,9 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel4.setText("TABEL MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 170, -1));
-
-        hapusButton.setText("Hapus");
-        hapusButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButtonActionPerformed(evt);
-            }
-        });
-        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 70, -1));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -777,15 +685,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 910, 170));
 
-        batalButton.setText("Batal");
-        batalButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                batalButtonActionPerformed(evt);
-            }
-        });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 70, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel13.setText("TOTAL MATAKULIAH : ");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 420, 20));
 
@@ -794,22 +694,22 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(153, 51, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -879,49 +779,8 @@ public class viewKelas extends javax.swing.JFrame {
         this.setVisible(false);
 }//GEN-LAST:event_penjadwalanButtonActionPerformed
 
-    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
-        KelasKuliah kk = new KelasKuliah(Integer.parseInt(idKelasText.getText()));
-
-        try {
-            KelasMatkulKontrol.getKoneksi().deleteKelasMataKuliah(kk);
-            JOptionPane.showMessageDialog(rootPane, "Matakuliah berhasil Dihapus");
-            updateTabelKelas();
-            bersihkan();
-            idKelasText.setEditable(true);
-            updateJumlahMK();
-        } catch (SQLException ex) {
-            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_hapusButtonActionPerformed
-
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
     }//GEN-LAST:event_jScrollPane1MouseClicked
-
-    private void ubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahButtonActionPerformed
-        int nomor = Integer.parseInt(idKelasText.getText());
-        String idMatkul = MatakuliahComboBox.getSelectedItem().toString().substring(0, 8);
-        String idDosen = DosenComboBox.getSelectedItem().toString().substring(0, 5);
-        String kelas = KelasText.getText().toUpperCase();
-        KelasKuliah kk = new KelasKuliah(nomor, new MataKuliah(idMatkul), kelas, new Dosen(idDosen));
-
-        try {
-            KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(kk);
-            JOptionPane.showMessageDialog(rootPane, "Matakuliah :\n"
-                    + "Nomor          : " + kk.getIdKelas() + "\n"
-                    + "Matkul         : " + kk.getIdMK().getIdMK() + "\n"
-                    + "Dosen Pengampu : " + kk.getIdDosen().getIdDosen() + "\n"
-                    + "Kelas          : " + kk.getKelas() + "\n"
-                    + "BERHASIL DIRUBAH");
-            updateTabelKelas();
-            updateJumlahMK();
-        } catch (SQLException ex) {
-            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_ubahButtonActionPerformed
-
-    private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
-        bersihkan();
-    }//GEN-LAST:event_batalButtonActionPerformed
 
     private void dsn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dsn_buttonActionPerformed
         try {
@@ -937,31 +796,18 @@ public class viewKelas extends javax.swing.JFrame {
     private void isiannyaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_isiannyaKeyReleased
         try {
             String cari = isiannya.getText();
-            if (Labelnya.getText().equals("CARI DOSEN")) {
-                cariDosen(cari);
-            } else {
-                cariMataKuliah(cari);
-            }
-
+            cariDosen(cari);
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_isiannyaKeyReleased
 
     private void TabelnyaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelnyaMouseClicked
-        if (Labelnya.getText().equals("CARI DOSEN")) {
-            int row1 = Tabelnya.getSelectedRow();
-            String idDosen = Tabelnya.getValueAt(row1, 0).toString();
-            String namaDosen = Tabelnya.getValueAt(row1, 1).toString();
-            DosenComboBox.setSelectedItem(idDosen + " - " + namaDosen);
-            cariSesuatu.setVisible(false);
-        } else {
-            int row1 = Tabelnya.getSelectedRow();
-            String idMatkul = Tabelnya.getValueAt(row1, 0).toString();
-            String namaMatkul = Tabelnya.getValueAt(row1, 1).toString();
-            MatakuliahComboBox.setSelectedItem(idMatkul + " - " + namaMatkul);
-            cariSesuatu.setVisible(false);
-        }
+        int row1 = Tabelnya.getSelectedRow();
+        String idDosen = Tabelnya.getValueAt(row1, 0).toString();
+        String namaDosen = Tabelnya.getValueAt(row1, 1).toString();
+        DosenComboBox.setSelectedItem(idDosen + "-" + namaDosen);
+        cariSesuatu.setVisible(false);
     }//GEN-LAST:event_TabelnyaMouseClicked
 
     private void radioGanjilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGanjilActionPerformed
@@ -1103,12 +949,46 @@ public class viewKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_button_buatKelasActionPerformed
 
     private void tabelKelasMatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKelasMatakuliahMouseClicked
-        // TODO add your handling code here:
+        int row1 = tabelKelasMatakuliah.getSelectedRow();
+        lbl_idKelas.setText(tabelKelasMatakuliah.getValueAt(row1, 0).toString());
+        lbl_matkul.setText(tabelKelasMatakuliah.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
+        lbl_kelas.setText(tabelKelasMatakuliah.getValueAt(row1, 3).toString());
+        tambahSesuatu.setVisible(true);
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
-    private void ubahButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ubahButton1ActionPerformed
+    private void RubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RubahButtonActionPerformed
+        if(DosenComboBox.getSelectedItem().toString().equals("-")){
+            JOptionPane.showMessageDialog(null, "Silahkan Pilih dosen pengampu");
+        }
+        else{
+            KelasKuliah temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(lbl_idKelas.getText()));
+            temp.setIdDosen(new Dosen(DosenComboBox.getSelectedItem().toString().split("-")[0]));
+            try {
+                KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(temp);
+                JOptionPane.showMessageDialog(null,"Berhasil Dirubah");
+                updateTabelKelas();
+                tambahSesuatu.setVisible(false);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_RubahButtonActionPerformed
+
+    private void HapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusButtonActionPerformed
+        int data = JOptionPane.showConfirmDialog(null, "Apakah anda yakin Menghapus kelas matakuliah :"
+                + "\nMATKUL     : "+lbl_matkul.getText()
+                + "\nKELAS      : "+lbl_kelas.getText(), "MENGHAPUS KELAS", 1);
+        if (data == 0) {//kalo setuju
+            KelasKuliah kk = new KelasKuliah(Integer.parseInt(lbl_idKelas.getText()));
+            try {
+                KelasMatkulKontrol.getKoneksi().deleteKelasMataKuliah(kk);
+                updateTabelKelas();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_HapusButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1122,7 +1002,8 @@ public class viewKelas extends javax.swing.JFrame {
                 public void run() {
 //                    new viewKelas().setVisible(true);
                     viewKelas a = new viewKelas();
-                    a.buatKelas.setVisible(true);
+                    a.setVisible(true);
+//                    a.buatKelas.setVisible(true);
                 }
             });
         } catch (ClassNotFoundException ex) {
@@ -1137,16 +1018,16 @@ public class viewKelas extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox DosenComboBox;
+    private javax.swing.JButton HapusButton;
     private javax.swing.JLabel Labelnya;
     private javax.swing.JLabel Labelnya1;
+    private javax.swing.JButton RubahButton;
     private javax.swing.JTable Tabelnya;
-    private javax.swing.JButton batalButton;
     private javax.swing.JDialog buatKelas;
     private javax.swing.JButton button_buatKelas;
     private javax.swing.JDialog cariSesuatu;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton dsn_button;
-    private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField isiannya;
     private javax.swing.JLabel jLabel1;
@@ -1219,7 +1100,5 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JComboBox sem8;
     private javax.swing.JTable tabelKelasMatakuliah;
     private javax.swing.JDialog tambahSesuatu;
-    private javax.swing.JButton ubahButton;
-    private javax.swing.JButton ubahButton1;
     // End of variables declaration//GEN-END:variables
 }

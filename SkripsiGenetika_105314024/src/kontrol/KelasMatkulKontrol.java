@@ -48,14 +48,11 @@ public class KelasMatkulKontrol {
     public void updateKelasMataKuliah(KelasKuliah kk) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update KELAS_MAKUL set idMK = ?, idDosen = ?,"
-                + "Kelas = ? where idKelas = ?";
+        String query = "update KELAS_MAKUL set idDosen = ? where idKelas = ?";
         stmt = conn.prepareStatement(query);
 
-        stmt.setString(1, kk.getIdMK().getIdMK());
-        stmt.setString(2, kk.getIdDosen().getIdDosen());
-        stmt.setString(3, kk.getKelas());
-        stmt.setString(4, Integer.toString(kk.getIdKelas()));
+        stmt.setString(1, kk.getIdDosen().getIdDosen());
+        stmt.setString(2, Integer.toString(kk.getIdKelas()));
 
         stmt.executeUpdate();
         conn.commit();
@@ -140,21 +137,6 @@ public class KelasMatkulKontrol {
         Dosen mk = null;
         while (result.next()) {
             mk = new Dosen(result.getString(1), result.getString(2), "");
-        }
-        conn.close();
-        return mk;
-    }
-
-    public String jumlahMatkul() throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String query = "SELECT COUNT(idKelas) FROM kelas_makul";
-        stmt = conn.prepareStatement(query);
-        result = stmt.executeQuery();
-        String mk = null;
-        while (result.next()) {
-            mk = "TOTAL MATAKULIAH : " + result.getInt(1);
         }
         conn.close();
         return mk;
