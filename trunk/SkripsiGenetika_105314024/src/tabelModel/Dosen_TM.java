@@ -50,11 +50,11 @@ public class Dosen_TM extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "ID Dosen";
+                return "KODE";
             case 1:
-                return "Nama Dosen";
+                return "NAMA DOSEN";
             case 2:
-                return "Status";
+                return "STATUS";
             default:
                 return "";
         }
