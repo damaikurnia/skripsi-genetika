@@ -1,0 +1,46 @@
+for (int i = 0; i < matkul.size(); i++) {//looping matkul
+                        for (int j = 0; j < jumlah[indSem]; j++) {//looping jumlah matkul
+                            if (matkul.get(i).getIdMK().equals("PDW 2126") || matkul.get(i).getIdMK().equals("PDW 2557")) {//matakuliah khusus yg dobel kelas
+                                for (int k = 0; k < 2; k++) {
+                                    KelasKuliah kk = new KelasKuliah();
+                                    kk.setIdKelas(idkelas);
+                                    kk.setIdMK(new MataKuliah(matkul.get(i).getIdMK()));
+                                    kk.setIdDosen(new Dosen("-"));
+                                    kk.setKelas(Kelas[j]);
+                                    if (k == 1) {
+                                        if (matkul.get(i).getIdMK().equals("PDW 2126")) {//bahasa inggris 1
+                                            KelasMatkulKontrol.getKoneksi().insertKelasMataKuliah(kk);
+
+                                            int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
+                                            if (noRule == 0) {
+                                                noRule = 1;
+                                            } else {
+                                                noRule++;
+                                            }
+                                            int idKelas = kk.getIdKelas();
+                                            String ruang = "L.LIS";
+
+                                            tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
+                                            PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
+
+                                            idkelas++;
+                                        }
+                                    }
+                                }
+                            } else {
+                                KelasKuliah kk = new KelasKuliah();
+                                kk.setIdKelas(idkelas);
+                                kk.setIdMK(new MataKuliah(matkul.get(i).getIdMK()));
+                                kk.setIdDosen(new Dosen("-"));
+                                kk.setKelas(Kelas[j]);
+                                try {
+                                    KelasMatkulKontrol.getKoneksi().insertKelasMataKuliah(kk);
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                idkelas++;
+                            }
+                        }
+                    }
+                    indSem++;
+                }

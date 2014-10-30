@@ -75,7 +75,7 @@ public class viewKelas extends javax.swing.JFrame {
         tabelKelasMatakuliah.getColumnModel().getColumn(5).setMaxWidth(65);
         tabelKelasMatakuliah.getColumnModel().getColumn(6).setMaxWidth(65);
         
-        tabelKelasMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
+        tabelKelasMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
     private void updateTabelDosen() throws SQLException {
@@ -682,6 +682,7 @@ public class viewKelas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelKelasMatakuliah.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tabelKelasMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelKelasMatakuliahMouseClicked(evt);
@@ -1008,8 +1009,8 @@ public class viewKelas extends javax.swing.JFrame {
                 public void run() {
 //                    new viewKelas().setVisible(true);
                     viewKelas a = new viewKelas();
-                    a.setVisible(true);
-//                    a.buatKelas.setVisible(true);
+//                    a.setVisible(true);
+                    a.buatKelas.setVisible(true);
                 }
             });
         } catch (ClassNotFoundException ex) {
