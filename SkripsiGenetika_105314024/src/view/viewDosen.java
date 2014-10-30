@@ -451,6 +451,7 @@ public class viewDosen extends javax.swing.JFrame {
                         }
                     }
                     JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
+                    updateTabelDosen();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error: Format Dokumen tidak sesuai dengan database Dosen");
                 }

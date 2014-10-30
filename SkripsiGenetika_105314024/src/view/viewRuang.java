@@ -441,6 +441,7 @@ public class viewRuang extends javax.swing.JFrame {
                         }
                     }
                     JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan Ke dalam Database");
+                    updateTabelRuang();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error: Format Dokumen tidak sesuai dengan database Dosen");
                 }
