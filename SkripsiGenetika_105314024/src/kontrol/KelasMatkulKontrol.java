@@ -70,7 +70,7 @@ public class KelasMatkulKontrol {
         conn.commit();
         conn.close();
     }
-    
+
     public void deleteAllKelasMatkul() throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
@@ -108,24 +108,87 @@ public class KelasMatkulKontrol {
         return mk;
     }
 
-    public MataKuliah tampilMatakuliah(String idMK) throws SQLException {
+    public List<KelasKuliah> tampilKelasMataKuliahPerSemester(int semester) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT idMK,namaMk FROM MATAKULIAH WHERE idMK = ?";
+        String query = "SELECT a.idKelas,a.idMK,b.namaMK,a.Kelas,b.sks,b.semester,b.JP,c.namaDosen\n"
+                + "FROM kelas_makul a, matakuliah b, dosen c \n"
+                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen\n"
+                + "AND a.idKelas <> \"0\" AND c.namaDosen = \"-\" AND b.semester = ? \n"
+                + "ORDER BY b.semester,a.idMK,a.Kelas;";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, idMK);
+        stmt.setInt(1, semester);
         result = stmt.executeQuery();
-        MataKuliah mk = new MataKuliah();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+
+        KelasKuliah temp = null;
         while (result.next()) {
-            mk.setIdMK(result.getString(1));
-            mk.setNamaMK(result.getString(2));
+            temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(result.getString(1)));
+            temp.setIdMK(new MataKuliah(result.getString(2), result.getString(3), result.getInt(5), result.getInt(6), result.getInt(7)));
+            temp.setIdDosen(new Dosen("", result.getString(8), ""));
+            temp.setKelas(result.getString(4));
+            mk.add(temp);
         }
-        conn.commit();
         conn.close();
         return mk;
     }
 
+    public List<KelasKuliah> cariKelasKuliah(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+//        String sql = "SELECT a.idKelas,a.idMK,b.namaMK,a.Kelas,b.sks,b.semester,b.JP,c.namaDosen "
+//                + "FROM kelas_makul a, matakuliah b, dosen c "
+//                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen "
+//                + "AND a.idKelas <> \"0\" AND c.namaDosen <> \"-\" AND "
+//                + "(a.idMK LIKE '%" + key + "%' OR b.namaMK LIKE '%" + key + "%' "
+//                + "OR A.Kelas LIKE '%" + key + "%' OR b.sks = " + key
+//                + " OR b.semester = " + key + " OR b.JP = " + key + " "
+//                + "OR c.namaDosen LIKE '%" + key + "%')"
+//                + "ORDER BY b.semester,a.idMK,a.Kelas;";
+        String sql = "SELECT a.idKelas,a.idMK,b.namaMK,a.Kelas,b.sks,b.semester,b.JP,c.namaDosen "
+                + "FROM kelas_makul a, matakuliah b, dosen c "
+                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen "
+                + "AND a.idKelas <> \"0\" AND c.namaDosen <> \"-\" AND "
+                + "(a.idMK LIKE '%" + key + "%' OR b.namaMK LIKE '%" + key + "%' "
+                + "OR A.Kelas LIKE '%" + key + "%' OR c.namaDosen LIKE '%" + key + "%')"
+                + "ORDER BY b.semester,a.idMK,a.Kelas;";
+        psmt = conn.prepareStatement(sql);
+        rset = psmt.executeQuery();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+
+        KelasKuliah temp = null;
+        while (rset.next()) {
+            temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(rset.getString(1)));
+            temp.setIdMK(new MataKuliah(rset.getString(2), rset.getString(3), rset.getInt(5), rset.getInt(6), rset.getInt(7)));
+            temp.setIdDosen(new Dosen("", rset.getString(8), ""));
+            temp.setKelas(rset.getString(4));
+            mk.add(temp);
+        }
+        conn.close();
+        return mk;
+    }
+
+//    public MataKuliah tampilMatakuliah(String idMK) throws SQLException {
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        conn.setAutoCommit(false);
+//        String query = "SELECT idMK,namaMk FROM MATAKULIAH WHERE idMK = ?";
+//        stmt = conn.prepareStatement(query);
+//        stmt.setString(1, idMK);
+//        result = stmt.executeQuery();
+//        MataKuliah mk = new MataKuliah();
+//        while (result.next()) {
+//            mk.setIdMK(result.getString(1));
+//            mk.setNamaMK(result.getString(2));
+//        }
+//        conn.commit();
+//        conn.close();
+//        return mk;
+//    }
     public Dosen tampilDosen(String idDosen) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
