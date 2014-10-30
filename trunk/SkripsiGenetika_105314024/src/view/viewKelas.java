@@ -40,11 +40,16 @@ public class viewKelas extends javax.swing.JFrame {
         try {
             initComponents();
             setLocationRelativeTo(null);
-            updateTabelKelas();
 
             List<Dosen> dosen = DosenKontrol.getKoneksi().tampilDosen();
             for (Dosen k : dosen) {
                 DosenComboBox.addItem(k.getIdDosen() + "-" + k.getNamaDosen());
+            }
+
+            String[] Semester = {"1", "3", "5", "7"};
+            comboSemester.removeAllItems();
+            for (String k : Semester) {
+                comboSemester.addItem(k);
             }
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,14 +64,33 @@ public class viewKelas extends javax.swing.JFrame {
         buatKelas.setVisible(false);
         buatKelas.setSize(700, 430);
         buatKelas.setLocationRelativeTo(null);
+        tampilSesuatu.setVisible(false);
+        tampilSesuatu.setSize(945, 460);
+        tampilSesuatu.setLocationRelativeTo(null);
     }
 
-    private void updateTabelKelas() throws SQLException {
-        List<KelasKuliah> mktm = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
+    private void updateTabelKelas(String key) throws SQLException {
+        List<KelasKuliah> mktm = KelasMatkulKontrol.getKoneksi().cariKelasKuliah(key);
+        KelasMatkul_TM model = new KelasMatkul_TM(mktm);
+        Tabelnya_KelasMatkul.setModel(model);
+
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(0).setMaxWidth(0);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(1).setMaxWidth(70);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(2).setMinWidth(200);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(3).setMaxWidth(65);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(4).setMaxWidth(65);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(5).setMaxWidth(65);
+        Tabelnya_KelasMatkul.getColumnModel().getColumn(6).setMaxWidth(65);
+
+        Tabelnya_KelasMatkul.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
+    }
+
+    private void updateTabelKelasSemester(int Semester) throws SQLException {
+        List<KelasKuliah> mktm = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliahPerSemester(Semester);
         KelasMatkul_TM model = new KelasMatkul_TM(mktm);
         tabelKelasMatakuliah.setModel(model);
-        jLabel13.setText("TOTAL MATAKULIAH : " + mktm.size());
-        
+        sisaMatkul.setText(Integer.toString(mktm.size()));
+
         tabelKelasMatakuliah.getColumnModel().getColumn(0).setMaxWidth(0);
         tabelKelasMatakuliah.getColumnModel().getColumn(1).setMaxWidth(70);
         tabelKelasMatakuliah.getColumnModel().getColumn(2).setMinWidth(200);
@@ -74,7 +98,7 @@ public class viewKelas extends javax.swing.JFrame {
         tabelKelasMatakuliah.getColumnModel().getColumn(4).setMaxWidth(65);
         tabelKelasMatakuliah.getColumnModel().getColumn(5).setMaxWidth(65);
         tabelKelasMatakuliah.getColumnModel().getColumn(6).setMaxWidth(65);
-        
+
         tabelKelasMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
@@ -82,7 +106,7 @@ public class viewKelas extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
-        
+
         Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
@@ -90,7 +114,7 @@ public class viewKelas extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().cariDosen(key);
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
-        
+
         Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
@@ -165,7 +189,17 @@ public class viewKelas extends javax.swing.JFrame {
         sem2 = new javax.swing.JComboBox();
         sem4 = new javax.swing.JComboBox();
         sem6 = new javax.swing.JComboBox();
+        buttonKembali = new javax.swing.JButton();
         radioGrup = new javax.swing.ButtonGroup();
+        tampilSesuatu = new javax.swing.JDialog();
+        jPanel17 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        Labelnya2 = new javax.swing.JLabel();
+        isiannya1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        Tabelnya_KelasMatkul = new javax.swing.JTable();
+        jLabel36 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -179,6 +213,14 @@ public class viewKelas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelKelasMatakuliah = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
+        sisaMatkul = new javax.swing.JLabel();
+        pilihSemester = new javax.swing.JComboBox();
+        comboSemester = new javax.swing.JComboBox();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        buttonLihatJadwal = new javax.swing.JButton();
+        buttonBuatJadwal = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -343,7 +385,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel3.setText("Dosen Pengampu");
         jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
 
-        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14));
+        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel12.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 89, 390, -1));
 
@@ -359,7 +401,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel5.setText("Kelas");
         jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
-        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14));
+        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         HapusButton.setText("HAPUS");
         HapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +416,7 @@ public class viewKelas extends javax.swing.JFrame {
         lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14));
         jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
 
-        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14));
+        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RubahButton.setText("UBAH");
         RubahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,7 +582,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel32.setText("Kelas");
         jPanel16.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 40, 20));
 
-        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
+        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         button_buatKelas.setText("BUAT KELAS KULIAH");
         button_buatKelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,6 +619,14 @@ public class viewKelas extends javax.swing.JFrame {
         sem6.setEnabled(false);
         jPanel16.add(sem6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 40, -1));
 
+        buttonKembali.setText("KEMBALI");
+        buttonKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonKembaliActionPerformed(evt);
+            }
+        });
+        jPanel16.add(buttonKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -599,6 +649,103 @@ public class viewKelas extends javax.swing.JFrame {
 
         radioGrup.add(radioGanjil);
         radioGrup.add(radioGenap);
+
+        tampilSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel18.setBackground(new java.awt.Color(51, 102, 255));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 930, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        jPanel19.setBackground(new java.awt.Color(51, 102, 255));
+
+        Labelnya2.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
+        Labelnya2.setText("TAMPIL SELURUH MATKUL");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Labelnya2, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Labelnya2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        isiannya1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                isiannya1KeyReleased(evt);
+            }
+        });
+
+        Tabelnya_KelasMatkul.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabelnya_KelasMatkul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabelnya_KelasMatkulMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(Tabelnya_KelasMatkul);
+
+        jLabel36.setText("Masukkan :");
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel36)
+                        .addGap(18, 18, 18)
+                        .addComponent(isiannya1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(isiannya1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tampilSesuatu.getContentPane().add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 430));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -661,9 +808,8 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
-        jLabel4.setText("TABEL MATAKULIAH");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 170, -1));
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 40, 30));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -690,11 +836,61 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelKelasMatakuliah);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 910, 170));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 910, 150));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("TOTAL MATAKULIAH : ");
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 420, 20));
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 300, 40));
+
+        sisaMatkul.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel4.add(sisaMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 50, 30));
+
+        pilihSemester.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pilihSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GANJIL", "GENAP" }));
+        pilihSemester.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pilihSemesterActionPerformed(evt);
+            }
+        });
+        jPanel4.add(pilihSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 80, 30));
+
+        comboSemester.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboSemester.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSemesterActionPerformed(evt);
+            }
+        });
+        jPanel4.add(comboSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 60, 30));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel34.setText("SEMESTER");
+        jPanel4.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 30));
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel35.setText("KELAS MATKUL TERSISA : ");
+        jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 240, 30));
+
+        jLabel33.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel33.setText("TABEL MATAKULIAH SEMESTER ");
+        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 270, 30));
+
+        buttonLihatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonLihatJadwal.setText("LIHAT JADWAL");
+        buttonLihatJadwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLihatJadwalActionPerformed(evt);
+            }
+        });
+        jPanel4.add(buttonLihatJadwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 190, 40));
+
+        buttonBuatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonBuatJadwal.setText("BUAT JADWAL BARU");
+        buttonBuatJadwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBuatJadwalActionPerformed(evt);
+            }
+        });
+        jPanel4.add(buttonBuatJadwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 190, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -896,60 +1092,13 @@ public class viewKelas extends javax.swing.JFrame {
                 this.setVisible(true);
                 buatKelas.setVisible(false);
                 try {
-                    updateTabelKelas();
+                    updateTabelKelasSemester(Integer.parseInt(comboSemester.getSelectedItem().toString()));
                 } catch (SQLException ex) {
                     Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
 //                JOptionPane.showMessageDialog(null, "Genap");
-                try {
-                    KelasMatkulKontrol.getKoneksi().deleteAllKelasMatkul();
-                } catch (SQLException ex) {
-                    Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-                }
-//                JOptionPane.showMessageDialog(null, "Ganjil");
-                int[] jumlah = {Integer.parseInt(sem2.getSelectedItem().toString()),
-                    Integer.parseInt(sem4.getSelectedItem().toString()),
-                    Integer.parseInt(sem6.getSelectedItem().toString()),
-                    Integer.parseInt(sem8.getSelectedItem().toString())};
-
-                int idkelas = 1;
-                int indSem = 0;
-                String[] Kelas = {"A", "B", "C", "D", "E", "F", "G"};
-
-                for (int semester = 2; semester <= 8; semester += 2) {
-                    List<MataKuliah> matkul = null;
-                    try {
-                        matkul = KelasMatkulKontrol.getKoneksi().tampilMatakuliahPerSemester(semester);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    for (int i = 0; i < matkul.size(); i++) {//looping matkul
-                        for (int j = 0; j < jumlah[indSem]; j++) {//looping jumlah matkul
-                            KelasKuliah kk = new KelasKuliah();
-                            kk.setIdKelas(idkelas);
-                            kk.setIdMK(new MataKuliah(matkul.get(i).getIdMK()));
-                            kk.setIdDosen(new Dosen("-"));
-                            kk.setKelas(Kelas[j]);
-                            try {
-                                KelasMatkulKontrol.getKoneksi().insertKelasMataKuliah(kk);
-                            } catch (SQLException ex) {
-                                Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            idkelas++;
-                        }
-                    }
-                    indSem++;
-                }
-
-                this.setVisible(true);
-                buatKelas.setVisible(false);
-                try {
-                    updateTabelKelas();
-                } catch (SQLException ex) {
-                    Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         } else {
         }
@@ -964,17 +1113,16 @@ public class viewKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
     private void RubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RubahButtonActionPerformed
-        if(DosenComboBox.getSelectedItem().toString().equals("-")){
+        if (DosenComboBox.getSelectedItem().toString().equals("-")) {
             JOptionPane.showMessageDialog(null, "Silahkan Pilih dosen pengampu");
-        }
-        else{
+        } else {
             KelasKuliah temp = new KelasKuliah();
             temp.setIdKelas(Integer.parseInt(lbl_idKelas.getText()));
             temp.setIdDosen(new Dosen(DosenComboBox.getSelectedItem().toString().split("-")[0]));
             try {
                 KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(temp);
-                JOptionPane.showMessageDialog(null,"Berhasil Dirubah");
-                updateTabelKelas();
+                JOptionPane.showMessageDialog(null, "Berhasil Dirubah");
+                updateTabelKelasSemester(Integer.parseInt(comboSemester.getSelectedItem().toString()));
                 tambahSesuatu.setVisible(false);
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -984,18 +1132,84 @@ public class viewKelas extends javax.swing.JFrame {
 
     private void HapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusButtonActionPerformed
         int data = JOptionPane.showConfirmDialog(null, "Apakah anda yakin Menghapus kelas matakuliah :"
-                + "\nMATKUL     : "+lbl_matkul.getText()
-                + "\nKELAS      : "+lbl_kelas.getText(), "MENGHAPUS KELAS", 1);
+                + "\nMATKUL     : " + lbl_matkul.getText()
+                + "\nKELAS      : " + lbl_kelas.getText(), "MENGHAPUS KELAS", 1);
         if (data == 0) {//kalo setuju
             KelasKuliah kk = new KelasKuliah(Integer.parseInt(lbl_idKelas.getText()));
             try {
                 KelasMatkulKontrol.getKoneksi().deleteKelasMataKuliah(kk);
-                updateTabelKelas();
+                updateTabelKelasSemester(Integer.parseInt(comboSemester.getSelectedItem().toString()));
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }//GEN-LAST:event_HapusButtonActionPerformed
+
+    private void pilihSemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihSemesterActionPerformed
+        if (pilihSemester.getSelectedItem().toString().equals("GANJIL")) {
+            String[] Semester = {"1", "3", "5", "7"};
+            String[] SemesterRemove = {"2", "4", "6", "8"};
+            for (int i = 0; i < Semester.length; i++) {
+                comboSemester.addItem(Semester[i]);
+                comboSemester.removeItem(SemesterRemove[i]);
+            }
+        } else {
+            String[] Semester = {"2", "4", "6", "8"};
+            String[] SemesterRemove = {"1", "3", "5", "7"};
+            for (int i = 0; i < Semester.length; i++) {
+                comboSemester.addItem(Semester[i]);
+                comboSemester.removeItem(SemesterRemove[i]);
+            }
+        }
+
+    }//GEN-LAST:event_pilihSemesterActionPerformed
+
+    private void comboSemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSemesterActionPerformed
+        String Semester = comboSemester.getSelectedItem().toString();
+//        if (!Semester.matches("[0-9]*")) {
+//            JOptionPane.showMessageDialog(null, "Masukkan harus angka..!!");
+//        } else {
+        try {
+            updateTabelKelasSemester(Integer.parseInt(Semester));
+            jLabel4.setText(Semester);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+//        }
+    }//GEN-LAST:event_comboSemesterActionPerformed
+
+    private void buttonBuatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuatJadwalActionPerformed
+        viewKelas a = new viewKelas();
+        a.buatKelas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonBuatJadwalActionPerformed
+
+    private void buttonLihatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLihatJadwalActionPerformed
+        tampilSesuatu.setVisible(true);
+        try {
+            updateTabelKelas("");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_buttonLihatJadwalActionPerformed
+
+    private void isiannya1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_isiannya1KeyReleased
+        try {
+            String cari = isiannya1.getText();
+            updateTabelKelas(cari);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_isiannya1KeyReleased
+
+    private void Tabelnya_KelasMatkulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabelnya_KelasMatkulMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tabelnya_KelasMatkulMouseClicked
+
+    private void buttonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKembaliActionPerformed
+        buatKelas.setVisible(false);
+        this.setVisible(true);
+    }//GEN-LAST:event_buttonKembaliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1007,10 +1221,7 @@ public class viewKelas extends javax.swing.JFrame {
 
                 @Override
                 public void run() {
-//                    new viewKelas().setVisible(true);
-                    viewKelas a = new viewKelas();
-//                    a.setVisible(true);
-                    a.buatKelas.setVisible(true);
+                    new viewKelas().setVisible(true);
                 }
             });
         } catch (ClassNotFoundException ex) {
@@ -1028,15 +1239,22 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JButton HapusButton;
     private javax.swing.JLabel Labelnya;
     private javax.swing.JLabel Labelnya1;
+    private javax.swing.JLabel Labelnya2;
     private javax.swing.JButton RubahButton;
     private javax.swing.JTable Tabelnya;
+    private javax.swing.JTable Tabelnya_KelasMatkul;
     private javax.swing.JDialog buatKelas;
+    private javax.swing.JButton buttonBuatJadwal;
+    private javax.swing.JButton buttonKembali;
+    private javax.swing.JButton buttonLihatJadwal;
     private javax.swing.JButton button_buatKelas;
     private javax.swing.JDialog cariSesuatu;
+    private javax.swing.JComboBox comboSemester;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton dsn_button;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField isiannya;
+    private javax.swing.JTextField isiannya1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1063,6 +1281,10 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1077,6 +1299,9 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1087,12 +1312,14 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton kelasButton;
     private javax.swing.JLabel lbl_idKelas;
     private javax.swing.JLabel lbl_kelas;
     private javax.swing.JLabel lbl_matkul;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
+    private javax.swing.JComboBox pilihSemester;
     private javax.swing.JRadioButton radioGanjil;
     private javax.swing.JRadioButton radioGenap;
     private javax.swing.ButtonGroup radioGrup;
@@ -1105,7 +1332,9 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JComboBox sem6;
     private javax.swing.JComboBox sem7;
     private javax.swing.JComboBox sem8;
+    private javax.swing.JLabel sisaMatkul;
     private javax.swing.JTable tabelKelasMatakuliah;
     private javax.swing.JDialog tambahSesuatu;
+    private javax.swing.JDialog tampilSesuatu;
     // End of variables declaration//GEN-END:variables
 }
