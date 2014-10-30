@@ -93,7 +93,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         List<Dosen> mktm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(mktm);
         Tabel_Dosen.setModel(model);
-        Tabel_Dosen.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
+        Tabel_Dosen.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
     private void updateTabelPermintaan() throws SQLException {
@@ -102,7 +102,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         Tabel_Permintaan.setModel(model);
         Tabel_Permintaan.getColumnModel().getColumn(0).setMaxWidth(0);
         Tabel_Permintaan.getColumnModel().getColumn(1).setMinWidth(200);
-        Tabel_Permintaan.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
+        Tabel_Permintaan.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
     
     private void updateTabelJadwal() throws SQLException {
@@ -217,9 +217,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_dosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel7.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel7.setBackground(new java.awt.Color(51, 102, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel2.setText("PENCARIAN DOSEN");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -228,7 +228,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -257,7 +257,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(Tabel_Dosen);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("NAMA DOSEN");
 
         tomboldialog_dosen.setText("BATAL");
@@ -274,7 +274,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -284,7 +284,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(344, 344, 344)
                 .addComponent(tomboldialog_dosen)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,9 +319,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_matkul.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel10.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel10.setBackground(new java.awt.Color(51, 102, 255));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel14.setText("PENCARIAN MATAKULIAH");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -330,7 +330,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -359,7 +359,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabel_kelasmatakuliah);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("MATA KULIAH DOSEN PENGAMPU");
 
         text_matkul.setEditable(false);
@@ -383,12 +383,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(text_matkul, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 159, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(344, 344, 344)
                 .addComponent(tomboldialog_matkul)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,17 +431,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_pleasewait.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel12.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel12.setBackground(new java.awt.Color(51, 102, 255));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("PEMBUATAN JADWAL");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("PEMBUATAN JADWAL SEDANG DALAM PROSES. SILAHKAN MENUNGGU....");
 
-        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18));
         label_waktu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -451,8 +451,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progres_barnya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(progres_barnya, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                     .addComponent(label_waktu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
                 .addContainerGap())
@@ -475,9 +475,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_solusiJadwal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel14.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel14.setBackground(new java.awt.Color(51, 102, 255));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel19.setText("JADWAL YANG DIHASILKAN");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -486,7 +486,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,7 +527,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(454, 454, 454)
                 .addComponent(tomboldialog_dosen1)
@@ -623,7 +623,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel1.setText("RUANG");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 50, -1));
 
@@ -635,11 +635,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(tombol_cariMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel4.setText("TABEL PERMINTAAN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
 
-        jadwalButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jadwalButton.setFont(new java.awt.Font("Tahoma", 1, 24));
         jadwalButton.setText("BUAT JADWAL");
         jadwalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,7 +648,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(jadwalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 440, 50));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel3.setText("DOSEN");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
@@ -660,7 +660,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(text_dosen, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 320, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel5.setText("MATKUL");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
@@ -672,11 +672,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(text_klsMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel11.setText("HARI");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 40, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 14));
         jLabel12.setText("JAM");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, -1));
 
@@ -717,7 +717,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         combo_ruang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(combo_ruang, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 120, -1));
 
-        tombol_tambahPermintaan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tombol_tambahPermintaan.setFont(new java.awt.Font("Tahoma", 1, 18));
         tombol_tambahPermintaan.setText("TAMBAH PERMINTAAN");
         tombol_tambahPermintaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -734,7 +734,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(button_batal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
-        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 11));
         jPanel4.add(labelKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 30, 20));
 
         jLabel16.setText("KELAS");
@@ -742,31 +742,31 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 330));
 
-        jPanel5.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel5.setBackground(new java.awt.Color(51, 102, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 150));
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 940, 70));
 
