@@ -10,6 +10,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,10 +25,11 @@ import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
 import tabelModel.Dosen_TM;
 import tabelModel.KelasMatkul_TM;
+import tabelModel.renderWarnaWarni;
 
 /**
  *
- * @author ADIT
+ * @author Adhi
  */
 public class viewKelas extends javax.swing.JFrame {
 
@@ -72,18 +74,24 @@ public class viewKelas extends javax.swing.JFrame {
         tabelKelasMatakuliah.getColumnModel().getColumn(4).setMaxWidth(65);
         tabelKelasMatakuliah.getColumnModel().getColumn(5).setMaxWidth(65);
         tabelKelasMatakuliah.getColumnModel().getColumn(6).setMaxWidth(65);
+        
+        tabelKelasMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
     private void updateTabelDosen() throws SQLException {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
+        
+        Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
     private void cariDosen(String key) throws SQLException {
         List<Dosen> dtm = DosenKontrol.getKoneksi().cariDosen(key);
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
+        
+        Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
     /**
@@ -183,7 +191,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel7.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel7.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -196,9 +204,9 @@ public class viewKelas extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jPanel8.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel8.setBackground(new java.awt.Color(0, 51, 204));
 
-        Labelnya.setFont(new java.awt.Font("Wide Latin", 1, 18));
+        Labelnya.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
         Labelnya.setText("CARI");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -281,7 +289,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel10.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel10.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -294,9 +302,9 @@ public class viewKelas extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jPanel11.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel11.setBackground(new java.awt.Color(0, 51, 204));
 
-        Labelnya1.setFont(new java.awt.Font("Wide Latin", 1, 18));
+        Labelnya1.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
         Labelnya1.setText("TAMBAH");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -319,23 +327,23 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel12.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel12.setText("DATA KELAS MATAKULIAH");
         jPanel12.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("No Kelas");
         jPanel12.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 38, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Matakuliah");
         jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 66, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Dosen Pengampu");
         jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
 
-        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14));
+        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel12.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 89, 390, -1));
 
@@ -347,11 +355,11 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel12.add(dsn_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 90, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Kelas");
         jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
-        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14));
+        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         HapusButton.setText("HAPUS");
         HapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,13 +368,13 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel12.add(HapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 141, 48));
 
-        lbl_kelas.setFont(new java.awt.Font("Arial", 1, 14));
+        lbl_kelas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jPanel12.add(lbl_kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 119, 48, 20));
 
-        lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14));
+        lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
 
-        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14));
+        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RubahButton.setText("UBAH");
         RubahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,7 +383,7 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel12.add(RubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 141, 48));
 
-        lbl_idKelas.setFont(new java.awt.Font("Arial", 1, 14));
+        lbl_idKelas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jPanel12.add(lbl_idKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 38, 71, 17));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -405,9 +413,9 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel14.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel14.setBackground(new java.awt.Color(0, 51, 204));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setText("BUAT KELAS MATAKULIAH");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -427,7 +435,7 @@ public class viewKelas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel15.setBackground(new java.awt.Color(153, 51, 0));
+        jPanel15.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -460,79 +468,79 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel16.add(radioGenap, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setText("Sem 7");
         jPanel16.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 50, 20));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("SEMESTER");
         jPanel16.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("JUMLAH KELAS");
         jPanel16.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setText("Kelas");
         jPanel16.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 40, 20));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setText("Sem 3");
         jPanel16.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 50, 20));
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setText("Sem 5");
         jPanel16.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 20));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setText("Sem 2");
         jPanel16.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 50, 20));
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Sem 4");
         jPanel16.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 50, 20));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setText("Sem 6");
         jPanel16.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 50, 20));
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel24.setText("Sem 8");
         jPanel16.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 50, 20));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel25.setText("Sem 1");
         jPanel16.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 50, 20));
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel26.setText("Kelas");
         jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 40, 20));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel27.setText("Kelas");
         jPanel16.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 20));
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel28.setText("Kelas");
         jPanel16.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 40, 20));
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel29.setText("Kelas");
         jPanel16.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 40, 20));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel30.setText("Kelas");
         jPanel16.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 40, 20));
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel31.setText("Kelas");
         jPanel16.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 40, 20));
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel32.setText("Kelas");
         jPanel16.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 40, 20));
 
-        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
+        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         button_buatKelas.setText("BUAT KELAS KULIAH");
         button_buatKelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -653,7 +661,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("TABEL MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 170, -1));
 
@@ -683,7 +691,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 910, 170));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("TOTAL MATAKULIAH : ");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 420, 20));
 
@@ -692,22 +700,22 @@ public class viewKelas extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 51, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
