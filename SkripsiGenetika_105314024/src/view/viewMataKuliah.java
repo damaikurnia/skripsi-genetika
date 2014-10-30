@@ -10,6 +10,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,6 +28,7 @@ import jxl.Workbook;
 import kelas.MataKuliah;
 import kontrol.MataKuliahKontrol;
 import tabelModel.MataKuliah_TM;
+import tabelModel.renderWarnaWarni;
 
 /**
  *
@@ -75,6 +77,8 @@ public class viewMataKuliah extends javax.swing.JFrame {
         tabelMatakuliah.getColumnModel().getColumn(3).setMaxWidth(50);
         tabelMatakuliah.getColumnModel().getColumn(4).setMinWidth(30);
         tabelMatakuliah.getColumnModel().getColumn(4).setMaxWidth(30);
+        
+        tabelMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
     /** This method is called from within the constructor to
      * initialize the form.

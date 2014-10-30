@@ -10,6 +10,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,6 +28,7 @@ import jxl.Workbook;
 import kelas.Ruang;
 import kontrol.RuangKontrol;
 import tabelModel.Ruang_TM;
+import tabelModel.renderWarnaWarni;
 
 /**
  *
@@ -62,6 +64,8 @@ public class viewRuang extends javax.swing.JFrame {
         tabelRuang.getColumnModel().getColumn(0).setMaxWidth(70);
         tabelRuang.getColumnModel().getColumn(1).setMinWidth(200);
         tabelRuang.getColumnModel().getColumn(1).setMaxWidth(200);
+        
+        tabelRuang.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
     /**

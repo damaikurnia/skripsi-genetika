@@ -10,6 +10,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.io.File;
 import kelas.Dosen;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import kontrol.DosenKontrol;
 import tabelModel.Dosen_TM;
+import tabelModel.renderWarnaWarni;
 
 /**
  *
@@ -474,6 +476,8 @@ public class viewDosen extends javax.swing.JFrame {
         tabelDosen.getColumnModel().getColumn(0).setMaxWidth(70);
         tabelDosen.getColumnModel().getColumn(1).setMinWidth(220);
         tabelDosen.getColumnModel().getColumn(1).setMaxWidth(220);
+        
+        tabelDosen.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
     }
 
     public static void main(String args[]) {
