@@ -11,11 +11,14 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.Normalizer.Form;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -111,6 +114,11 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -452,6 +460,12 @@ public class viewRuang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_uploadActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -509,4 +523,15 @@ public class viewRuang extends javax.swing.JFrame {
     private javax.swing.JButton ubahButton;
     private javax.swing.JFileChooser uploadData;
     // End of variables declaration//GEN-END:variables
+
+    protected static ImageIcon createImageIcon(String path) {
+        // Ganti IconFrame dengan nama kelas jFrame Anda
+        java.net.URL imgURL = Form.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn'’t find file: " + path);
+            return null;
+        }
+    }
 }

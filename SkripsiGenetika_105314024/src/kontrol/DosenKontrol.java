@@ -130,7 +130,7 @@ public class DosenKontrol {
 //        conn.close();
 //        return kel;
 //    }
-    public static List<String> cariKelompokDosen(List<Dosen> dataDosen) {
+        public static List<String> cariKelompokDosen(List<Dosen> dataDosen) {
         List<String> kel = new ArrayList<String>();
         for (int i = 0; i < dataDosen.size(); i++) {
             kel.add(dataDosen.get(i).getIdDosen() + "-0");

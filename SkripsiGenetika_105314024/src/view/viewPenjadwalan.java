@@ -11,12 +11,15 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.Normalizer.Form;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
@@ -215,6 +218,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
+        dialog_dosen.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_dosenWindowActivated(evt);
+            }
+        });
         dialog_dosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel7.setBackground(new java.awt.Color(51, 102, 255));
@@ -317,6 +325,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_dosen.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        dialog_matkul.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_matkulWindowActivated(evt);
+            }
+        });
         dialog_matkul.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel10.setBackground(new java.awt.Color(51, 102, 255));
@@ -429,6 +442,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         klikKanan.add(HAPUS);
 
+        dialog_pleasewait.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_pleasewaitWindowActivated(evt);
+            }
+        });
         dialog_pleasewait.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel12.setBackground(new java.awt.Color(51, 102, 255));
@@ -473,6 +491,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_pleasewait.getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 140));
 
+        dialog_solusiJadwal.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_solusiJadwalWindowActivated(evt);
+            }
+        });
         dialog_solusiJadwal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel14.setBackground(new java.awt.Color(51, 102, 255));
@@ -563,6 +586,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_solusiJadwal.getContentPane().add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -953,6 +981,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jadwalButton.setEnabled(!b);
     }
 
+    protected static ImageIcon createImageIcon(String path) {
+        // Ganti IconFrame dengan nama kelas jFrame Anda
+        java.net.URL imgURL = Form.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn'’t find file: " + path);
+            return null;
+        }
+    }
+
     public class TimerHandler implements ActionListener {
 
         private String buff;
@@ -1031,6 +1070,37 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private void tomboldialog_dosen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomboldialog_dosen1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tomboldialog_dosen1ActionPerformed
+
+    private void dialog_dosenWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_dosenWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_dosen.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_dosenWindowActivated
+
+    private void dialog_matkulWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_matkulWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_matkul.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_matkulWindowActivated
+
+    private void dialog_pleasewaitWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_pleasewaitWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_pleasewait.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_pleasewaitWindowActivated
+
+    private void dialog_solusiJadwalWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_solusiJadwalWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_solusiJadwal.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_solusiJadwalWindowActivated
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //untuk ganti icon
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

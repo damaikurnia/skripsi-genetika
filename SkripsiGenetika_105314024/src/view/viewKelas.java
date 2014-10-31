@@ -11,10 +11,13 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.SQLException;
+import java.text.Normalizer.Form;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -106,7 +109,10 @@ public class viewKelas extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
-
+        Tabelnya.getColumnModel().getColumn(0).setMinWidth(70);
+        Tabelnya.getColumnModel().getColumn(0).setMaxWidth(70);
+        Tabelnya.getColumnModel().getColumn(1).setMinWidth(220);
+        Tabelnya.getColumnModel().getColumn(1).setMaxWidth(220);
         Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
@@ -114,8 +120,11 @@ public class viewKelas extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().cariDosen(key);
         Dosen_TM model = new Dosen_TM(dtm);
         Tabelnya.setModel(model);
-
-        Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.gray, Color.white));
+        Tabelnya.getColumnModel().getColumn(0).setMinWidth(70);
+        Tabelnya.getColumnModel().getColumn(0).setMaxWidth(70);
+        Tabelnya.getColumnModel().getColumn(1).setMinWidth(220);
+        Tabelnya.getColumnModel().getColumn(1).setMaxWidth(220);
+        Tabelnya.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
     /**
@@ -229,6 +238,11 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
+        cariSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                cariSesuatuWindowActivated(evt);
+            }
+        });
         cariSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -285,6 +299,7 @@ public class viewKelas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabelnya.setSelectionForeground(new java.awt.Color(0, 0, 0));
         Tabelnya.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelnyaMouseClicked(evt);
@@ -327,6 +342,11 @@ public class viewKelas extends javax.swing.JFrame {
 
         cariSesuatu.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 360));
 
+        tambahSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                tambahSesuatuWindowActivated(evt);
+            }
+        });
         tambahSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -401,7 +421,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel5.setText("Kelas");
         jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
-        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14));
         HapusButton.setText("HAPUS");
         HapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,7 +436,7 @@ public class viewKelas extends javax.swing.JFrame {
         lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14));
         jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
 
-        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14));
         RubahButton.setText("UBAH");
         RubahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,6 +471,11 @@ public class viewKelas extends javax.swing.JFrame {
 
         tambahSesuatu.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
 
+        buatKelas.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                buatKelasWindowActivated(evt);
+            }
+        });
         buatKelas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
@@ -582,7 +607,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel32.setText("Kelas");
         jPanel16.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 40, 20));
 
-        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        button_buatKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
         button_buatKelas.setText("BUAT KELAS KULIAH");
         button_buatKelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -650,6 +675,11 @@ public class viewKelas extends javax.swing.JFrame {
         radioGrup.add(radioGanjil);
         radioGrup.add(radioGenap);
 
+        tampilSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                tampilSesuatuWindowActivated(evt);
+            }
+        });
         tampilSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel17.setBackground(new java.awt.Color(255, 255, 255));
@@ -669,7 +699,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(51, 102, 255));
 
-        Labelnya2.setFont(new java.awt.Font("Wide Latin", 1, 18)); // NOI18N
+        Labelnya2.setFont(new java.awt.Font("Wide Latin", 1, 18));
         Labelnya2.setText("TAMPIL SELURUH MATKUL");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -706,6 +736,7 @@ public class viewKelas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabelnya_KelasMatkul.setSelectionForeground(new java.awt.Color(0, 0, 0));
         Tabelnya_KelasMatkul.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Tabelnya_KelasMatkulMouseClicked(evt);
@@ -748,6 +779,12 @@ public class viewKelas extends javax.swing.JFrame {
         tampilSesuatu.getContentPane().add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 430));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("KELAS KULIAH");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -808,7 +845,7 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 40, 30));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -838,14 +875,14 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 910, 150));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel13.setText("TOTAL MATAKULIAH : ");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 300, 40));
 
-        sisaMatkul.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        sisaMatkul.setFont(new java.awt.Font("Tahoma", 1, 18));
         jPanel4.add(sisaMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 50, 30));
 
-        pilihSemester.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pilihSemester.setFont(new java.awt.Font("Tahoma", 1, 14));
         pilihSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GANJIL", "GENAP" }));
         pilihSemester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -854,7 +891,7 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(pilihSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 80, 30));
 
-        comboSemester.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboSemester.setFont(new java.awt.Font("Tahoma", 1, 14));
         comboSemester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSemesterActionPerformed(evt);
@@ -862,19 +899,19 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(comboSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 60, 30));
 
-        jLabel34.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel34.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel34.setText("SEMESTER");
         jPanel4.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 30));
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel35.setText("KELAS MATKUL TERSISA : ");
         jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 240, 30));
 
-        jLabel33.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel33.setText("TABEL MATAKULIAH SEMESTER ");
         jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 270, 30));
 
-        buttonLihatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonLihatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14));
         buttonLihatJadwal.setText("LIHAT JADWAL");
         buttonLihatJadwal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1098,7 +1135,6 @@ public class viewKelas extends javax.swing.JFrame {
                 }
             } else {
 //                JOptionPane.showMessageDialog(null, "Genap");
-                
             }
         } else {
         }
@@ -1181,7 +1217,6 @@ public class viewKelas extends javax.swing.JFrame {
     private void buttonBuatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuatJadwalActionPerformed
         viewKelas a = new viewKelas();
         a.buatKelas.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_buttonBuatJadwalActionPerformed
 
     private void buttonLihatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLihatJadwalActionPerformed
@@ -1203,13 +1238,54 @@ public class viewKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_isiannya1KeyReleased
 
     private void Tabelnya_KelasMatkulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabelnya_KelasMatkulMouseClicked
-        // TODO add your handling code here:
+        try {
+            int row1 = Tabelnya_KelasMatkul.getSelectedRow();
+            lbl_idKelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 0).toString());
+            lbl_matkul.setText(Tabelnya_KelasMatkul.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
+            lbl_kelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 3).toString());
+            List<Dosen> idDosen = DosenKontrol.getKoneksi().cariDosen(Tabelnya_KelasMatkul.getValueAt(row1, 7).toString());
+            DosenComboBox.setSelectedItem(idDosen.get(0).getIdDosen() + "-" + idDosen.get(0).getNamaDosen());
+            tambahSesuatu.setVisible(true);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_Tabelnya_KelasMatkulMouseClicked
 
     private void buttonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKembaliActionPerformed
         buatKelas.setVisible(false);
         this.setVisible(true);
     }//GEN-LAST:event_buttonKembaliActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //untuk ganti icon
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_formWindowActivated
+
+    private void cariSesuatuWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cariSesuatuWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        cariSesuatu.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_cariSesuatuWindowActivated
+
+    private void tambahSesuatuWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_tambahSesuatuWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        tambahSesuatu.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_tambahSesuatuWindowActivated
+
+    private void buatKelasWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_buatKelasWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        buatKelas.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_buatKelasWindowActivated
+
+    private void tampilSesuatuWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_tampilSesuatuWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        tampilSesuatu.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_tampilSesuatuWindowActivated
 
     /**
      * @param args the command line arguments
@@ -1337,4 +1413,15 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JDialog tambahSesuatu;
     private javax.swing.JDialog tampilSesuatu;
     // End of variables declaration//GEN-END:variables
+
+    protected static ImageIcon createImageIcon(String path) {
+        // Ganti IconFrame dengan nama kelas jFrame Anda
+        java.net.URL imgURL = Form.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn'’t find file: " + path);
+            return null;
+        }
+    }
 }

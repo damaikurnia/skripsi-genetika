@@ -10,8 +10,11 @@
  */
 package view;
 
+import java.awt.Image;
+import java.text.Normalizer.Form;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -54,6 +57,11 @@ public class Home extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -185,6 +193,13 @@ public class Home extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_penjadwalanButtonActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //untuk ganti icon
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -226,4 +241,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton penjadwalanButton;
     private javax.swing.JButton ruangButton;
     // End of variables declaration//GEN-END:variables
+
+    protected static ImageIcon createImageIcon(String path) {
+        // Ganti IconFrame dengan nama kelas jFrame Anda
+        java.net.URL imgURL = Form.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn'’t find file: " + path);
+            return null;
+        }
+    }
 }
