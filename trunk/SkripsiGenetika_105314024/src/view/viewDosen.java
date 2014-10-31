@@ -11,12 +11,15 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import kelas.Dosen;
 import java.sql.SQLException;
+import java.text.Normalizer.Form;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -101,6 +104,11 @@ public class viewDosen extends javax.swing.JFrame {
         uploadData.setDialogTitle("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -462,6 +470,12 @@ public class viewDosen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_uploadActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_formWindowActivated
+
     private void bersihkan() {
 //        idDosenText.setText("");
         namaDosenText.setText("");
@@ -472,12 +486,12 @@ public class viewDosen extends javax.swing.JFrame {
         List<Dosen> dtm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(dtm);
         tabelDosen.setModel(model);
-        
+
         tabelDosen.getColumnModel().getColumn(0).setMinWidth(70);
         tabelDosen.getColumnModel().getColumn(0).setMaxWidth(70);
         tabelDosen.getColumnModel().getColumn(1).setMinWidth(220);
         tabelDosen.getColumnModel().getColumn(1).setMaxWidth(220);
-        
+
         tabelDosen.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
 
@@ -535,4 +549,15 @@ public class viewDosen extends javax.swing.JFrame {
     private javax.swing.JTable tabelDosen;
     private javax.swing.JFileChooser uploadData;
     // End of variables declaration//GEN-END:variables
+
+    protected static ImageIcon createImageIcon(String path) {
+        // Ganti IconFrame dengan nama kelas jFrame Anda
+        java.net.URL imgURL = Form.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn'’t find file: " + path);
+            return null;
+        }
+    }
 }
