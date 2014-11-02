@@ -101,9 +101,10 @@ public class viewDosen extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         uploadData.setApproveButtonToolTipText("");
-        uploadData.setDialogTitle("");
+        uploadData.setDialogTitle("PILIH FILE DOSEN");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI DOSEN");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

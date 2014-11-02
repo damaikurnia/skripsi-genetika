@@ -127,7 +127,10 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
+        uploadData.setDialogTitle("PILIH FILE MATAKULIAH");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI MATAKULIAH");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

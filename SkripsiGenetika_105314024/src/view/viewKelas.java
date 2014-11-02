@@ -58,18 +58,19 @@ public class viewKelas extends javax.swing.JFrame {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        cariSesuatu.setVisible(false);
-        cariSesuatu.setSize(515, 400);
-        cariSesuatu.setLocationRelativeTo(null);
-        tambahSesuatu.setVisible(false);
-        tambahSesuatu.setSize(640, 400);
-        tambahSesuatu.setLocationRelativeTo(null);
+        cariDosen.setVisible(false);
+        cariDosen.setSize(515, 400);
+        cariDosen.setLocationRelativeTo(null);
+        tambahDosen.setVisible(false);
+        tambahDosen.setSize(640, 400);
+        tambahDosen.setLocationRelativeTo(null);
         buatKelas.setVisible(false);
         buatKelas.setSize(700, 430);
         buatKelas.setLocationRelativeTo(null);
         tampilSesuatu.setVisible(false);
         tampilSesuatu.setSize(945, 460);
         tampilSesuatu.setLocationRelativeTo(null);
+        smstr.setVisible(false);
     }
 
     private void updateTabelKelas(String key) throws SQLException {
@@ -136,7 +137,7 @@ public class viewKelas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cariSesuatu = new javax.swing.JDialog();
+        cariDosen = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -145,7 +146,7 @@ public class viewKelas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabelnya = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
-        tambahSesuatu = new javax.swing.JDialog();
+        tambahDosen = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -157,12 +158,15 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         DosenComboBox = new javax.swing.JComboBox();
         dsn_button = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        isianSKS = new javax.swing.JLabel();
         HapusButton = new javax.swing.JButton();
         lbl_kelas = new javax.swing.JLabel();
         lbl_matkul = new javax.swing.JLabel();
         RubahButton = new javax.swing.JButton();
         lbl_idKelas = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        smstr = new javax.swing.JLabel();
         buatKelas = new javax.swing.JDialog();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -198,7 +202,6 @@ public class viewKelas extends javax.swing.JFrame {
         sem2 = new javax.swing.JComboBox();
         sem4 = new javax.swing.JComboBox();
         sem6 = new javax.swing.JComboBox();
-        buttonKembali = new javax.swing.JButton();
         radioGrup = new javax.swing.ButtonGroup();
         tampilSesuatu = new javax.swing.JDialog();
         jPanel17 = new javax.swing.JPanel();
@@ -238,12 +241,13 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
-        cariSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
+        cariDosen.setTitle("CARI DOSEN");
+        cariDosen.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
-                cariSesuatuWindowActivated(evt);
+                cariDosenWindowActivated(evt);
             }
         });
-        cariSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cariDosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -340,14 +344,15 @@ public class viewKelas extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        cariSesuatu.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 360));
+        cariDosen.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 360));
 
-        tambahSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
+        tambahDosen.setTitle("PENAMBAHAN DOSEN");
+        tambahDosen.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
-                tambahSesuatuWindowActivated(evt);
+                tambahDosenWindowActivated(evt);
             }
         });
-        tambahSesuatu.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tambahDosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -405,8 +410,13 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel3.setText("Dosen Pengampu");
         jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
 
-        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14));
         DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        DosenComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DosenComboBoxActionPerformed(evt);
+            }
+        });
         jPanel12.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 89, 390, -1));
 
         dsn_button.setText("Cari");
@@ -417,9 +427,9 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel12.add(dsn_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 90, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
-        jLabel5.setText("Kelas");
-        jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
+        isianSKS.setFont(new java.awt.Font("Arial", 0, 14));
+        isianSKS.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel12.add(isianSKS, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 40, 20));
 
         HapusButton.setFont(new java.awt.Font("Tahoma", 1, 14));
         HapusButton.setText("HAPUS");
@@ -428,10 +438,10 @@ public class viewKelas extends javax.swing.JFrame {
                 HapusButtonActionPerformed(evt);
             }
         });
-        jPanel12.add(HapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 141, 48));
+        jPanel12.add(HapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 141, 48));
 
         lbl_kelas.setFont(new java.awt.Font("Arial", 1, 14));
-        jPanel12.add(lbl_kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 119, 48, 20));
+        jPanel12.add(lbl_kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 48, 20));
 
         lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14));
         jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
@@ -443,10 +453,23 @@ public class viewKelas extends javax.swing.JFrame {
                 RubahButtonActionPerformed(evt);
             }
         });
-        jPanel12.add(RubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 141, 48));
+        jPanel12.add(RubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 141, 48));
 
         lbl_idKelas.setFont(new java.awt.Font("Arial", 1, 14));
         jPanel12.add(lbl_idKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 38, 71, 17));
+
+        jLabel37.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel37.setText("Kelas");
+        jPanel12.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+
+        jLabel38.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel38.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel38.setText("SKS Dosen saat ini = ");
+        jPanel12.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 140, 20));
+
+        smstr.setText("jLabel5");
+        smstr.setEnabled(false);
+        jPanel12.add(smstr, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -469,8 +492,10 @@ public class viewKelas extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tambahSesuatu.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
+        tambahDosen.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
 
+        buatKelas.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        buatKelas.setTitle("PEMBUATAN KELAS MATAKULIAH BARU");
         buatKelas.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 buatKelasWindowActivated(evt);
@@ -644,14 +669,6 @@ public class viewKelas extends javax.swing.JFrame {
         sem6.setEnabled(false);
         jPanel16.add(sem6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 40, -1));
 
-        buttonKembali.setText("KEMBALI");
-        buttonKembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonKembaliActionPerformed(evt);
-            }
-        });
-        jPanel16.add(buttonKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -675,6 +692,7 @@ public class viewKelas extends javax.swing.JFrame {
         radioGrup.add(radioGanjil);
         radioGrup.add(radioGenap);
 
+        tampilSesuatu.setTitle("DAFTAR SELURUH MATKUL");
         tampilSesuatu.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 tampilSesuatuWindowActivated(evt);
@@ -779,7 +797,7 @@ public class viewKelas extends javax.swing.JFrame {
         tampilSesuatu.getContentPane().add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 430));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("KELAS KULIAH");
+        setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - PEMBUATAN KELAS KULIAH");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -920,7 +938,7 @@ public class viewKelas extends javax.swing.JFrame {
         });
         jPanel4.add(buttonLihatJadwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 190, 40));
 
-        buttonBuatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonBuatJadwal.setFont(new java.awt.Font("Tahoma", 1, 14));
         buttonBuatJadwal.setText("BUAT JADWAL BARU");
         buttonBuatJadwal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1025,7 +1043,7 @@ public class viewKelas extends javax.swing.JFrame {
     private void dsn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dsn_buttonActionPerformed
         try {
             Labelnya.setText("CARI DOSEN");
-            cariSesuatu.setVisible(true);
+            cariDosen.setVisible(true);
             isiannya.setText("");
             updateTabelDosen();
         } catch (SQLException ex) {
@@ -1047,7 +1065,7 @@ public class viewKelas extends javax.swing.JFrame {
         String idDosen = Tabelnya.getValueAt(row1, 0).toString();
         String namaDosen = Tabelnya.getValueAt(row1, 1).toString();
         DosenComboBox.setSelectedItem(idDosen + "-" + namaDosen);
-        cariSesuatu.setVisible(false);
+        cariDosen.setVisible(false);
     }//GEN-LAST:event_TabelnyaMouseClicked
 
     private void radioGanjilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGanjilActionPerformed
@@ -1145,23 +1163,30 @@ public class viewKelas extends javax.swing.JFrame {
         lbl_idKelas.setText(tabelKelasMatakuliah.getValueAt(row1, 0).toString());
         lbl_matkul.setText(tabelKelasMatakuliah.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
         lbl_kelas.setText(tabelKelasMatakuliah.getValueAt(row1, 3).toString());
-        tambahSesuatu.setVisible(true);
+        smstr.setText(tabelKelasMatakuliah.getValueAt(row1, 4).toString());
+        DosenComboBox.setSelectedIndex(0);
+        tambahDosen.setVisible(true);
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
     private void RubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RubahButtonActionPerformed
         if (DosenComboBox.getSelectedItem().toString().equals("-")) {
             JOptionPane.showMessageDialog(null, "Silahkan Pilih dosen pengampu");
         } else {
-            KelasKuliah temp = new KelasKuliah();
-            temp.setIdKelas(Integer.parseInt(lbl_idKelas.getText()));
-            temp.setIdDosen(new Dosen(DosenComboBox.getSelectedItem().toString().split("-")[0]));
-            try {
-                KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(temp);
-                JOptionPane.showMessageDialog(null, "Berhasil Dirubah");
-                updateTabelKelasSemester(Integer.parseInt(comboSemester.getSelectedItem().toString()));
-                tambahSesuatu.setVisible(false);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            int jumlahMengajar = Integer.parseInt(isianSKS.getText().toString()) + Integer.parseInt(smstr.getText().toString());
+            if (jumlahMengajar > 20) {//jumlah mengajar dosen lebih dari 20sks
+                JOptionPane.showMessageDialog(null, "Jumlah mengajar dosen melebihi batas maks 20 SKS. Silahkan memilih dosen pengampu lain");
+            } else {
+                KelasKuliah temp = new KelasKuliah();
+                temp.setIdKelas(Integer.parseInt(lbl_idKelas.getText()));
+                temp.setIdDosen(new Dosen(DosenComboBox.getSelectedItem().toString().split("-")[0]));
+                try {
+                    KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(temp);
+                    JOptionPane.showMessageDialog(null, "Berhasil Dirubah");
+                    updateTabelKelasSemester(Integer.parseInt(comboSemester.getSelectedItem().toString()));
+                    tambahDosen.setVisible(false);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }//GEN-LAST:event_RubahButtonActionPerformed
@@ -1243,18 +1268,14 @@ public class viewKelas extends javax.swing.JFrame {
             lbl_idKelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 0).toString());
             lbl_matkul.setText(Tabelnya_KelasMatkul.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
             lbl_kelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 3).toString());
+            smstr.setText(tabelKelasMatakuliah.getValueAt(row1, 4).toString());
             List<Dosen> idDosen = DosenKontrol.getKoneksi().cariDosen(Tabelnya_KelasMatkul.getValueAt(row1, 7).toString());
             DosenComboBox.setSelectedItem(idDosen.get(0).getIdDosen() + "-" + idDosen.get(0).getNamaDosen());
-            tambahSesuatu.setVisible(true);
+            tambahDosen.setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_Tabelnya_KelasMatkulMouseClicked
-
-    private void buttonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKembaliActionPerformed
-        buatKelas.setVisible(false);
-        this.setVisible(true);
-    }//GEN-LAST:event_buttonKembaliActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //untuk ganti icon
@@ -1263,17 +1284,17 @@ public class viewKelas extends javax.swing.JFrame {
         setIconImage(newIcon.getImage());
     }//GEN-LAST:event_formWindowActivated
 
-    private void cariSesuatuWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cariSesuatuWindowActivated
+    private void cariDosenWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cariDosenWindowActivated
         Image oldIcon = getIconImage();
         ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
-        cariSesuatu.setIconImage(newIcon.getImage());
-    }//GEN-LAST:event_cariSesuatuWindowActivated
+        cariDosen.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_cariDosenWindowActivated
 
-    private void tambahSesuatuWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_tambahSesuatuWindowActivated
+    private void tambahDosenWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_tambahDosenWindowActivated
         Image oldIcon = getIconImage();
         ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
-        tambahSesuatu.setIconImage(newIcon.getImage());
-    }//GEN-LAST:event_tambahSesuatuWindowActivated
+        tambahDosen.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_tambahDosenWindowActivated
 
     private void buatKelasWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_buatKelasWindowActivated
         Image oldIcon = getIconImage();
@@ -1286,6 +1307,19 @@ public class viewKelas extends javax.swing.JFrame {
         ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
         tampilSesuatu.setIconImage(newIcon.getImage());
     }//GEN-LAST:event_tampilSesuatuWindowActivated
+
+    private void DosenComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DosenComboBoxActionPerformed
+        if (DosenComboBox.getSelectedItem().toString().equals("-")) {
+            isianSKS.setText("-");
+        } else {
+            try {
+                int jumSKS = KelasMatkulKontrol.getKoneksi().cekSKSDosen(DosenComboBox.getSelectedItem().toString().split("-")[1]);
+                isianSKS.setText(Integer.toString(jumSKS));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_DosenComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1321,14 +1355,14 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JTable Tabelnya_KelasMatkul;
     private javax.swing.JDialog buatKelas;
     private javax.swing.JButton buttonBuatJadwal;
-    private javax.swing.JButton buttonKembali;
     private javax.swing.JButton buttonLihatJadwal;
     private javax.swing.JButton button_buatKelas;
-    private javax.swing.JDialog cariSesuatu;
+    private javax.swing.JDialog cariDosen;
     private javax.swing.JComboBox comboSemester;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton dsn_button;
     private javax.swing.JButton homeButton;
+    private javax.swing.JLabel isianSKS;
     private javax.swing.JTextField isiannya;
     private javax.swing.JTextField isiannya1;
     private javax.swing.JLabel jLabel1;
@@ -1361,8 +1395,9 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1409,8 +1444,9 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JComboBox sem7;
     private javax.swing.JComboBox sem8;
     private javax.swing.JLabel sisaMatkul;
+    private javax.swing.JLabel smstr;
     private javax.swing.JTable tabelKelasMatakuliah;
-    private javax.swing.JDialog tambahSesuatu;
+    private javax.swing.JDialog tambahDosen;
     private javax.swing.JDialog tampilSesuatu;
     // End of variables declaration//GEN-END:variables
 

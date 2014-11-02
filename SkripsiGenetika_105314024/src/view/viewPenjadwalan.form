@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="dialog_dosen">
+      <Properties>
+        <Property name="title" type="java.lang.String" value="PENCARIAN DOSEN"/>
+      </Properties>
       <Events>
         <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="dialog_dosenWindowActivated"/>
       </Events>
@@ -163,6 +166,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="dialog_matkul">
+      <Properties>
+        <Property name="title" type="java.lang.String" value="DATA MATAKULIAH"/>
+      </Properties>
       <Events>
         <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="dialog_matkulWindowActivated"/>
       </Events>
@@ -342,6 +348,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="dialog_pleasewait">
+      <Properties>
+        <Property name="title" type="java.lang.String" value="PROSES PEMBUATAN JADWAL"/>
+      </Properties>
       <Events>
         <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="dialog_pleasewaitWindowActivated"/>
       </Events>
@@ -430,6 +439,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="dialog_solusiJadwal">
+      <Properties>
+        <Property name="title" type="java.lang.String" value="HASIL JADWAL KULIAH"/>
+      </Properties>
       <Events>
         <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="dialog_solusiJadwalWindowActivated"/>
       </Events>
@@ -570,6 +582,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI PERMINTAAN KELAS"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
