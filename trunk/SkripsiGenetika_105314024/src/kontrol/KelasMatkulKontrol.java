@@ -8,6 +8,7 @@ package kontrol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import koneksi.Koneksi;
 import kelas.Dosen;
 import kelas.KelasKuliah;
@@ -227,6 +228,27 @@ public class KelasMatkulKontrol {
         }
         conn.close();
         return mk;
+    }
+
+    public int cekSKSDosen(String namaDosen) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT b.sks,c.namaDosen "
+                + "FROM kelas_makul a, matakuliah b, dosen c "
+                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen "
+                + "AND a.idKelas <> \"0\" AND c.namaDosen = ? "
+                + "ORDER BY b.semester,a.idMK,a.Kelas;";
+        stmt = conn.prepareStatement(query);
+        stmt.setString(1, namaDosen);
+        result = stmt.executeQuery();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+        int count = 0;
+        while (result.next()) {
+            count = count + result.getInt(1);
+        }
+        conn.close();
+        return count;
     }
 
 //======================METHOD KHUSUS FRAME VIEW PENJADWALAN===================

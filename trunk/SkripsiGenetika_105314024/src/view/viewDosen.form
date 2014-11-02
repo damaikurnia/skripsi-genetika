@@ -5,12 +5,13 @@
     <Component class="javax.swing.JFileChooser" name="uploadData">
       <Properties>
         <Property name="approveButtonToolTipText" type="java.lang.String" value=""/>
-        <Property name="dialogTitle" type="java.lang.String" value=""/>
+        <Property name="dialogTitle" type="java.lang.String" value="PILIH FILE DOSEN"/>
       </Properties>
     </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI DOSEN"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

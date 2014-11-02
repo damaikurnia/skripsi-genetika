@@ -218,6 +218,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
+        dialog_dosen.setTitle("PENCARIAN DOSEN");
         dialog_dosen.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 dialog_dosenWindowActivated(evt);
@@ -325,6 +326,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_dosen.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        dialog_matkul.setTitle("DATA MATAKULIAH");
         dialog_matkul.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 dialog_matkulWindowActivated(evt);
@@ -442,6 +444,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         klikKanan.add(HAPUS);
 
+        dialog_pleasewait.setTitle("PROSES PEMBUATAN JADWAL");
         dialog_pleasewait.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 dialog_pleasewaitWindowActivated(evt);
@@ -491,6 +494,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_pleasewait.getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 140));
 
+        dialog_solusiJadwal.setTitle("HASIL JADWAL KULIAH");
         dialog_solusiJadwal.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 dialog_solusiJadwalWindowActivated(evt);
@@ -586,6 +590,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_solusiJadwal.getContentPane().add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI PERMINTAAN KELAS");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
