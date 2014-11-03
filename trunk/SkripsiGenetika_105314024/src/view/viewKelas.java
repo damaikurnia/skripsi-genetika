@@ -43,17 +43,14 @@ public class viewKelas extends javax.swing.JFrame {
         try {
             initComponents();
             setLocationRelativeTo(null);
-
-            List<Dosen> dosen = DosenKontrol.getKoneksi().tampilDosen();
-            for (Dosen k : dosen) {
-                DosenComboBox.addItem(k.getIdDosen() + "-" + k.getNamaDosen());
-            }
-
             String[] Semester = {"1", "3", "5", "7"};
             comboSemester.removeAllItems();
             for (String k : Semester) {
                 comboSemester.addItem(k);
             }
+
+            List<KelasKuliah> kk = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
+            jLabel13.setText("TOTAL MATAKULIAH : " + kk.size());
         } catch (SQLException ex) {
             Logger.getLogger(viewKelas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -156,7 +153,6 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        DosenComboBox = new javax.swing.JComboBox();
         dsn_button = new javax.swing.JButton();
         isianSKS = new javax.swing.JLabel();
         HapusButton = new javax.swing.JButton();
@@ -167,6 +163,7 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         smstr = new javax.swing.JLabel();
+        isianDosen = new javax.swing.JLabel();
         buatKelas = new javax.swing.JDialog();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -406,18 +403,9 @@ public class viewKelas extends javax.swing.JFrame {
         jLabel2.setText("Matakuliah");
         jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 66, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Dosen Pengampu");
-        jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
-
-        DosenComboBox.setFont(new java.awt.Font("Arial", 1, 14));
-        DosenComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
-        DosenComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DosenComboBoxActionPerformed(evt);
-            }
-        });
-        jPanel12.add(DosenComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 89, 390, -1));
+        jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, 30));
 
         dsn_button.setText("Cari");
         dsn_button.addActionListener(new java.awt.event.ActionListener() {
@@ -443,7 +431,7 @@ public class viewKelas extends javax.swing.JFrame {
         lbl_kelas.setFont(new java.awt.Font("Arial", 1, 14));
         jPanel12.add(lbl_kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 48, 20));
 
-        lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14));
+        lbl_matkul.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jPanel12.add(lbl_matkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 61, 480, 22));
 
         RubahButton.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -470,6 +458,10 @@ public class viewKelas extends javax.swing.JFrame {
         smstr.setText("jLabel5");
         smstr.setEnabled(false);
         jPanel12.add(smstr, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        isianDosen.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        isianDosen.setText("-");
+        jPanel12.add(isianDosen, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 400, 30));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -893,14 +885,14 @@ public class viewKelas extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 910, 150));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("TOTAL MATAKULIAH : ");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 300, 40));
 
         sisaMatkul.setFont(new java.awt.Font("Tahoma", 1, 18));
         jPanel4.add(sisaMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 50, 30));
 
-        pilihSemester.setFont(new java.awt.Font("Tahoma", 1, 14));
+        pilihSemester.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         pilihSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GANJIL", "GENAP" }));
         pilihSemester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1042,7 +1034,6 @@ public class viewKelas extends javax.swing.JFrame {
 
     private void dsn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dsn_buttonActionPerformed
         try {
-            Labelnya.setText("CARI DOSEN");
             cariDosen.setVisible(true);
             isiannya.setText("");
             updateTabelDosen();
@@ -1064,7 +1055,12 @@ public class viewKelas extends javax.swing.JFrame {
         int row1 = Tabelnya.getSelectedRow();
         String idDosen = Tabelnya.getValueAt(row1, 0).toString();
         String namaDosen = Tabelnya.getValueAt(row1, 1).toString();
-        DosenComboBox.setSelectedItem(idDosen + "-" + namaDosen);
+        try {
+            isianSKS.setText(Integer.toString(KelasMatkulKontrol.getKoneksi().cekSKSDosen(namaDosen)));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        isianDosen.setText(idDosen + "-" + namaDosen);
         cariDosen.setVisible(false);
     }//GEN-LAST:event_TabelnyaMouseClicked
 
@@ -1164,12 +1160,13 @@ public class viewKelas extends javax.swing.JFrame {
         lbl_matkul.setText(tabelKelasMatakuliah.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
         lbl_kelas.setText(tabelKelasMatakuliah.getValueAt(row1, 3).toString());
         smstr.setText(tabelKelasMatakuliah.getValueAt(row1, 4).toString());
-        DosenComboBox.setSelectedIndex(0);
+        isianDosen.setText("-");
+        isianSKS.setText("-");
         tambahDosen.setVisible(true);
     }//GEN-LAST:event_tabelKelasMatakuliahMouseClicked
 
     private void RubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RubahButtonActionPerformed
-        if (DosenComboBox.getSelectedItem().toString().equals("-")) {
+        if (isianDosen.getText().equals("-")) {
             JOptionPane.showMessageDialog(null, "Silahkan Pilih dosen pengampu");
         } else {
             int jumlahMengajar = Integer.parseInt(isianSKS.getText().toString()) + Integer.parseInt(smstr.getText().toString());
@@ -1178,7 +1175,7 @@ public class viewKelas extends javax.swing.JFrame {
             } else {
                 KelasKuliah temp = new KelasKuliah();
                 temp.setIdKelas(Integer.parseInt(lbl_idKelas.getText()));
-                temp.setIdDosen(new Dosen(DosenComboBox.getSelectedItem().toString().split("-")[0]));
+                temp.setIdDosen(new Dosen(isianDosen.getText().split("-")[0]));
                 try {
                     KelasMatkulKontrol.getKoneksi().updateKelasMataKuliah(temp);
                     JOptionPane.showMessageDialog(null, "Berhasil Dirubah");
@@ -1263,18 +1260,20 @@ public class viewKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_isiannya1KeyReleased
 
     private void Tabelnya_KelasMatkulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabelnya_KelasMatkulMouseClicked
+        int row1 = Tabelnya_KelasMatkul.getSelectedRow();
+        lbl_idKelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 0).toString());
+        lbl_matkul.setText(Tabelnya_KelasMatkul.getValueAt(row1, 1).toString() + "-" + Tabelnya_KelasMatkul.getValueAt(row1, 2).toString());
+        lbl_kelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 3).toString());
+        smstr.setText(Tabelnya_KelasMatkul.getValueAt(row1, 4).toString());
+        Dosen dos = null;
         try {
-            int row1 = Tabelnya_KelasMatkul.getSelectedRow();
-            lbl_idKelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 0).toString());
-            lbl_matkul.setText(Tabelnya_KelasMatkul.getValueAt(row1, 1).toString() + "-" + tabelKelasMatakuliah.getValueAt(row1, 2).toString());
-            lbl_kelas.setText(Tabelnya_KelasMatkul.getValueAt(row1, 3).toString());
-            smstr.setText(tabelKelasMatakuliah.getValueAt(row1, 4).toString());
-            List<Dosen> idDosen = DosenKontrol.getKoneksi().cariDosen(Tabelnya_KelasMatkul.getValueAt(row1, 7).toString());
-            DosenComboBox.setSelectedItem(idDosen.get(0).getIdDosen() + "-" + idDosen.get(0).getNamaDosen());
-            tambahDosen.setVisible(true);
+            dos = KelasMatkulKontrol.getKoneksi().tampilDosen(Tabelnya_KelasMatkul.getValueAt(row1, 7).toString());
+            isianSKS.setText(Integer.toString(KelasMatkulKontrol.getKoneksi().cekSKSDosen(dos.getNamaDosen())));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        isianDosen.setText(dos.getIdDosen() + "-" + dos.getNamaDosen());
+        tambahDosen.setVisible(true);
     }//GEN-LAST:event_Tabelnya_KelasMatkulMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1308,19 +1307,6 @@ public class viewKelas extends javax.swing.JFrame {
         tampilSesuatu.setIconImage(newIcon.getImage());
     }//GEN-LAST:event_tampilSesuatuWindowActivated
 
-    private void DosenComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DosenComboBoxActionPerformed
-        if (DosenComboBox.getSelectedItem().toString().equals("-")) {
-            isianSKS.setText("-");
-        } else {
-            try {
-                int jumSKS = KelasMatkulKontrol.getKoneksi().cekSKSDosen(DosenComboBox.getSelectedItem().toString().split("-")[1]);
-                isianSKS.setText(Integer.toString(jumSKS));
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_DosenComboBoxActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1345,7 +1331,6 @@ public class viewKelas extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox DosenComboBox;
     private javax.swing.JButton HapusButton;
     private javax.swing.JLabel Labelnya;
     private javax.swing.JLabel Labelnya1;
@@ -1362,6 +1347,7 @@ public class viewKelas extends javax.swing.JFrame {
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton dsn_button;
     private javax.swing.JButton homeButton;
+    private javax.swing.JLabel isianDosen;
     private javax.swing.JLabel isianSKS;
     private javax.swing.JTextField isiannya;
     private javax.swing.JTextField isiannya1;
