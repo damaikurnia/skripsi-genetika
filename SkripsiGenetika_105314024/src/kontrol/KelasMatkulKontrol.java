@@ -8,7 +8,6 @@ package kontrol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import koneksi.Koneksi;
 import kelas.Dosen;
 import kelas.KelasKuliah;
@@ -194,9 +193,10 @@ public class KelasMatkulKontrol {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT idDosen,namaDosen FROM DOSEN WHERE idDosen = ?";
+        String query = "SELECT idDosen,namaDosen FROM DOSEN WHERE idDosen = ? OR namaDosen = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, idDosen);
+        stmt.setString(2, idDosen);
         result = stmt.executeQuery();
         Dosen mk = null;
         while (result.next()) {
