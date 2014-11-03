@@ -1170,7 +1170,7 @@ public class viewKelas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Silahkan Pilih dosen pengampu");
         } else {
             int jumlahMengajar = Integer.parseInt(isianSKS.getText().toString()) + Integer.parseInt(smstr.getText().toString());
-            if (jumlahMengajar > 20) {//jumlah mengajar dosen lebih dari 20sks
+            if (jumlahMengajar > 30) {//jumlah mengajar dosen lebih dari 20sks
                 JOptionPane.showMessageDialog(null, "Jumlah mengajar dosen melebihi batas maks 20 SKS. Silahkan memilih dosen pengampu lain");
             } else {
                 KelasKuliah temp = new KelasKuliah();

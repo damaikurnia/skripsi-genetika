@@ -24,7 +24,7 @@ public class Populasi {
     int iterasi = 0;
     int indexSolusi = -1;
     int[] score = new int[4];
-    
+
     int fitnessTerkecil = 1000;
 
     //databasenya
@@ -73,16 +73,14 @@ public class Populasi {
             if (score[i] == 0) {
                 indexSolusi = i;
                 fitnessTerkecil = 0;
-                viewPenjadwalan.progres_barnya.setValue(100);
-            }
-            else{
+//                viewPenjadwalan.progres_barnya.setValue(100);
+            } else {
                 int n = parent[i].data.length;
-                if(score[i]<fitnessTerkecil){
+                if (score[i] < fitnessTerkecil) {
                     fitnessTerkecil = score[i];
-                    viewPenjadwalan.progres_barnya.setValue(((n-fitnessTerkecil)/n)*100);
-                }
-                else{
-                    viewPenjadwalan.progres_barnya.setValue(((n-fitnessTerkecil)/n)*100);
+//                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
+                } else {
+//                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
                 }
             }
         }
@@ -149,42 +147,79 @@ public class Populasi {
         this.iterasi = iterasi;
     }
 
+//    public void prosesGenetika() throws SQLException {
+//        ambilData();
+//        solusiAwalIterasi();
+//        EvaluasiFitness();
+//        kriteriaBerhenti();
+////        cetak();
+//        while (indexSolusi == -1) {
+//            iterasi++;
+//            RouleteWheelSelection();
+//            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul, dataPermintaan);
+//            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul, dataPermintaan);
+//            EvaluasiFitness_child();
+//            kriteriaBerhenti();
+//        }
+//        System.out.println("Solusi : " + indexSolusi);
+//        System.out.println("Selama : " + iterasi + " iterasi");
+//        simpanJadwal(parent[indexSolusi]);
+////        cetak();
+////        System.out.println("");
+////        for (int i = 0; i < parent.length; i++) { // parent.length
+////            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
+////                System.out.println("Gen[" + indexSolusi + "]");
+////                System.out.println("Index " + j);
+////                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
+////                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK() + " - " + parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
+////                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
+////                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
+////                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
+////                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
+////                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
+////                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
+////                System.out.println("");
+////
+////            }
+////            System.out.println("------------------------------------------------------------------------------------");
+////        }
+//    }
     public void prosesGenetika() throws SQLException {
         ambilData();
         solusiAwalIterasi();
         EvaluasiFitness();
         kriteriaBerhenti();
 //        cetak();
-        while (indexSolusi == -1) {
-            iterasi++;
-            RouleteWheelSelection();
-            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul, dataPermintaan);
-            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul, dataPermintaan);
-            EvaluasiFitness_child();
-            kriteriaBerhenti();
-        }
-        System.out.println("Solusi : " + indexSolusi);
-        System.out.println("Selama : " + iterasi + " iterasi");
-        simpanJadwal(parent[indexSolusi]);
+//        while (indexSolusi == -1) {
+//            iterasi++;
+//            RouleteWheelSelection();
+//            parent = Genetika.crossover(parent, dataKelasKuliah, dataMakul, dataPermintaan);
+//            parent = Genetika.Mutasi(parent, dataKelasKuliah, dataMakul, dataPermintaan);
+//            EvaluasiFitness_child();
+//            kriteriaBerhenti();
+//        }
+//        System.out.println("Solusi : " + indexSolusi);
+//        System.out.println("Selama : " + iterasi + " iterasi");
+//        simpanJadwal(parent[indexSolusi]);
 //        cetak();
 //        System.out.println("");
-//        for (int i = 0; i < parent.length; i++) { // parent.length
-//            for (int j = 0; j < parent[indexSolusi].getData().length; j++) {
-//                System.out.println("Gen[" + indexSolusi + "]");
-//                System.out.println("Index " + j);
-//                System.out.println("idKelas     : " + parent[indexSolusi].getData()[j].getAllele().getIdKelas());
-//                System.out.println("kodeMatkul  : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getIdMK() + " - " + parent[indexSolusi].getData()[j].getAllele().getIdDosen().idDosen);
-//                System.out.println("kelas       : " + parent[indexSolusi].getData()[j].getAllele().getKelas());
-//                System.out.println("hari        : " + parent[indexSolusi].getData()[j].getHari());
-//                System.out.println("ruang       : " + parent[indexSolusi].getData()[j].getRuang().getIdRuang());
-//                System.out.println("jam ke      : " + parent[indexSolusi].getData()[j].getJam());
-//                System.out.println("Semester    : " + parent[indexSolusi].getData()[j].getAllele().getIdMK().getSemester());
-//                System.out.println("FITNES      : " + parent[indexSolusi].getData()[j].getNilaiFitness());
-//                System.out.println("");
-//
-//            }
-//            System.out.println("------------------------------------------------------------------------------------");
-//        }
+        for (int i = 0; i < parent.length; i++) { // parent.length
+            for (int j = 0; j < parent[i].getData().length; j++) {
+                System.out.println("Gen[" + i + "]");
+                System.out.println("Index " + j);
+                System.out.println("idKelas     : " + parent[i].getData()[j].getAllele().getIdKelas());
+                System.out.println("kodeMatkul  : " + parent[i].getData()[j].getAllele().getIdMK().getIdMK() + " - " + parent[i].getData()[j].getAllele().getIdDosen().idDosen);
+                System.out.println("kelas       : " + parent[i].getData()[j].getAllele().getKelas());
+                System.out.println("hari        : " + parent[i].getData()[j].getHari());
+                System.out.println("ruang       : " + parent[i].getData()[j].getRuang().getIdRuang());
+                System.out.println("jam ke      : " + parent[i].getData()[j].getJam());
+                System.out.println("Semester    : " + parent[i].getData()[j].getAllele().getIdMK().getSemester());
+                System.out.println("FITNES      : " + parent[i].getData()[j].getNilaiFitness());
+                System.out.println("");
+
+            }
+            System.out.println("------------------------------------------------------------------------------------");
+        }
     }
 
     public void simpanJadwal(Kromosom solusi) throws SQLException {
@@ -199,7 +234,7 @@ public class Populasi {
             PenjadwalanKontrol.getKoneksi().insertJadwal(temp);
         }
     }
-    
+
     public String konversiJam(int jam) {
         if (jam == 1) {
             return "07:00-09:59";
@@ -214,8 +249,8 @@ public class Populasi {
         }
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        Populasi pop = new Populasi();
-//        pop.prosesGenetika();
-//    }
+    public static void main(String[] args) throws SQLException {
+        Populasi pop = new Populasi();
+        pop.prosesGenetika();
+    }
 }
