@@ -51,16 +51,16 @@ public class LaunchProgressBar extends javax.swing.JDialog{
         splashPanelLayout.setHorizontalGroup(
             splashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, splashPanelLayout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+                .addContainerGap(286, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         splashPanelLayout.setVerticalGroup(
             splashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, splashPanelLayout.createSequentialGroup()
-                .addContainerGap(270, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
+            .addGroup(splashPanelLayout.createSequentialGroup()
+                .addGap(246, 246, 246)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         getContentPane().add(splashPanel);
@@ -81,7 +81,7 @@ public class LaunchProgressBar extends javax.swing.JDialog{
 }
 
 class BackgroundUI extends PanelUI {
-    ImageIcon background = new ImageIcon(getClass().getResource("/gambar/USD LOGO.png"));
+    ImageIcon background = new ImageIcon(getClass().getResource("/gambar/home.jpg"));
     @Override
     public void paint(Graphics g, JComponent c) {
          g.drawImage(background.getImage(), 0, 0, null);

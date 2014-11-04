@@ -21,7 +21,7 @@ public class Main {
             for(int i=0;i<=100;i++){
                 try {
                     pb.getProgressBar().setValue(i);
-                    Thread.sleep(25);
+                    Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(LaunchProgressBar.class.getName()).log(Level.SEVERE, null, ex);
                 }
