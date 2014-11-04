@@ -417,6 +417,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
             MataKuliahKontrol.getKoneksi().insertMataKuliah(matkul);
             JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil ditambahkan");
             updateTabelMataKuliah();
+            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -506,6 +507,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
             MataKuliahKontrol.getKoneksi().updateMataKuliah(matkul);
             JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil dirubah");
             updateTabelMataKuliah();
+            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -525,6 +527,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 MataKuliahKontrol.getKoneksi().deleteMataKuliah(matkul);
                 JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil dihapus");
                 updateTabelMataKuliah();
+                bersihkan();
             } catch (SQLException ex) {
                 Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
             }

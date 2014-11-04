@@ -44,6 +44,7 @@ public class LaunchProgressBar extends javax.swing.JDialog{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
+        progressBar.setForeground(new java.awt.Color(51, 255, 0));
         progressBar.setValue(50);
 
         javax.swing.GroupLayout splashPanelLayout = new javax.swing.GroupLayout(splashPanel);
