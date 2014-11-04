@@ -44,9 +44,9 @@ public class viewMataKuliah extends javax.swing.JFrame {
         try {
             initComponents();
             setLocationRelativeTo(null);
-           
+
             updateTabelMataKuliah();
-            
+
             uploadData.setFileSelectionMode(JFileChooser.FILES_ONLY);
             uploadData.setMultiSelectionEnabled(false);
             FileNameExtensionFilter JExcelFilter = new FileNameExtensionFilter("Excel File 2003 .xls", "xls");
@@ -56,20 +56,24 @@ public class viewMataKuliah extends javax.swing.JFrame {
             Logger.getLogger(viewMataKuliah.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void bersihkan(){
+
+    private void bersihkan() {
         idMataKuliahText.setText("");
         namaMataKuliahText.setText("");
         SKS_jComboBox.setSelectedIndex(0);
         Smstr_jComboBox.setSelectedIndex(0);
         JP_jComboBox.setSelectedIndex(0);
+        simpanButton.setEnabled(true);
+        editButton.setEnabled(false);
+        hapusButton.setEnabled(false);
+        idMataKuliahText.setEditable(true);
     }
-    
+
     private void updateTabelMataKuliah() throws SQLException {
         List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
         MataKuliah_TM model = new MataKuliah_TM(mktm);
         tabelMatakuliah.setModel(model);
-        
+
         tabelMatakuliah.getColumnModel().getColumn(0).setMinWidth(70);
         tabelMatakuliah.getColumnModel().getColumn(0).setMaxWidth(70);
         tabelMatakuliah.getColumnModel().getColumn(1).setMinWidth(200);
@@ -80,9 +84,10 @@ public class viewMataKuliah extends javax.swing.JFrame {
         tabelMatakuliah.getColumnModel().getColumn(3).setMaxWidth(50);
         tabelMatakuliah.getColumnModel().getColumn(4).setMinWidth(30);
         tabelMatakuliah.getColumnModel().getColumn(4).setMaxWidth(30);
-        
+
         tabelMatakuliah.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -119,6 +124,8 @@ public class viewMataKuliah extends javax.swing.JFrame {
         tabelMatakuliah = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         button_upload = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        hapusButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -196,16 +203,16 @@ public class viewMataKuliah extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
-        jLabel1.setText("ID Mata Kuliah");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("KODE MATAKULIAH");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
-        jLabel2.setText("Nama Mata Kuliah");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("NAMA MATAKULIAH");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
-        jLabel3.setText("Sks");
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setText("SKS");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
 
         idMataKuliahText.addActionListener(new java.awt.event.ActionListener() {
@@ -216,33 +223,33 @@ public class viewMataKuliah extends javax.swing.JFrame {
         jPanel4.add(idMataKuliahText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 206, -1));
         jPanel4.add(namaMataKuliahText, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 206, -1));
 
-        simpanButton.setText("Simpan");
+        simpanButton.setText("SIMPAN");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simpanButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, 40));
 
         jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
         jLabel4.setText("TABEL MATAKULIAH");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
-        jLabel5.setText("Matakuliah Semester");
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setText("MATAKULIAH SEMESTER");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setText("JP");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
-        batalButton.setText("Batal");
+        batalButton.setText("BATAL");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 70, 40));
 
         SKS_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
         jPanel4.add(SKS_jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
@@ -264,6 +271,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelMatakuliah.setSelectionForeground(new java.awt.Color(51, 51, 51));
         tabelMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelMatakuliahMouseClicked(evt);
@@ -283,7 +291,25 @@ public class viewMataKuliah extends javax.swing.JFrame {
                 button_uploadActionPerformed(evt);
             }
         });
-        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 90, -1));
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 90, 40));
+
+        editButton.setText("UBAH");
+        editButton.setEnabled(false);
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 70, 40));
+
+        hapusButton.setText("HAPUS");
+        hapusButton.setEnabled(false);
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
@@ -364,7 +390,7 @@ public class viewMataKuliah extends javax.swing.JFrame {
 }//GEN-LAST:event_ruangButtonActionPerformed
 
     private void kelasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasButtonActionPerformed
-         viewKelas asd = new viewKelas();
+        viewKelas asd = new viewKelas();
         asd.setVisible(true);
         this.setVisible(false);
 }//GEN-LAST:event_kelasButtonActionPerformed
@@ -386,10 +412,11 @@ public class viewMataKuliah extends javax.swing.JFrame {
         matkul.setSks(Integer.parseInt(SKS_jComboBox.getSelectedItem().toString()));
         matkul.setSemester(Integer.parseInt(Smstr_jComboBox.getSelectedItem().toString()));
         matkul.setJP(Integer.parseInt(JP_jComboBox.getSelectedItem().toString()));
-        
+
         try {
             MataKuliahKontrol.getKoneksi().insertMataKuliah(matkul);
-            JOptionPane.showMessageDialog(rootPane, "Matakuliah "+matkul.getIdMK()+" - "+matkul.getNamaMK()+" berhasil ditambahkan");
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil ditambahkan");
+            updateTabelMataKuliah();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -406,13 +433,16 @@ public class viewMataKuliah extends javax.swing.JFrame {
         String sks = tabelMatakuliah.getValueAt(row1, 2).toString();
         String semester = tabelMatakuliah.getValueAt(row1, 3).toString();
         String jp = tabelMatakuliah.getValueAt(row1, 4).toString();
-        
+
         idMataKuliahText.setText(idMataKuliah);
         namaMataKuliahText.setText(namaMatakuliah);
         SKS_jComboBox.setSelectedItem(sks);
         Smstr_jComboBox.setSelectedItem(semester);
         JP_jComboBox.setSelectedItem(jp);
-        
+        idMataKuliahText.setEditable(false);
+        simpanButton.setEnabled(false);
+        editButton.setEnabled(true);
+        hapusButton.setEnabled(true);
     }//GEN-LAST:event_tabelMatakuliahMouseClicked
 
     private void button_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_uploadActionPerformed
@@ -464,6 +494,44 @@ public class viewMataKuliah extends javax.swing.JFrame {
         setIconImage(newIcon.getImage());
     }//GEN-LAST:event_formWindowActivated
 
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        MataKuliah matkul = new MataKuliah();
+        matkul.setIdMK(idMataKuliahText.getText().toUpperCase());
+        matkul.setNamaMK(namaMataKuliahText.getText());
+        matkul.setSks(Integer.parseInt(SKS_jComboBox.getSelectedItem().toString()));
+        matkul.setSemester(Integer.parseInt(Smstr_jComboBox.getSelectedItem().toString()));
+        matkul.setJP(Integer.parseInt(JP_jComboBox.getSelectedItem().toString()));
+
+        try {
+            MataKuliahKontrol.getKoneksi().updateMataKuliah(matkul);
+            JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil dirubah");
+            updateTabelMataKuliah();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+        MataKuliah matkul = new MataKuliah();
+        matkul.setIdMK(idMataKuliahText.getText().toUpperCase());
+        matkul.setNamaMK(namaMataKuliahText.getText());
+        matkul.setSks(Integer.parseInt(SKS_jComboBox.getSelectedItem().toString()));
+        matkul.setSemester(Integer.parseInt(Smstr_jComboBox.getSelectedItem().toString()));
+        matkul.setJP(Integer.parseInt(JP_jComboBox.getSelectedItem().toString()));
+
+        int data = JOptionPane.showConfirmDialog(null, "Apakah Mau menghapus "+ matkul.getIdMK() + " - " + matkul.getNamaMK()+"?", "MENGHAPUS DATA", 1);
+        if (data == 0) {
+            try {
+                MataKuliahKontrol.getKoneksi().deleteMataKuliah(matkul);
+                JOptionPane.showMessageDialog(rootPane, "Matakuliah " + matkul.getIdMK() + " - " + matkul.getNamaMK() + " berhasil dihapus");
+                updateTabelMataKuliah();
+            } catch (SQLException ex) {
+                Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+        }
+    }//GEN-LAST:event_hapusButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -494,6 +562,8 @@ public class viewMataKuliah extends javax.swing.JFrame {
     private javax.swing.JButton batalButton;
     private javax.swing.JButton button_upload;
     private javax.swing.JButton dosenButton;
+    private javax.swing.JButton editButton;
+    private javax.swing.JButton hapusButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JTextField idMataKuliahText;
     private javax.swing.JLabel jLabel1;
