@@ -48,6 +48,12 @@ public class Home extends javax.swing.JFrame {
         kelasButton = new javax.swing.JButton();
         penjadwalanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -123,9 +129,34 @@ public class Home extends javax.swing.JFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 940, 60));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel1.setText("Created By : Damai Kurnia Adhi - 105314024");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 280, 20));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36));
+        jLabel2.setText("SELAMAT DATANG");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 350, 40));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setText("SELAMAT MENCOBA APLIKASI PENJADWALAN MATAKULIAH");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 500, 40));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel4.setText("PROGRAM STUDI PENDIDIKAN GURU DAN SEKOLAH DASAR (PGSD)");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 570, 40));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel5.setText("UNIVERSITAS SANATA DHARMA");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 280, 40));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel11.setText("YOGYAKARTA");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 280, 40));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
-        jPanel5.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 102, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
@@ -149,7 +180,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 150));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 940, 80));
 
@@ -227,7 +258,13 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

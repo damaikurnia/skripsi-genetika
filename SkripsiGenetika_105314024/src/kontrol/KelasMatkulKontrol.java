@@ -82,6 +82,28 @@ public class KelasMatkulKontrol {
         conn.close();
     }
 
+    public List<KelasKuliah> ambilKelasKuliah() throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT * FROM kelas_makul WHERE idKelas <> \"0\";";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+
+        KelasKuliah temp = null;
+        while (result.next()) {
+            temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(result.getString(1)));
+            temp.setIdMK(new MataKuliah(result.getString(2)));
+            temp.setIdDosen(new Dosen(result.getString(3)));
+            temp.setKelas(result.getString(4));
+            mk.add(temp);
+        }
+        conn.close();
+        return mk;
+    }
+    
     public List<KelasKuliah> tampilKelasMataKuliah() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;

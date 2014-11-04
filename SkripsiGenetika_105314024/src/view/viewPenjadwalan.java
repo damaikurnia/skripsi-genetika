@@ -226,7 +226,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         dialog_dosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel7.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel7.setBackground(new java.awt.Color(255, 102, 0));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel2.setText("PENCARIAN DOSEN");
@@ -334,7 +334,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         dialog_matkul.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel10.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel10.setBackground(new java.awt.Color(255, 102, 0));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel14.setText("PENCARIAN MATAKULIAH");
@@ -452,7 +452,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         dialog_pleasewait.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel12.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel12.setBackground(new java.awt.Color(255, 102, 0));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -462,7 +462,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("PEMBUATAN JADWAL SEDANG DALAM PROSES. SILAHKAN MENUNGGU....");
 
-        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18));
+        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         label_waktu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -502,7 +502,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         dialog_solusiJadwal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel14.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel14.setBackground(new java.awt.Color(255, 102, 0));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel19.setText("JADWAL YANG DIHASILKAN");
@@ -775,7 +775,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 330));
 
-        jPanel5.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 102, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
@@ -799,7 +799,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 150));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 940, 70));
 
