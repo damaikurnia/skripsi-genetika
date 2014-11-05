@@ -182,11 +182,11 @@ public class viewRuang extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Kode");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Jenis Ruang");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
@@ -198,25 +198,25 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel4.add(idRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 206, -1));
         jPanel4.add(namaRuangText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 206, -1));
 
-        simpanButton.setText("Simpan");
+        simpanButton.setText("SIMPAN");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simpanButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, 50));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("TABEL RUANG");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, -1, -1));
 
-        batalButton.setText("Batal");
+        batalButton.setText("BATAL");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 70, 50));
 
         tabelRuang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,31 +238,33 @@ public class viewRuang extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 400, 190));
 
-        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel5.setText("DATA RUANG");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Nama Ruang");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        hapusButton.setText("Hapus");
+        hapusButton.setText("HAPUS");
+        hapusButton.setEnabled(false);
         hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hapusButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 70, -1));
+        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 70, 50));
 
-        ubahButton.setText("Ubah");
+        ubahButton.setText("UBAH");
+        ubahButton.setEnabled(false);
         ubahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ubahButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(ubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 70, -1));
+        jPanel4.add(ubahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 70, 50));
 
-        jenisComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teori", "Praktikum", "Teori Praktikum" }));
+        jenisComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TEORI", "PRAKTIKUM", "TEORI PRAKTIKUM" }));
         jPanel4.add(jenisComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, -1));
 
         button_upload.setText("UPLOAD");
@@ -271,29 +273,29 @@ public class viewRuang extends javax.swing.JFrame {
                 button_uploadActionPerformed(evt);
             }
         });
-        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 100, -1));
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, 50));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(255, 102, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -373,40 +375,43 @@ public class viewRuang extends javax.swing.JFrame {
             RuangKontrol.getKoneksi().insertRuang(ruang);
             JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil ditambahkan");
             updateTabelRuang();
+            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_simpanButtonActionPerformed
 
     private void batalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalButtonActionPerformed
-        idRuangText.setText("");
-        namaRuangText.setText("");
-        jenisComboBox.setSelectedIndex(1);
-        idRuangText.setEditable(true);
-        simpanButton.setEnabled(true);
+        bersihkan();
     }//GEN-LAST:event_batalButtonActionPerformed
 
     private void tabelRuangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRuangMouseClicked
         simpanButton.setEnabled(false);
+        ubahButton.setEnabled(true);
+        hapusButton.setEnabled(true);
+        
         int row1 = tabelRuang.getSelectedRow();
         String idRuang = tabelRuang.getValueAt(row1, 0).toString();
         String namaRuang = tabelRuang.getValueAt(row1, 1).toString();
-//        String jenisRuang = tabelRuang.getValueAt(row1, 2).toString();
+        String jenisRuang = tabelRuang.getValueAt(row1, 2).toString();
 
         idRuangText.setText(idRuang);
         namaRuangText.setText(namaRuang);
-//        jenisComboBox.setSelectedItem(jenisRuang);
+        jenisComboBox.setSelectedItem(jenisRuang);
         idRuangText.setEditable(false);
     }//GEN-LAST:event_tabelRuangMouseClicked
 
     private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
         Ruang ruang = new Ruang(idRuangText.getText().toUpperCase(), namaRuangText.getText().toUpperCase(), jenisComboBox.getSelectedItem().toString().toUpperCase());
-        try {
+        int data = JOptionPane.showConfirmDialog(null, "Apakah Mau menghapus "+ ruang.getIdRuang() + " - " + ruang.getNamaRuang()+"?", "MENGHAPUS DATA", 1);
+        if (data == 0) {
+            try {
             RuangKontrol.getKoneksi().deleteRuang(ruang);
             JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil dihapus");
             updateTabelRuang();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_hapusButtonActionPerformed
 
@@ -416,6 +421,7 @@ public class viewRuang extends javax.swing.JFrame {
             RuangKontrol.getKoneksi().updateRuang(ruang);
             JOptionPane.showMessageDialog(rootPane, "Ruang "+ruang.getIdRuang()+" - "+ruang.getNamaRuang()+" berhasil dirubah");
             updateTabelRuang();
+            bersihkan();
         } catch (SQLException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -491,6 +497,15 @@ public class viewRuang extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void bersihkan(){
+        idRuangText.setText("");
+        namaRuangText.setText("");
+        jenisComboBox.setSelectedIndex(0);
+        simpanButton.setEnabled(true);
+        ubahButton.setEnabled(false);
+        hapusButton.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalButton;
