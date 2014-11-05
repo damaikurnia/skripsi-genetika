@@ -170,15 +170,15 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("ID Dosen");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nama Dosen");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Status");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
@@ -193,41 +193,43 @@ public class viewDosen extends javax.swing.JFrame {
         Status_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tetap", "Tidak Tetap" }));
         jPanel4.add(Status_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 98, -1));
 
-        simpanButton.setText("Simpan");
+        simpanButton.setText("SIMPAN");
         simpanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simpanButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        jPanel4.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, 50));
 
-        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel4.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel4.setText("TABEL DOSEN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
 
-        batalButton.setText("Batal");
+        batalButton.setText("BATAL");
         batalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 batalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 70, -1));
+        jPanel4.add(batalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 70, 50));
 
-        editButton.setText("Ubah");
+        editButton.setText("UBAH");
+        editButton.setEnabled(false);
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        jPanel4.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, 50));
 
-        hapusButton.setText("Hapus");
+        hapusButton.setText("HAPUS");
+        hapusButton.setEnabled(false);
         hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hapusButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
+        jPanel4.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, 50));
 
         tabelDosen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -249,7 +251,7 @@ public class viewDosen extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 380, 190));
 
-        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18));
+        jLabel5.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
         jLabel5.setText("DATA DOSEN");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
@@ -259,29 +261,29 @@ public class viewDosen extends javax.swing.JFrame {
                 button_uploadActionPerformed(evt);
             }
         });
-        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 90, -1));
+        jPanel4.add(button_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 90, 50));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 320));
 
         jPanel5.setBackground(new java.awt.Color(255, 102, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19));
+        jLabel6.setFont(new java.awt.Font("Wide Latin", 1, 19)); // NOI18N
         jLabel6.setText("Pendidikan Guru Sekolah Dasar");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18));
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setText("Fakultas Keguruan dan Ilmu Pendidikan - Universitas Sanata Dharma");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel8.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel8.setText("Telp (0274) 513301, 515352, Fax. (0274) 562383 ");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logo.gif"))); // NOI18N
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 150));
 
-        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24));
+        jLabel10.setFont(new java.awt.Font("Microsoft Himalaya", 0, 24)); // NOI18N
         jLabel10.setText("Mrican, Tromol Pos 29, Yogyakarta 55002.");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
@@ -363,7 +365,7 @@ public class viewDosen extends javax.swing.JFrame {
         try {
             DosenKontrol dosenk = DosenKontrol.getKoneksi();
             dosenk.insertDosen(temp);
-            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di tambah");
+            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di Simpan");
             updateTabelDosen();
             bersihkan();
             idDosenText.requestFocus();
@@ -393,7 +395,7 @@ public class viewDosen extends javax.swing.JFrame {
             idDosenText.requestFocus();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal di simpan");
+            JOptionPane.showMessageDialog(null, "Gagal di rubah");
             bersihkan();
         }
     }//GEN-LAST:event_editButtonActionPerformed
@@ -404,16 +406,20 @@ public class viewDosen extends javax.swing.JFrame {
         String Combo = (String) Status_ComboBox.getSelectedItem();
         Dosen temp = new Dosen(id, nama, Combo);
 
-        try {
-            DosenKontrol dosenk = DosenKontrol.getKoneksi();
-            dosenk.deleteDosen(temp);
-            JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di Ubah");
-            bersihkan();
-            idDosenText.requestFocus();
+        int data = JOptionPane.showConfirmDialog(null, "Apakah Mau menghapus " + temp.getIdDosen() + " - " + temp.getNamaDosen() + "?", "MENGHAPUS DATA", 1);
+        if (data == 0) {
+            try {
+                DosenKontrol dosenk = DosenKontrol.getKoneksi();
+                dosenk.deleteDosen(temp);
+                JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di hapus");
+                bersihkan();
+                idDosenText.requestFocus();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal di simpan");
-            bersihkan();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Gagal di hapus");
+                bersihkan();
+            }
+        } else {
         }
     }//GEN-LAST:event_hapusButtonActionPerformed
 
@@ -427,6 +433,9 @@ public class viewDosen extends javax.swing.JFrame {
         Status_ComboBox.setSelectedItem(status);
 
         idDosenText.setEditable(false);
+        simpanButton.setEnabled(false);
+        editButton.setEnabled(true);
+        hapusButton.setEnabled(true);
     }//GEN-LAST:event_tabelDosenMouseClicked
 
     private void button_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_uploadActionPerformed
@@ -478,9 +487,13 @@ public class viewDosen extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void bersihkan() {
-//        idDosenText.setText("");
+        idDosenText.setText("");
         namaDosenText.setText("");
         idDosenText.setEditable(true);
+        Status_ComboBox.setSelectedIndex(0);
+        simpanButton.setEnabled(true);
+        editButton.setEnabled(false);
+        hapusButton.setEnabled(false);
     }
 
     private void updateTabelDosen() throws SQLException {

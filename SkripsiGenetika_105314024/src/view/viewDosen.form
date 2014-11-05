@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -15,6 +15,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
@@ -252,14 +253,14 @@
             </Component>
             <Component class="javax.swing.JButton" name="simpanButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Simpan"/>
+                <Property name="text" type="java.lang.String" value="SIMPAN"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simpanButtonActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="30" y="230" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="30" y="230" width="-1" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -278,40 +279,42 @@
             </Component>
             <Component class="javax.swing.JButton" name="batalButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Batal"/>
+                <Property name="text" type="java.lang.String" value="BATAL"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="batalButtonActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="260" y="230" width="70" height="-1"/>
+                  <AbsoluteConstraints x="250" y="230" width="70" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="editButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ubah"/>
+                <Property name="text" type="java.lang.String" value="UBAH"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editButtonActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="110" y="230" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="110" y="230" width="-1" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="hapusButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hapus"/>
+                <Property name="text" type="java.lang.String" value="HAPUS"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapusButtonActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="180" y="230" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="180" y="230" width="-1" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -363,7 +366,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="340" y="230" width="90" height="-1"/>
+                  <AbsoluteConstraints x="330" y="230" width="90" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
