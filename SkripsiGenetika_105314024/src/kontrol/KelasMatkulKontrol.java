@@ -193,6 +193,33 @@ public class KelasMatkulKontrol {
         conn.close();
         return mk;
     }
+    
+    public List<KelasKuliah> cariKelasKuliah2(String key) throws SQLException {
+        PreparedStatement psmt = null;
+        ResultSet rset = null;
+        conn.setAutoCommit(false);
+        String sql = "SELECT a.idKelas,a.idMK,b.namaMK,a.Kelas,b.sks,b.semester,b.JP,c.namaDosen "
+                + "FROM kelas_makul a, matakuliah b, dosen c "
+                + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen "
+                + "AND a.idKelas <> \"0\" AND c.namaDosen <> \"-\" AND "
+                + "a.idMK = '" + key + "' "
+                + "ORDER BY b.semester,a.idMK,a.Kelas;";
+        psmt = conn.prepareStatement(sql);
+        rset = psmt.executeQuery();
+        List<KelasKuliah> mk = new ArrayList<KelasKuliah>();
+
+        KelasKuliah temp = null;
+        while (rset.next()) {
+            temp = new KelasKuliah();
+            temp.setIdKelas(Integer.parseInt(rset.getString(1)));
+            temp.setIdMK(new MataKuliah(rset.getString(2), rset.getString(3), rset.getInt(5), rset.getInt(6), rset.getInt(7)));
+            temp.setIdDosen(new Dosen("", rset.getString(8), ""));
+            temp.setKelas(rset.getString(4));
+            mk.add(temp);
+        }
+        conn.close();
+        return mk;
+    }
 
 //    public MataKuliah tampilMatakuliah(String idMK) throws SQLException {
 //        PreparedStatement stmt = null;

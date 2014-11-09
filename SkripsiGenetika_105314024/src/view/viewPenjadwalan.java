@@ -27,15 +27,19 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import kelas.Dosen;
 import kelas.KelasKuliah;
+import kelas.MataKuliah;
 import kelas.Populasi;
 import kelas.Ruang;
 import kelas.tabelPermintaan;
 import kontrol.DosenKontrol;
 import kontrol.KelasMatkulKontrol;
+import kontrol.MataKuliahKontrol;
 import kontrol.PenjadwalanKontrol;
 import kontrol.RuangKontrol;
 import tabelModel.Dosen_TM;
 import tabelModel.KelasMatkulPenjadwalan_TM;
+import tabelModel.KelasMatkul_TM;
+import tabelModel.MataKuliah_TM;
 import tabelModel.TabelPermintaan_TM;
 import tabelModel.renderWarnaWarni;
 
@@ -70,11 +74,20 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_pleasewait.setSize(700, 178);
         dialog_pleasewait.setLocationRelativeTo(null);
         dialog_pleasewait.setTitle("PEMBUATAN JADWAL...");
-        
+
         dialog_solusiJadwal.setVisible(false);
         dialog_solusiJadwal.setSize(1033, 470);
         dialog_solusiJadwal.setLocationRelativeTo(null);
         dialog_solusiJadwal.setTitle("JADWAL");
+
+        dialog_penjadwalanAll.setVisible(false);
+        dialog_penjadwalanAll.setSize(685, 450);
+        dialog_penjadwalanAll.setLocationRelativeTo(null);
+
+        dialog_matkulAll.setVisible(false);
+        dialog_matkulAll.setSize(777, 480);
+        dialog_matkulAll.setLocationRelativeTo(null);
+        dialog_matkulAll.setTitle("DATA MATAKULIAH");
 
         try {
             updateTabelPermintaan();
@@ -92,6 +105,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         tabel_kelasmatakuliah.setModel(model);
     }
 
+    private void updateTabelMataKuliah2() throws SQLException {
+        List<MataKuliah> mktm = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
+        MataKuliah_TM model = new MataKuliah_TM(mktm);
+        tabel_MatakuliahAll.setModel(model);
+
+        tabel_MatakuliahAll.getColumnModel().getColumn(1).setMinWidth(400);
+        tabel_MatakuliahAll.getColumnModel().getColumn(1).setMaxWidth(400);
+
+        tabel_MatakuliahAll.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
+    }
+
     private void updateTabelDosen() throws SQLException {
         List<Dosen> mktm = DosenKontrol.getKoneksi().tampilDosen();
         Dosen_TM model = new Dosen_TM(mktm);
@@ -107,7 +131,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         Tabel_Permintaan.getColumnModel().getColumn(1).setMinWidth(200);
         Tabel_Permintaan.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
     }
-    
+
     private void updateTabelJadwal() throws SQLException {
         List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwal();
         TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
@@ -118,6 +142,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         List<Ruang> ruang = RuangKontrol.getKoneksi().tampilRuangTeori();
         for (Ruang k : ruang) {
             combo_ruang.addItem(k.getIdRuang() + "-" + k.getNamaRuang());
+            combo_ruangAll.addItem(k.getIdRuang() + "-" + k.getNamaRuang());
         }
     }
 
@@ -129,11 +154,20 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         combo_hari.setSelectedIndex(0);
         combo_jam.setSelectedIndex(0);
         combo_ruang.setSelectedIndex(0);
+        tombol_cariMatkul.setEnabled(false);
         try {
             updateTabelMataKuliah();
         } catch (SQLException ex) {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void kosongkan2() {
+        textMatkulAll.setText("");
+        comboHari_all.setSelectedIndex(0);
+        combo_jamAll.setSelectedIndex(0);
+        combo_ruangAll.setSelectedIndex(0);
+        tabel_seluruhMatkul.removeAll();
     }
 
     /**
@@ -162,7 +196,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_kelasmatakuliah = new javax.swing.JTable();
-        jLabel15 = new javax.swing.JLabel();
+        labeldos = new javax.swing.JLabel();
         text_matkul = new javax.swing.JTextField();
         tomboldialog_matkul = new javax.swing.JButton();
         klikKanan = new javax.swing.JPopupMenu();
@@ -181,6 +215,31 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         Tabel_Solusi = new javax.swing.JTable();
         tomboldialog_dosen1 = new javax.swing.JButton();
+        dialog_penjadwalanAll = new javax.swing.JDialog();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        textMatkulAll = new javax.swing.JTextField();
+        buttonCariMatkul = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        comboHari_all = new javax.swing.JComboBox();
+        combo_jamAll = new javax.swing.JComboBox();
+        combo_ruangAll = new javax.swing.JComboBox();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabel_seluruhMatkul = new javax.swing.JTable();
+        button_tambahPermintaanAll = new javax.swing.JButton();
+        dialog_matkulAll = new javax.swing.JDialog();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabel_MatakuliahAll = new javax.swing.JTable();
+        tomboldialog_matkul1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -210,6 +269,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         button_batal = new javax.swing.JButton();
         labelKelas = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        tombolKhusus = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -374,8 +434,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabel_kelasmatakuliah);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel15.setText("MATA KULIAH DOSEN PENGAMPU");
+        labeldos.setFont(new java.awt.Font("Tahoma", 1, 11));
+        labeldos.setText("MATA KULIAH DOSEN PENGAMPU");
 
         text_matkul.setEditable(false);
 
@@ -395,7 +455,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labeldos, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(text_matkul, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 159, Short.MAX_VALUE)))
@@ -410,7 +470,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeldos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(text_matkul, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -462,7 +522,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("PEMBUATAN JADWAL SEDANG DALAM PROSES. SILAHKAN MENUNGGU....");
 
-        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label_waktu.setFont(new java.awt.Font("Tahoma", 0, 18));
         label_waktu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -589,6 +649,202 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         dialog_solusiJadwal.getContentPane().add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
+        dialog_penjadwalanAll.setTitle("PERMINTAAN KHUSUS");
+        dialog_penjadwalanAll.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_penjadwalanAllWindowActivated(evt);
+            }
+        });
+        dialog_penjadwalanAll.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel17.setBackground(new java.awt.Color(255, 102, 0));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel20.setText("PERMINTAAN KHUSUS");
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(360, Short.MAX_VALUE))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel16.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 70));
+
+        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel21.setText("MATKUL");
+        jPanel18.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 73, 29));
+
+        textMatkulAll.setEditable(false);
+        jPanel18.add(textMatkulAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 16, 425, -1));
+
+        buttonCariMatkul.setText("CARI");
+        buttonCariMatkul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCariMatkulActionPerformed(evt);
+            }
+        });
+        jPanel18.add(buttonCariMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel22.setText("HARI");
+        jPanel18.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 73, 30));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel23.setText("JAM");
+        jPanel18.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 30, 30));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel24.setText("RUANG");
+        jPanel18.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 50, 29));
+
+        comboHari_all.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Senin", "Selasa", "Rabu", "Kamis", "Jumat" }));
+        jPanel18.add(comboHari_all, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 109, 30));
+
+        combo_jamAll.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "07:00-09:59", "10:00-12:59", "13:00-15:59", "16:00-18:59" }));
+        jPanel18.add(combo_jamAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 122, 29));
+
+        combo_ruangAll.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        jPanel18.add(combo_ruangAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 122, 29));
+
+        tabel_seluruhMatkul.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tabel_seluruhMatkul);
+
+        jPanel18.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 650, 170));
+
+        button_tambahPermintaanAll.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        button_tambahPermintaanAll.setText("TAMBAH PERMINTAAN");
+        button_tambahPermintaanAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_tambahPermintaanAllActionPerformed(evt);
+            }
+        });
+        jPanel18.add(button_tambahPermintaanAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 410, 40));
+
+        jPanel16.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 670, 330));
+
+        dialog_penjadwalanAll.getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 400));
+
+        dialog_matkulAll.setTitle("DATA MATAKULIAH");
+        dialog_matkulAll.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_matkulAllWindowActivated(evt);
+            }
+        });
+        dialog_matkulAll.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel20.setBackground(new java.awt.Color(255, 102, 0));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 36));
+        jLabel15.setText("PENCARIAN MATAKULIAH");
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        tabel_MatakuliahAll.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tabel_MatakuliahAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_MatakuliahAllMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tabel_MatakuliahAll);
+
+        tomboldialog_matkul1.setText("BATAL");
+        tomboldialog_matkul1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tomboldialog_matkul1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(344, 344, 344)
+                        .addComponent(tomboldialog_matkul1))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(tomboldialog_matkul1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dialog_matkulAll.getContentPane().add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI PERMINTAAN KELAS");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -656,11 +912,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel1.setText("RUANG");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 50, -1));
 
-        tombol_cariMatkul.setText("Cari");
+        tombol_cariMatkul.setText("CARI");
+        tombol_cariMatkul.setEnabled(false);
         tombol_cariMatkul.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombol_cariMatkulActionPerformed(evt);
@@ -672,16 +929,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel4.setText("TABEL PERMINTAAN");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
 
-        jadwalButton.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jadwalButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jadwalButton.setForeground(new java.awt.Color(204, 0, 0));
         jadwalButton.setText("BUAT JADWAL");
         jadwalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jadwalButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(jadwalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 440, 50));
+        jPanel4.add(jadwalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 440, 50));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel3.setText("DOSEN");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
@@ -693,7 +951,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(text_dosen, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 320, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel5.setText("MATKUL");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
@@ -705,15 +963,15 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(text_klsMatkul, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel11.setText("HARI");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 40, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 14));
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel12.setText("JAM");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, -1));
 
-        tombol_cariDosen.setText("Cari");
+        tombol_cariDosen.setText("CARI");
         tombol_cariDosen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombol_cariDosenActionPerformed(evt);
@@ -732,6 +990,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabel_Permintaan.setSelectionForeground(new java.awt.Color(255, 51, 0));
         Tabel_Permintaan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 Tabel_PermintaanMouseReleased(evt);
@@ -750,14 +1009,14 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         combo_ruang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         jPanel4.add(combo_ruang, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 120, -1));
 
-        tombol_tambahPermintaan.setFont(new java.awt.Font("Tahoma", 1, 18));
+        tombol_tambahPermintaan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         tombol_tambahPermintaan.setText("TAMBAH PERMINTAAN");
         tombol_tambahPermintaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombol_tambahPermintaanActionPerformed(evt);
             }
         });
-        jPanel4.add(tombol_tambahPermintaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 90));
+        jPanel4.add(tombol_tambahPermintaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 40));
 
         button_batal.setText("BATAL");
         button_batal.addActionListener(new java.awt.event.ActionListener() {
@@ -767,11 +1026,22 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jPanel4.add(button_batal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
-        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jPanel4.add(labelKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 30, 20));
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPanel4.add(labelKelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 30, 20));
 
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14));
         jLabel16.setText("KELAS");
-        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 40, 20));
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, 20));
+
+        tombolKhusus.setFont(new java.awt.Font("Tahoma", 1, 18));
+        tombolKhusus.setForeground(new java.awt.Color(204, 102, 0));
+        tombolKhusus.setText("PERMINTAAN KHUSUS");
+        tombolKhusus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolKhususActionPerformed(evt);
+            }
+        });
+        jPanel4.add(tombolKhusus, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 240, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 330));
 
@@ -864,7 +1134,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 }//GEN-LAST:event_penjadwalanButtonActionPerformed
 
     private void text_dosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_dosenActionPerformed
-        // TODO add your handling code here:
+        if (text_dosen.getText().equals("")) {
+            tombol_cariMatkul.setEnabled(false);
+        } else {
+            tombol_cariMatkul.setEnabled(true);
+        }
     }//GEN-LAST:event_text_dosenActionPerformed
 
     private void text_klsMatkulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_klsMatkulActionPerformed
@@ -898,6 +1172,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
+        tombol_cariMatkul.setEnabled(true);
     }//GEN-LAST:event_Tabel_DosenMouseClicked
 
     private void tabel_kelasmatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kelasmatakuliahMouseClicked
@@ -914,46 +1189,47 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     }//GEN-LAST:event_button_batalActionPerformed
 
     private void tombol_tambahPermintaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_tambahPermintaanActionPerformed
-        try {
-            int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
-            if (noRule == 0) {
-                noRule = 1;
-            } else {
-                noRule++;
+        if (text_dosen.getText().equals("")&&text_klsMatkul.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Silahkan Pilih Dosen dan Matakuliah terlebih dahulu!");
+        } else {
+            try {
+                int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
+                if (noRule == 0) {
+                    noRule = 1;
+                } else {
+                    noRule++;
+                }
+                int idKelas = Integer.parseInt(text_klsMatkul.getText().split("-")[0]);
+                String ruang;
+                if (combo_ruang.getSelectedItem().toString().equals("-")) {
+                    ruang = combo_ruang.getSelectedItem().toString();
+                } else {
+                    ruang = combo_ruang.getSelectedItem().toString().split("-")[0];
+                }
+                String hari = combo_hari.getSelectedItem().toString();
+                String jam = combo_jam.getSelectedItem().toString();
+                boolean cek = PenjadwalanKontrol.getKoneksi().cekRuang(ruang, hari, jam);
+                if (cek == true) {
+                    tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
+                    PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
+                    JOptionPane.showMessageDialog(null, "DATA PERMINTAAN" + "\n"
+                            + "MATAKULIAH         : " + idKelas + "\n"
+                            + "KELAS              : " + labelKelas.getText() + "\n"
+                            + "DOSEN PENGAMPU     : " + text_dosen.getText().split("-")[1] + "\n"
+                            + "JADWAL PERMINTAAN  : " + "HARI " + hari + " RUANG " + ruang + "\n"
+                            + "JAM                : " + jam + "\n"
+                            + "BERHASIL DITAMBAHKAN");
+                    updateTabelPermintaan();
+                    kosongkan();
+                } else {
+                    JOptionPane.showMessageDialog(null, "RUANG " + ruang + " HARI " + hari + " JAM " + jam + " "
+                            + "Telah dipakai oleh matakuliah lain. \n"
+                            + "Silahkan pilih Ruang/Hari/Jam lain untuk matakuliah ini.");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
             }
-            int idKelas = Integer.parseInt(text_klsMatkul.getText().split("-")[0]);
-            String ruang;
-            if (combo_ruang.getSelectedItem().toString().equals("-")) {
-                ruang = combo_ruang.getSelectedItem().toString();
-            } else {
-                ruang = combo_ruang.getSelectedItem().toString().split("-")[0];
-            }
-            String hari = combo_hari.getSelectedItem().toString();
-            String jam = combo_jam.getSelectedItem().toString();
-            boolean cek = PenjadwalanKontrol.getKoneksi().cekRuang(ruang, hari, jam);
-            if (cek == true) {
-                tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
-                PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
-                JOptionPane.showMessageDialog(null, "DATA PERMINTAAN" + "\n"
-                        + "MATAKULIAH         : " + idKelas + "\n"
-                        + "KELAS              : " + labelKelas.getText() + "\n"
-                        + "DOSEN PENGAMPU     : " + text_dosen.getText().split("-")[1] + "\n"
-                        + "JADWAL PERMINTAAN  : " + "HARI " + hari + " RUANG " + ruang + "\n"
-                        + "JAM                : " + jam + "\n"
-                        + "BERHASIL DITAMBAHKAN");
-                updateTabelPermintaan();
-                kosongkan();
-            } else {
-                JOptionPane.showMessageDialog(null, "RUANG " + ruang + " HARI " + hari + " JAM " + jam + " "
-                        + "Telah dipakai oleh matakuliah lain. \n"
-                        + "Silahkan pilih Ruang/Hari/Jam lain untuk matakuliah ini.");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-//        
-
     }//GEN-LAST:event_tombol_tambahPermintaanActionPerformed
 
     private void Tabel_PermintaanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel_PermintaanMouseReleased
@@ -1044,7 +1320,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                     progres_barnya.setValue(0);
                     String pesan = get();
                     JOptionPane.showMessageDialog(null, pesan);
-                    JOptionPane.showMessageDialog(null, "Waktu Penyelesaian Jadwal : "+label_waktu.getText());
+                    JOptionPane.showMessageDialog(null, "Waktu Penyelesaian Jadwal : " + label_waktu.getText());
                     updateTabelJadwal();
                     tutup();
 
@@ -1062,7 +1338,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_pleasewait.setVisible(false);
         dialog_solusiJadwal.setVisible(true);
     }
-    
+
     private void jadwalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalButtonActionPerformed
         dialog_pleasewait.setVisible(true);
         buatJadwal();
@@ -1107,6 +1383,120 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         setIconImage(newIcon.getImage());
     }//GEN-LAST:event_formWindowActivated
 
+    private void tombolKhususActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolKhususActionPerformed
+        dialog_penjadwalanAll.setVisible(true);
+    }//GEN-LAST:event_tombolKhususActionPerformed
+
+    private void dialog_penjadwalanAllWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_penjadwalanAllWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_penjadwalanAll.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_penjadwalanAllWindowActivated
+
+    private void buttonCariMatkulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCariMatkulActionPerformed
+        try {
+            updateTabelMataKuliah2();
+            dialog_matkulAll.setVisible(true);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_buttonCariMatkulActionPerformed
+
+    private void tabel_MatakuliahAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_MatakuliahAllMouseClicked
+        try {
+            int row1 = tabel_MatakuliahAll.getSelectedRow();
+            String idMatkul = tabel_MatakuliahAll.getValueAt(row1, 0).toString();
+            String namaMatkul = tabel_MatakuliahAll.getValueAt(row1, 1).toString();
+            textMatkulAll.setText(idMatkul + "-" + namaMatkul);
+            List<KelasKuliah> data = KelasMatkulKontrol.getKoneksi().cariKelasKuliah2(idMatkul);
+            KelasMatkul_TM model = new KelasMatkul_TM(data);
+            tabel_seluruhMatkul.setModel(model);
+
+            tabel_seluruhMatkul.getColumnModel().getColumn(0).setMinWidth(25);
+            tabel_seluruhMatkul.getColumnModel().getColumn(0).setMaxWidth(25);
+            tabel_seluruhMatkul.getColumnModel().getColumn(1).setMinWidth(70);
+            tabel_seluruhMatkul.getColumnModel().getColumn(1).setMaxWidth(70);
+            tabel_seluruhMatkul.getColumnModel().getColumn(2).setMinWidth(200);
+            tabel_seluruhMatkul.getColumnModel().getColumn(2).setMaxWidth(200);
+            tabel_seluruhMatkul.getColumnModel().getColumn(3).setMinWidth(40);
+            tabel_seluruhMatkul.getColumnModel().getColumn(3).setMaxWidth(40);
+            tabel_seluruhMatkul.getColumnModel().getColumn(4).setMinWidth(40);
+            tabel_seluruhMatkul.getColumnModel().getColumn(4).setMaxWidth(40);
+            tabel_seluruhMatkul.getColumnModel().getColumn(5).setMinWidth(65);
+            tabel_seluruhMatkul.getColumnModel().getColumn(5).setMaxWidth(65);
+            tabel_seluruhMatkul.getColumnModel().getColumn(6).setMinWidth(40);
+            tabel_seluruhMatkul.getColumnModel().getColumn(6).setMaxWidth(40);
+
+            tabel_seluruhMatkul.setDefaultRenderer(Object.class, new renderWarnaWarni(Color.lightGray, Color.white));
+
+            dialog_matkulAll.setVisible(false);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tabel_MatakuliahAllMouseClicked
+
+    private void tomboldialog_matkul1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomboldialog_matkul1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tomboldialog_matkul1ActionPerformed
+
+    private void dialog_matkulAllWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_matkulAllWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_matkulAll.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_matkulAllWindowActivated
+
+    private void button_tambahPermintaanAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_tambahPermintaanAllActionPerformed
+        if (textMatkulAll.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan Pilih Matakuliah");
+        } else {
+            int data = JOptionPane.showConfirmDialog(null, "Dengan Mengklik tombol ini anda menerapkan Permintaan Hari/Ruang/Waktu yang sama untuk SEMUA KELAS MATAKULIAH "
+                    + textMatkulAll.getText() + "?", "MEMBUAT PERMINTAAN", 1);
+            if (data == 0) {
+                try {
+                    String idMatkul = textMatkulAll.getText().toString().split("-")[0];
+                    List<KelasKuliah> kp = KelasMatkulKontrol.getKoneksi().cariKelasKuliah2(idMatkul);
+                    for (int i = 0; i < kp.size(); i++) {
+                        int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
+                        if (noRule == 0) {
+                            noRule = 1;
+                        } else {
+                            noRule++;
+                        }
+                        int idKelas = kp.get(i).getIdKelas();
+                        String ruang;
+                        if (combo_ruangAll.getSelectedItem().toString().equals("-")) {
+                            ruang = combo_ruangAll.getSelectedItem().toString();
+                        } else {
+                            ruang = combo_ruangAll.getSelectedItem().toString().split("-")[0];
+                        }
+                        String hari = comboHari_all.getSelectedItem().toString();
+                        String jam = combo_jamAll.getSelectedItem().toString();
+                        if (!ruang.equals("-") && !hari.equals("-") && !jam.equals("-")) {
+                            boolean cek = PenjadwalanKontrol.getKoneksi().cekRuang(ruang, hari, jam);
+                            if (cek == true) {
+                                tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
+                                PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "RUANG " + ruang + " HARI " + hari + " JAM " + jam + " "
+                                        + "Telah dipakai oleh matakuliah lain. \n"
+                                        + "Silahkan pilih Ruang/Hari/Jam lain untuk matakuliah ini.");
+                            }
+                        } else {
+                            tabelPermintaan tab = new tabelPermintaan(noRule, idKelas, ruang, hari, jam);
+                            PenjadwalanKontrol.getKoneksi().insertTabelPermintaan(tab);
+                        }
+                    }
+                    kosongkan2();
+                    dialog_penjadwalanAll.setVisible(false);
+                    updateTabelPermintaan();
+                } catch (SQLException ex) {
+                    Logger.getLogger(viewRuang.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+            }
+        }
+    }//GEN-LAST:event_button_tambahPermintaanAllActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1135,12 +1525,19 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JTable Tabel_Dosen;
     private javax.swing.JTable Tabel_Permintaan;
     private javax.swing.JTable Tabel_Solusi;
+    private javax.swing.JButton buttonCariMatkul;
     private javax.swing.JButton button_batal;
+    private javax.swing.JButton button_tambahPermintaanAll;
+    private javax.swing.JComboBox comboHari_all;
     private javax.swing.JComboBox combo_hari;
     private javax.swing.JComboBox combo_jam;
+    private javax.swing.JComboBox combo_jamAll;
     private javax.swing.JComboBox combo_ruang;
+    private javax.swing.JComboBox combo_ruangAll;
     private javax.swing.JDialog dialog_dosen;
     private javax.swing.JDialog dialog_matkul;
+    private javax.swing.JDialog dialog_matkulAll;
+    private javax.swing.JDialog dialog_penjadwalanAll;
     private javax.swing.JDialog dialog_pleasewait;
     private javax.swing.JDialog dialog_solusiJadwal;
     private javax.swing.JButton dosenButton;
@@ -1157,6 +1554,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1171,7 +1573,13 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1183,25 +1591,33 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jadwalButton;
     private javax.swing.JButton kelasButton;
     private javax.swing.JPopupMenu klikKanan;
     private javax.swing.JLabel labelKelas;
     private javax.swing.JLabel label_waktu;
+    private javax.swing.JLabel labeldos;
     private javax.swing.JButton matkulButton;
     private javax.swing.JButton penjadwalanButton;
     public static javax.swing.JProgressBar progres_barnya;
     private javax.swing.JButton ruangButton;
+    private javax.swing.JTable tabel_MatakuliahAll;
     private javax.swing.JTable tabel_kelasmatakuliah;
+    private javax.swing.JTable tabel_seluruhMatkul;
+    private javax.swing.JTextField textMatkulAll;
     private javax.swing.JTextField text_dosen;
     private javax.swing.JTextField text_klsMatkul;
     private javax.swing.JTextField text_matkul;
+    private javax.swing.JButton tombolKhusus;
     private javax.swing.JButton tombol_cariDosen;
     private javax.swing.JButton tombol_cariMatkul;
     private javax.swing.JButton tombol_tambahPermintaan;
     private javax.swing.JButton tomboldialog_dosen;
     private javax.swing.JButton tomboldialog_dosen1;
     private javax.swing.JButton tomboldialog_matkul;
+    private javax.swing.JButton tomboldialog_matkul1;
     // End of variables declaration//GEN-END:variables
 }

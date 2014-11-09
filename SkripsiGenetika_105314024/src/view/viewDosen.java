@@ -412,6 +412,7 @@ public class viewDosen extends javax.swing.JFrame {
                 DosenKontrol dosenk = DosenKontrol.getKoneksi();
                 dosenk.deleteDosen(temp);
                 JOptionPane.showMessageDialog(null, "Data Dosen " + nama + " Berhasil di hapus");
+                updateTabelDosen();
                 bersihkan();
                 idDosenText.requestFocus();
 
