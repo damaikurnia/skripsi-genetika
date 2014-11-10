@@ -213,47 +213,59 @@ public class Kromosom {
             }
         } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta hari dan jam tertentu
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getHari().equals(hari_permintaan)
-                        && data[j].getJam() == jam_permintaan) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getHari().equals(hari_permintaan)
+                            && data[j].getJam() == jam_permintaan) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) { //meminta ruang dan jam tertentu
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
-                        && data[j].getJam() == jam_permintaan) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                            && data[j].getJam() == jam_permintaan) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         } else if (!ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) { //meminta ruang dan hari tertentu
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
-                        && data[j].getHari().equals(hari_permintaan)) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)
+                            && data[j].getHari().equals(hari_permintaan)) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         } else if (!ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan == 0) {//hanya meminta ruang
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getRuang().getIdRuang().equals(ruang_permintaan)) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         } else if (ruang_permintaan.equals("-") && !hari_permintaan.equals("-") && jam_permintaan == 0) {//Hanya meminta hari
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getHari().equals(hari_permintaan)) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getHari().equals(hari_permintaan)) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         } else if (ruang_permintaan.equals("-") && hari_permintaan.equals("-") && jam_permintaan != 0) {//Hanya meminta waktu
             for (int j = 0; j < data.length; j++) {
-                if (data[j].getJam() == jam_permintaan) {
-                    posisiGen = j;
-                    break;
+                if (data[j].getAllele().getIdKelas() == 0) {
+                    if (data[j].getJam() == jam_permintaan) {
+                        posisiGen = j;
+                        break;
+                    }
                 }
             }
         }

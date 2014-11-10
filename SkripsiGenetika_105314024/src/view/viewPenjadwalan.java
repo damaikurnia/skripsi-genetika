@@ -1326,6 +1326,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Proses tidak selesai. Alasan:\n" + ex.getMessage());
+//                    Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
                     busy(false);
                 }

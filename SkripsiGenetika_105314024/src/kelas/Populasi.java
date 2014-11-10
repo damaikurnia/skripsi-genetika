@@ -51,13 +51,13 @@ public class Populasi {
 
     public void EvaluasiFitness() {
         for (int i = 0; i < getParent().length; i++) {
-            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen);
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen,dataMakul,dataKelasKuliah);
         }
     }
 
     public void EvaluasiFitness_child() {
         for (int i = 2; i < getParent().length; i++) {
-            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen);
+            parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen,dataMakul,dataKelasKuliah);
         }
     }
 
