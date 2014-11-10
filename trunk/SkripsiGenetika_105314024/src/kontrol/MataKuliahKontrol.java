@@ -3,6 +3,7 @@ package kontrol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import kelas.KelasKuliah;
 import koneksi.Koneksi;
 import kelas.MataKuliah;
 
@@ -161,21 +162,56 @@ public class MataKuliahKontrol {
 //        return kel;
 //    }
 
-    public List<String> cariKelompokKelas() throws SQLException {
-        PreparedStatement psmt = null;
-        ResultSet result = null;
-        conn.setAutoCommit(false);
-        String sql = "SELECT b.semester,a.Kelas FROM kelas_makul a, matakuliah b "
-                + "WHERE a.idMK=b.idMK "
-                + "GROUP BY semester,Kelas ORDER BY semester;";
-        psmt = conn.prepareStatement(sql);
-        result = psmt.executeQuery();
-        List<String> kel = new ArrayList<String>();
-        while (result.next()) {
-            kel.add(result.getString(1)+"-"+result.getString(2)+"-0");
+//    public List<String> cariKelompokKelas() throws SQLException {
+//        PreparedStatement psmt = null;
+//        ResultSet result = null;
+//        conn.setAutoCommit(false);
+//        String sql = "SELECT b.semester,a.Kelas FROM kelas_makul a, matakuliah b "
+//                + "WHERE a.idMK=b.idMK "
+//                + "GROUP BY semester,Kelas ORDER BY semester;";
+//        psmt = conn.prepareStatement(sql);
+//        result = psmt.executeQuery();
+//        List<String> kel = new ArrayList<String>();
+//        while (result.next()) {
+//            kel.add(result.getString(1)+"-"+result.getString(2)+"-0");
+//        }
+//        conn.commit();
+//        conn.close();
+//        return kel;
+//    }
+    
+    public static List<String> cariKelompokKelas(List<KelasKuliah> kk, List<MataKuliah> mk){
+        List<KelasKuliah> klsKul = kk;
+        for (int i = 0; i < klsKul.size(); i++) {//satukan dlu kls kul dan matkul
+            for (int j = 0; j < mk.size(); j++) {
+                if (klsKul.get(i).getIdMK().getIdMK().equals(mk.get(j).getIdMK())) {
+                    klsKul.get(i).setIdMK(mk.get(j));
+                }
+            }
         }
-        conn.commit();
-        conn.close();
+
+        List<String> kel = new ArrayList<String>();
+        for (int i = 0; i < klsKul.size(); i++) {
+            if (kel.size() == 0) {
+                kel.add(klsKul.get(i).getIdMK().getSemester() + "-" + klsKul.get(i).getKelas()+"-0");
+            } else {
+                boolean cek = false;
+                for (int j = 0; j < kel.size(); j++) {
+                    int semester = klsKul.get(i).getIdMK().getSemester();
+                    String kelas = klsKul.get(i).getKelas();
+                    
+                    if (semester==Integer.parseInt(kel.get(j).split("-")[0])&&
+                            kelas.equals(kel.get(j).split("-")[1])) {
+                        cek = true;
+                    } else {
+                        cek = cek;
+                    }
+                }
+                if (cek == false) {
+                    kel.add(klsKul.get(i).getIdMK().getSemester() + "-" + klsKul.get(i).getKelas()+"-0");
+                }
+            }
+        }
         return kel;
     }
     
@@ -197,21 +233,4 @@ public class MataKuliahKontrol {
         conn.close();
         return result;
     }
-    
-//    public static void main(String[] args) {
-//        List<KelasKuliah> datakelasMakul = null;
-//        List<MataKuliah> datamakul = null;
-//        try {
-//            datakelasMakul = KelasMatkulKontrol.getKoneksi().tampilKelasMataKuliah();
-//            datamakul = MataKuliahKontrol.getKoneksi().tampilMataKuliah();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MataKuliahKontrol.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        List<String> data = MataKuliahKontrol.getKoneksi().cariKelompokKelas(datakelasMakul, datamakul);
-//        
-//        for (int i = 0; i < data.size(); i++) {
-//            System.out.println(data.get(i));
-//        }
-//    }
 }

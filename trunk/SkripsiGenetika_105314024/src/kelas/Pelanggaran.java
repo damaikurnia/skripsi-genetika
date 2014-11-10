@@ -5,10 +5,7 @@
  */
 package kelas;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import kontrol.DosenKontrol;
 import kontrol.MataKuliahKontrol;
 import kontrol.RuangKontrol;
@@ -150,13 +147,7 @@ public class Pelanggaran {
         int jam = 0;
         int count = 0;
         int temp_count = 0;
-        List<String> kel = null;
-        try {
-//            kel = MataKuliahKontrol.getKoneksi().cariKelompokKelas(dataKelasMakul,dataMatakuliah);//
-            kel = MataKuliahKontrol.getKoneksi().cariKelompokKelas();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pelanggaran.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        List<String> kel = MataKuliahKontrol.cariKelompokKelas(dataKelasMakul,dataMatakuliah);
 
         while (true) { //mencari rentang hari
             if (x.getData()[count].getHari().equals(hari[0])) {
@@ -238,9 +229,11 @@ public class Pelanggaran {
         return x;
     } //aturan 5
 
-    public static Kromosom eksekusiAturan(Kromosom x, List<Ruang> dataRuang, List<Dosen> dtDosen) {
+    public static Kromosom eksekusiAturan(Kromosom x, List<Ruang> dataRuang, List<Dosen> dtDosen, List<MataKuliah> dataMatkul, List<KelasKuliah> dataKelasKul) {
         jumlah_ruang = RuangKontrol.jumlahRuang(dataRuang);
         dataDosen = dtDosen;
+        dataKelasMakul = dataKelasKul;
+        dataMatakuliah = dataMatkul;
 
         Kromosom parent;
 

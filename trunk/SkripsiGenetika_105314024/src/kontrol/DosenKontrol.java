@@ -95,7 +95,7 @@ public class DosenKontrol {
         conn.close();
         return dosen;
     }
-    
+
     public boolean cekDosen(String key) throws SQLException {
         PreparedStatement psmt = null;
         ResultSet rset = null;
@@ -106,7 +106,7 @@ public class DosenKontrol {
         rset = psmt.executeQuery();
         boolean result = false;
         while (rset.next()) {
-            if(rset.getInt(1)== 1){
+            if (rset.getInt(1) == 1) {
                 result = true;
             }
         }
@@ -130,7 +130,7 @@ public class DosenKontrol {
 //        conn.close();
 //        return kel;
 //    }
-        public static List<String> cariKelompokDosen(List<Dosen> dataDosen) {
+    public static List<String> cariKelompokDosen(List<Dosen> dataDosen) {
         List<String> kel = new ArrayList<String>();
         for (int i = 0; i < dataDosen.size(); i++) {
             kel.add(dataDosen.get(i).getIdDosen() + "-0");
