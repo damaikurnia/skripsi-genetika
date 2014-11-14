@@ -130,53 +130,59 @@ public class viewRuang extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        homeButton.setText("Home");
+        homeButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        homeButton.setText("HOME");
         homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(homeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 40));
+        jPanel3.add(homeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 80, 40));
 
-        matkulButton.setText("Data Mata Kuliah");
+        matkulButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        matkulButton.setText("MATAKULIAH");
         matkulButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 matkulButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(matkulButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 120, 40));
+        jPanel3.add(matkulButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 140, 40));
 
-        dosenButton.setText("Data Dosen");
+        dosenButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dosenButton.setText("DOSEN");
         dosenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dosenButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(dosenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 100, 40));
+        jPanel3.add(dosenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
 
-        ruangButton.setText("Data Ruang");
+        ruangButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ruangButton.setText("RUANG");
         ruangButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ruangButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(ruangButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 100, 40));
+        jPanel3.add(ruangButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 100, 40));
 
-        kelasButton.setText("Data Kelas");
+        kelasButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kelasButton.setText("BUAT KELAS KULIAH");
         kelasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kelasButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(kelasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 100, 40));
+        jPanel3.add(kelasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 190, 40));
 
-        penjadwalanButton.setText("Penjadwalan");
+        penjadwalanButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        penjadwalanButton.setText("PENJADWALAN");
         penjadwalanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 penjadwalanButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(penjadwalanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, 110, 40));
+        jPanel3.add(penjadwalanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 150, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 940, 60));
 
