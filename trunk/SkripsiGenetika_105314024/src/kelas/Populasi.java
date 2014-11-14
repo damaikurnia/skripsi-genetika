@@ -12,7 +12,6 @@ import kontrol.KelasMatkulKontrol;
 import kontrol.MataKuliahKontrol;
 import kontrol.PenjadwalanKontrol;
 import kontrol.RuangKontrol;
-import view.viewPenjadwalan;
 
 /**
  *
@@ -20,10 +19,10 @@ import view.viewPenjadwalan;
  */
 public class Populasi {
 
-    Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari 4 kromosom
+    Kromosom[] parent = new Kromosom[10];//satu populasi terdiri dari 4 kromosom //4
     int iterasi = 0;
     int indexSolusi = -1;
-    int[] score = new int[4];
+    int[] score = new int[10];//4
 
     int fitnessTerkecil = 1000;
 
@@ -56,7 +55,7 @@ public class Populasi {
     }
 
     public void EvaluasiFitness_child() {
-        for (int i = 2; i < getParent().length; i++) {
+        for (int i = 8; i < getParent().length; i++) { //2
             parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen,dataMakul,dataKelasKuliah);
         }
     }
@@ -73,14 +72,14 @@ public class Populasi {
             if (score[i] == 0) {
                 indexSolusi = i;
                 fitnessTerkecil = 0;
-                viewPenjadwalan.progres_barnya.setValue(100);
+//                viewPenjadwalan.progres_barnya.setValue(100);
             } else {
                 int n = parent[i].data.length;
                 if (score[i] < fitnessTerkecil) {
                     fitnessTerkecil = score[i];
-                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
+//                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
                 } else {
-                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
+//                    viewPenjadwalan.progres_barnya.setValue(((n - fitnessTerkecil) / n) * 100);
                 }
             }
         }

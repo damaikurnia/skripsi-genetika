@@ -33,14 +33,14 @@ public class Genetika {
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
             if (i < point) { // samakan gen A dan C ke child 1 dan 2
-                krom[2].getData()[i].setAllele(krom[0].getData()[i].getAllele());
-                krom[3].getData()[i].setAllele(krom[1].getData()[i].getAllele());
+                krom[8].getData()[i].setAllele(krom[0].getData()[i].getAllele());//2
+                krom[9].getData()[i].setAllele(krom[1].getData()[i].getAllele());//3
             } else {
-                krom[2].getData()[i].setAllele(krom[1].getData()[i].getAllele());
-                krom[3].getData()[i].setAllele(krom[0].getData()[i].getAllele());
+                krom[8].getData()[i].setAllele(krom[1].getData()[i].getAllele());//2
+                krom[9].getData()[i].setAllele(krom[0].getData()[i].getAllele());//3
             }
-            krom[2].getData()[i].setNilaiFitness(0);
-            krom[3].getData()[i].setNilaiFitness(0);
+            krom[8].getData()[i].setNilaiFitness(0);//2
+            krom[9].getData()[i].setNilaiFitness(0);//3
         }
 
         return krom;
@@ -51,7 +51,7 @@ public class Genetika {
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
-        for (int i = 2; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi
+        for (int i = 8; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi //2
             String simsem_hilang = "";
             for (int j = 0; j < krom[i].data.length; j++) {
                 if (krom[i].data[j].allele.getIdKelas() == 0) {
