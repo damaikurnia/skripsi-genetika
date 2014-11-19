@@ -33,14 +33,14 @@ public class Genetika {
         int point = krom[0].getData().length / 2;//titik one point crossover
         for (int i = 0; i < krom[0].getData().length; i++) {
             if (i < point) { // samakan gen A dan C ke child 1 dan 2
-                krom[8].getData()[i].setAllele(krom[0].getData()[i].getAllele());//2
-                krom[9].getData()[i].setAllele(krom[1].getData()[i].getAllele());//3
+                krom[8].getData()[i].setAllele(krom[0].getData()[i].getAllele());//2,8
+                krom[9].getData()[i].setAllele(krom[1].getData()[i].getAllele());//3,9
             } else {
-                krom[8].getData()[i].setAllele(krom[1].getData()[i].getAllele());//2
-                krom[9].getData()[i].setAllele(krom[0].getData()[i].getAllele());//3
+                krom[8].getData()[i].setAllele(krom[1].getData()[i].getAllele());//2,8
+                krom[9].getData()[i].setAllele(krom[0].getData()[i].getAllele());//3.9
             }
-            krom[8].getData()[i].setNilaiFitness(0);//2
-            krom[9].getData()[i].setNilaiFitness(0);//3
+            krom[8].getData()[i].setNilaiFitness(0);//2,8
+            krom[9].getData()[i].setNilaiFitness(0);//3,9
         }
 
         return krom;
@@ -51,7 +51,7 @@ public class Genetika {
         Kromosom[] krom = parent;
 
         //replace id duplikat (setelah di cross)
-        for (int i = 8; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi //2
+        for (int i = 8; i < krom.length; i++) { // 2-3 --> hanya kromosom anak yg di mutasi //2,8
             String simsem_hilang = "";
             for (int j = 0; j < krom[i].data.length; j++) {
                 if (krom[i].data[j].allele.getIdKelas() == 0) {
@@ -62,6 +62,7 @@ public class Genetika {
                     } else {
 //                        simsem_duplikat = simsem_duplikat + checklist_kk[tangkap].split("-")[0] + "-"; //menyimpan kelas makul yang duplikat
                         krom[i].data[j].setAllele(new KelasKuliah(0, new MataKuliah("-"), "-", new Dosen("-"))); //langsung menghapus matkul duplikat
+                        krom[i].data[j].setNilaiFitness(0);
                     }
                 }
             }
@@ -92,6 +93,7 @@ public class Genetika {
                 } else {
                     String id = simsem_hilang.split("-")[s];
                     krom[i].data[tangkap].setAllele(gantiKelasKuliah(id));
+                    krom[i].data[tangkap].setNilaiFitness(0);
                 }
             }
 
