@@ -53,14 +53,14 @@ public class Populasi {
     }
 
     public void EvaluasiFitness_child() {
-        for (int i = 8; i < getParent().length; i++) { //2,8
+        for (int i = 8; i < getParent().length; i++) { //2,8,14
             parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen, dataMakul, dataKelasKuliah);
         }
     }
 
     public void kriteriaBerhenti() {
         for (int i = 0; i < parent.length; i++) {
-            if (totalFitness(parent[i]) == 0) {//fitness
+            if (totalFitness(parent[i]) == 5) {//fitness
                 indexSolusi = i;
                 fitnessTerkecil = 0;
                 viewPenjadwalan.progres_barnya.setValue(100);
