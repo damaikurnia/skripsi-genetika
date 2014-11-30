@@ -6,8 +6,6 @@
 
 package kelas;
 
-import kelas.Dosen;
-
 /**
  *
  * @author Adhi
