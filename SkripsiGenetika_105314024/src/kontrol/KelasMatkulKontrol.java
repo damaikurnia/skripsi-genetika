@@ -175,7 +175,7 @@ public class KelasMatkulKontrol {
                 + "WHERE a.idMK = b.idMK AND a.idDosen = c.idDosen "
                 + "AND a.idKelas <> \"0\" AND c.namaDosen <> \"-\" AND "
                 + "(a.idMK LIKE '%" + key + "%' OR b.namaMK LIKE '%" + key + "%' "
-                + "OR A.Kelas LIKE '%" + key + "%' OR c.namaDosen LIKE '%" + key + "%')"
+                + "OR a.Kelas LIKE '%" + key + "%' OR c.namaDosen LIKE '%" + key + "%')"
                 + "ORDER BY b.semester,a.idMK,a.Kelas;";
         psmt = conn.prepareStatement(sql);
         rset = psmt.executeQuery();
