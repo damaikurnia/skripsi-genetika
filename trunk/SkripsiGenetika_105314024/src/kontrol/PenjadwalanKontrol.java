@@ -81,7 +81,7 @@ public class PenjadwalanKontrol {
         conn.setAutoCommit(false);
         String query = "SELECT a.idKelas,CONCAT(b.idMK,'-',c.namaMK,'-',b.Kelas) AS \"MATAKULIAH\", "
                 + "e.namaDosen, CONCAT(a.idRuang,'-',d.namaRuang) AS \"RUANG\",a.Hari,a.Jam \n"
-                + "FROM tabelpermintaan a,kelas_makul b,matakuliah c, ruang d, dosen e \n"
+                + "FROM tabelpermintaan a,kelas_makul b,matakuliah c, Ruang d, dosen e \n"
                 + "WHERE a.idKelas = b.idKelas AND a.idRuang = d.idRuang AND b.idMK = c.idMK AND b.idDosen = e.idDosen;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();

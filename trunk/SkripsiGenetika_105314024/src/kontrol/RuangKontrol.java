@@ -107,7 +107,7 @@ public class RuangKontrol {
         ResultSet result = null;
         conn.setAutoCommit(false);
 //        String query = "SELECT * FROM Ruang WHERE jenisRuang LIKE ('TEORI%')";
-        String query = "SELECT * FROM ruang WHERE jenisRuang LIKE('TEORI%') ORDER BY jenisRuang;";
+        String query = "SELECT * FROM Ruang WHERE jenisRuang LIKE('TEORI%') ORDER BY jenisRuang;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
