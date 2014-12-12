@@ -34,7 +34,7 @@ public class RuangKontrol {
     public void insertRuang(Ruang r) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "INSERT INTO RUANG VALUES(?,?,?)";
+        String query = "INSERT INTO ruang VALUES(?,?,?)";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, r.getIdRuang());
         stmt.setString(2, r.getNamaRuang());
@@ -48,7 +48,7 @@ public class RuangKontrol {
     public void updateRuang(Ruang ruang) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update Ruang set namaRuang = ?, jenisRuang = ? where idRuang = ?";
+        String query = "update ruang set namaRuang = ?, jenisRuang = ? where idRuang = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, ruang.getNamaRuang());
         stmt.setString(2, ruang.getJenisRuang());
@@ -62,7 +62,7 @@ public class RuangKontrol {
     public void deleteRuang(Ruang ruang) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "delete from Ruang where idRuang = ?";
+        String query = "delete from ruang where idRuang = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, ruang.getIdRuang());
 
@@ -76,7 +76,7 @@ public class RuangKontrol {
         Ruang temp = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
-        String query = "SELECT * FROM Ruang WHERE idRuang <> \"-\"";
+        String query = "SELECT * FROM ruang WHERE idRuang <> \"-\"";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
@@ -107,7 +107,7 @@ public class RuangKontrol {
         ResultSet result = null;
         conn.setAutoCommit(false);
 //        String query = "SELECT * FROM Ruang WHERE jenisRuang LIKE ('TEORI%')";
-        String query = "SELECT * FROM Ruang WHERE jenisRuang LIKE('TEORI%') ORDER BY jenisRuang;";
+        String query = "SELECT * FROM ruang WHERE jenisRuang LIKE('TEORI%') ORDER BY jenisRuang;";
         stmt = conn.prepareStatement(query);
         result = stmt.executeQuery();
         List<Ruang> ruang = new ArrayList<Ruang>();
@@ -124,7 +124,7 @@ public class RuangKontrol {
         PreparedStatement psmt = null;
         ResultSet rset = null;
         conn.setAutoCommit(false);
-        String sql = "select TRUE from RUANG where idRuang = ?";
+        String sql = "select TRUE from ruang where idRuang = ?";
         psmt = conn.prepareStatement(sql);
         psmt.setString(1, key);
         rset = psmt.executeQuery();
