@@ -284,7 +284,7 @@ public class PenjadwalanKontrol {
             rset = psmt.executeQuery();
 
             //Membuat file XLS baru bernama "output.xls"
-            WritableWorkbook w = Workbook.createWorkbook(new File("JADWAL-" + sem + "-" + kelas +".xls"));
+            WritableWorkbook w = Workbook.createWorkbook(new File("JADWAL-" + sem + "-" + kelas + ".xls"));
             //Membuat sheet baru bernama "Sheet Baru"
             //(kolom,baris)
             WritableSheet s = w.createSheet("Sheet 0", 0);
