@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.Normalizer.Form;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,7 +134,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     }
 
     private void updateTabelJadwal() throws SQLException {
-        List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwal();
+        int semester = Integer.parseInt(comboSemester_sol.getSelectedItem().toString());
+        String Kelas = comboKelas_sol.getSelectedItem().toString();
+        List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwal(semester,Kelas);
         TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
         Tabel_Solusi.setModel(model);
     }
@@ -214,7 +217,11 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jPanel15 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         Tabel_Solusi = new javax.swing.JTable();
-        tomboldialog_dosen1 = new javax.swing.JButton();
+        buttonCetakExcel = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        comboSemester_sol = new javax.swing.JComboBox();
+        comboKelas_sol = new javax.swing.JComboBox();
         dialog_penjadwalanAll = new javax.swing.JDialog();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -270,6 +277,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         labelKelas = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         tombolKhusus = new javax.swing.JButton();
+        button_lihatJadwal = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -573,7 +581,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE))
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -601,10 +609,28 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(Tabel_Solusi);
 
-        tomboldialog_dosen1.setText("BATAL");
-        tomboldialog_dosen1.addActionListener(new java.awt.event.ActionListener() {
+        buttonCetakExcel.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        buttonCetakExcel.setText("CETAK KE DALAM EXCEL");
+        buttonCetakExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tomboldialog_dosen1ActionPerformed(evt);
+                buttonCetakExcelActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("SEMESTER");
+
+        jLabel26.setText("KELAS");
+
+        comboSemester_sol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSemester_solActionPerformed(evt);
+            }
+        });
+
+        comboKelas_sol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" }));
+        comboKelas_sol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboKelas_solActionPerformed(evt);
             }
         });
 
@@ -614,20 +640,34 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE))
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(454, 454, 454)
-                .addComponent(tomboldialog_dosen1)
-                .addGap(0, 493, Short.MAX_VALUE))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonCetakExcel)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboSemester_sol, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel26)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tomboldialog_dosen1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(comboSemester_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(buttonCetakExcel))
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -644,7 +684,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         dialog_solusiJadwal.getContentPane().add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
@@ -1022,7 +1063,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 tombol_tambahPermintaanActionPerformed(evt);
             }
         });
-        jPanel4.add(tombol_tambahPermintaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 40));
+        jPanel4.add(tombol_tambahPermintaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 30));
 
         button_batal.setText("BATAL");
         button_batal.addActionListener(new java.awt.event.ActionListener() {
@@ -1047,7 +1088,17 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                 tombolKhususActionPerformed(evt);
             }
         });
-        jPanel4.add(tombolKhusus, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 240, 40));
+        jPanel4.add(tombolKhusus, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 240, 30));
+
+        button_lihatJadwal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        button_lihatJadwal.setForeground(new java.awt.Color(164, 133, 1));
+        button_lihatJadwal.setText("LIHAT JADWAL");
+        button_lihatJadwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_lihatJadwalActionPerformed(evt);
+            }
+        });
+        jPanel4.add(button_lihatJadwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 240, 30));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 940, 330));
 
@@ -1195,8 +1246,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     }//GEN-LAST:event_button_batalActionPerformed
 
     private void tombol_tambahPermintaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_tambahPermintaanActionPerformed
-        if (text_dosen.getText().equals("")&&text_klsMatkul.getText().equals("")) {
-            JOptionPane.showMessageDialog(null,"Silahkan Pilih Dosen dan Matakuliah terlebih dahulu!");
+        if (text_dosen.getText().equals("") && text_klsMatkul.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan Pilih Dosen dan Matakuliah terlebih dahulu!");
         } else {
             try {
                 int noRule = PenjadwalanKontrol.getKoneksi().cariNoRule();
@@ -1355,10 +1406,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Tabel_SolusiMouseClicked
 
-    private void tomboldialog_dosen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomboldialog_dosen1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tomboldialog_dosen1ActionPerformed
-
     private void dialog_dosenWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_dosenWindowActivated
         Image oldIcon = getIconImage();
         ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
@@ -1504,6 +1551,54 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_tambahPermintaanAllActionPerformed
 
+    private void buttonCetakExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakExcelActionPerformed
+//        PenjadwalanKontrol.getKoneksi().
+    }//GEN-LAST:event_buttonCetakExcelActionPerformed
+
+    private void button_lihatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_lihatJadwalActionPerformed
+        try {
+            List<String> semesterKelas = PenjadwalanKontrol.getKoneksi().tampilSemesterKelas();
+            isiSemesterdiSolusi(semesterKelas);
+            updateTabelJadwal();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dialog_solusiJadwal.setVisible(true);
+    }//GEN-LAST:event_button_lihatJadwalActionPerformed
+
+    private void comboSemester_solActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSemester_solActionPerformed
+        try {
+            updateTabelJadwal();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_comboSemester_solActionPerformed
+
+    private void comboKelas_solActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboKelas_solActionPerformed
+        try {
+            updateTabelJadwal();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_comboKelas_solActionPerformed
+
+    public void isiSemesterdiSolusi(List<String> semesterKelas) {
+        comboSemester_sol.removeAllItems();
+        if (Integer.parseInt(semesterKelas.get(0).split("-")[0]) % 2 == 1) {//semester ganjil
+            int semester = 1;
+            for (int i = 0; i < 4; i++) {
+                comboSemester_sol.addItem(semester);
+                semester += 2;
+            }
+        } else {
+            int semester = 2;
+            for (int i = 0; i < 4; i++) {
+                comboSemester_sol.addItem(semester);
+                semester += 2;
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1533,9 +1628,13 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JTable Tabel_Permintaan;
     private javax.swing.JTable Tabel_Solusi;
     private javax.swing.JButton buttonCariMatkul;
+    private javax.swing.JButton buttonCetakExcel;
     private javax.swing.JButton button_batal;
+    private javax.swing.JButton button_lihatJadwal;
     private javax.swing.JButton button_tambahPermintaanAll;
     private javax.swing.JComboBox comboHari_all;
+    private javax.swing.JComboBox comboKelas_sol;
+    private javax.swing.JComboBox comboSemester_sol;
     private javax.swing.JComboBox combo_hari;
     private javax.swing.JComboBox combo_jam;
     private javax.swing.JComboBox combo_jamAll;
@@ -1566,6 +1665,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1623,7 +1724,6 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JButton tombol_cariMatkul;
     private javax.swing.JButton tombol_tambahPermintaan;
     private javax.swing.JButton tomboldialog_dosen;
-    private javax.swing.JButton tomboldialog_dosen1;
     private javax.swing.JButton tomboldialog_matkul;
     private javax.swing.JButton tomboldialog_matkul1;
     // End of variables declaration//GEN-END:variables
