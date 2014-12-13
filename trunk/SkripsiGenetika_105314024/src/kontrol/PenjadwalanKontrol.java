@@ -264,299 +264,281 @@ public class PenjadwalanKontrol {
         conn.close();
         return tab;
     }
-    
-    public void ExportExcel(int sem, String kelas) throws SQLException, IOException {
+
+    public void ExportExcel(int sem, String kelas) throws SQLException, IOException, WriteException {//punya awenk
         try {
             PreparedStatement psmt = null;
             ResultSet rset = null;
-            PreparedStatement psmt1 = null;
-            ResultSet rset1 = null;
             conn.setAutoCommit(false);
-            String sqlcek = "SELECT count(s.kodesolusi),km.kodekm,km.kelas,"
-                    + "m.id_matkul,m.kode_matakuliah,m.nama_matakuliah,m.jumlah_sks,M.JP,M.semester,m.jenis,"
-                    + "ts.kodets,hr.kode_hari,hr.hari,wkt.kode_waktu,wkt.jam,r.kode_ruang,r.nama_ruang,dsn.nip,dsn.nama_dosen "
-                    + "FROM solusi s, kelasmatakuliah km, matakuliah m, dosen dsn, timeslot ts, waktu wkt,hari hr, ruang r "
-                    + "WHERE s.kelasmatakuliah=km.kodekm AND s.timeslot=ts.kodets AND s.ruang=r.kode_ruang AND km.id_matkul= m.id_matkul AND km.kodedosen=dsn.nip AND ts.kodewaktu=wkt.kode_waktu AND ts.kodehari=hr.kode_hari AND m.semester=? AND km.Kelas=? order by M.semester,m.id_matkul,km.kelas asc";
+            String sql = "select a.Hari,a.Jam,a.idKelas,b.Kelas,c.namaMK,"
+                    + "c.semester,c.JP,d.namaDosen,e.namaRuang \n"
+                    + "from tabel_jadwal a,kelas_makul b, matakuliah c, dosen d,ruang e \n"
+                    + "where a.idKelas = b.idKelas AND b.idMK = c.idMK "
+                    + "AND b.idDosen = d.idDosen AND a.idRuang = e.idRuang \n"
+                    + "AND c.semester = ? AND b.Kelas = ?\n"
+                    + "ORDER by noRule ASC;";
 
-            String sql = "SELECT DISTINCT(s.kodesolusi),km.kodekm,km.kelas,"
-                    + "m.id_matkul,m.kode_matakuliah,m.nama_matakuliah,m.jumlah_sks,M.JP,M.semester,m.jenis,"
-                    + "ts.kodets,hr.kode_hari,hr.hari,wkt.kode_waktu,wkt.jam,r.kode_ruang,r.nama_ruang,dsn.nip,dsn.nama_dosen "
-                    + "FROM solusi s, kelasmatakuliah km, matakuliah m, dosen dsn, timeslot ts, waktu wkt,hari hr, ruang r "
-                    + "WHERE s.kelasmatakuliah=km.kodekm AND s.timeslot=ts.kodets AND s.ruang=r.kode_ruang AND km.id_matkul= m.id_matkul AND km.kodedosen=dsn.nip AND ts.kodewaktu=wkt.kode_waktu AND ts.kodehari=hr.kode_hari AND m.semester=? AND km.Kelas=? order by M.semester,m.id_matkul,km.kelas asc";
+            psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, sem);
+            psmt.setString(2, kelas);
+            rset = psmt.executeQuery();
 
-            psmt1 = conn.prepareStatement(sqlcek);
-            psmt1.setInt(1, sem);
-            psmt1.setString(2, kelas);
-            rset1 = psmt1.executeQuery();
-            int cek = 0;
-            while (rset1.next()) {
-                cek = rset1.getInt(1);
-                break;
-            }
-            if (cek > 0) {
-                psmt = conn.prepareStatement(sql);
-                psmt.setInt(1, sem);
-                psmt.setString(2, kelas);
-                rset = psmt.executeQuery();
+            //Membuat file XLS baru bernama "output.xls"
+            WritableWorkbook w = Workbook.createWorkbook(new File("JADWAL-" + sem + "-" + kelas +".xls"));
+            //Membuat sheet baru bernama "Sheet Baru"
+            //(kolom,baris)
+            WritableSheet s = w.createSheet("Sheet 0", 0);
+//            s.addCell(new Label(1, 0, "JADWAL MATAKULIAH PGSD SEMESTER "+sem+" KELAS "+kelas));
+            s.addCell(new Label(0, 1, "HARI/JAM"));
 
-                //Mendefinisikan file XLS baru bernama "output.xls"
-                WritableWorkbook w = Workbook.createWorkbook(new File("JADWAL " + sem + " " + kelas + ".xls"));
-                //Membuat sheet baru bernama "Sheet Baru"
+            s.addCell(new Label(1, 1, "SENIN"));
+            s.addCell(new Label(2, 1, "SELASA"));
+            s.addCell(new Label(3, 1, "RABU"));
+            s.addCell(new Label(4, 1, "KAMIS"));
+            s.addCell(new Label(5, 1, "JUMAT"));
 
-                WritableSheet s = w.createSheet("Sheet 0", 0);
+            s.addCell(new Label(0, 2, "07.00-07.50"));
+            s.addCell(new Label(0, 3, "08.00-08.50"));
+            s.addCell(new Label(0, 4, "09.00-09.50"));
+            s.addCell(new Label(0, 5, "10.00-10.50"));
+            s.addCell(new Label(0, 6, "11.00-11.50"));
+            s.addCell(new Label(0, 7, "12.00-12.50"));
+            s.addCell(new Label(0, 8, "13.00-13.50"));
+            s.addCell(new Label(0, 9, "14.00-14.50"));
+            s.addCell(new Label(0, 10, "15.00-15.50"));
+            s.addCell(new Label(0, 11, "16.00-16.50"));
+            s.addCell(new Label(0, 12, "17.00-17.50"));
+            s.addCell(new Label(0, 13, "18.00-18.50"));
 
-                s.addCell(new Label(0, 1, "HARI/JAM"));
+            while (rset.next()) {
+                s.addCell(new Label(0, 0, "MATAKULIAH PGSD SEMESTER " + rset.getInt(6) + " KELAS " + rset.getString(4)));
+                if (rset.getString(1).equals("Senin")) {
+                    if (rset.getString(2).equals("07:00-09:59")) {
+                        if (rset.getInt(7) < 3) {//2 jp
+                            s.addCell(new Label(1, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 3, "IDEM"));
 
-                s.addCell(new Label(1, 1, "SENIN"));
-                s.addCell(new Label(2, 1, "SELASA"));
-                s.addCell(new Label(3, 1, "RABU"));
-                s.addCell(new Label(4, 1, "KAMIS"));
-                s.addCell(new Label(5, 1, "JUMAT"));
-
-                s.addCell(new Label(0, 2, "07.00-07.50"));
-                s.addCell(new Label(0, 3, "08.00-08.50"));
-                s.addCell(new Label(0, 4, "09.00-09.50"));
-                s.addCell(new Label(0, 5, "10.00-10.50"));
-                s.addCell(new Label(0, 6, "11.00-11.50"));
-                s.addCell(new Label(0, 7, "12.00-12.50"));
-                s.addCell(new Label(0, 8, "13.00-13.50"));
-                s.addCell(new Label(0, 9, "14.00-14.50"));
-                s.addCell(new Label(0, 10, "15.00-15.50"));
-                s.addCell(new Label(0, 11, "16.00-16.50"));
-                s.addCell(new Label(0, 12, "17.00-17.50"));
-                s.addCell(new Label(0, 13, "18.00-18.50"));
-
-                while (rset.next()) {
-                    s.addCell(new Label(0, 0, "SEMESTER " + rset.getInt(9) + " KELAS " + rset.getString(3)));
-                    if (rset.getString(12).equals("H1")) {
-                        if (rset.getString(14).equalsIgnoreCase("W1")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(1, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 3, "IDEM"));
-
-                            } else {
-                                s.addCell(new Label(1, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 3, "IDEM"));
-                                s.addCell(new Label(1, 4, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W2")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(1, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 6, "IDEM"));
-
-                            } else {
-                                s.addCell(new Label(1, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 6, "IDEM"));
-                                s.addCell(new Label(1, 7, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W3")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(1, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 9, "IDEM"));
-                            } else {
-                                s.addCell(new Label(1, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 9, "IDEM"));
-                                s.addCell(new Label(1, 10, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W4")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(1, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 12, "IDEM"));
-                            } else {
-                                s.addCell(new Label(1, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(1, 12, "IDEM"));
-                                s.addCell(new Label(1, 13, "IDEM"));
-                            }
+                        } else {//3jp
+                            s.addCell(new Label(1, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 3, "IDEM"));
+                            s.addCell(new Label(1, 4, "IDEM"));
                         }
                     }
-                    if (rset.getString(12).equals("H2")) {
-                        if (rset.getString(14).equalsIgnoreCase("W1")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(2, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 3, "IDEM"));
-                            } else {
-                                s.addCell(new Label(2, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 3, "IDEM"));
-                                s.addCell(new Label(2, 4, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W2")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(2, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 6, "IDEM"));
-                            } else {
-                                s.addCell(new Label(2, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 6, "IDEM"));
-                                s.addCell(new Label(2, 7, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W3")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(2, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 9, "IDEM"));
-                            } else {
-                                s.addCell(new Label(2, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 9, "IDEM"));
-                                s.addCell(new Label(2, 10, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W4")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(2, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 12, "IDEM"));
-                            } else {
-                                s.addCell(new Label(2, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(2, 12, "IDEM"));
-                                s.addCell(new Label(2, 13, "IDEM"));
-                            }
-                        }
-                    }
-                    if (rset.getString(12).equals("H3")) {
-                        if (rset.getString(14).equalsIgnoreCase("W1")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(3, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 3, "IDEM"));
-                            } else {
-                                s.addCell(new Label(3, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 3, "IDEM"));
-                                s.addCell(new Label(3, 4, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W2")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(3, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 6, "IDEM"));
-                            } else {
-                                s.addCell(new Label(3, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 6, "IDEM"));
-                                s.addCell(new Label(3, 7, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W3")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(3, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 9, "IDEM"));
-                            } else {
-                                s.addCell(new Label(3, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 9, "IDEM"));
-                                s.addCell(new Label(3, 10, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W4")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(3, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 12, "IDEM"));
-                            } else {
-                                s.addCell(new Label(3, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(3, 12, "IDEM"));
-                                s.addCell(new Label(3, 13, "IDEM"));
-                            }
-                        }
-                    }
-                    if (rset.getString(12).equals("H4")) {
-                        if (rset.getString(14).equalsIgnoreCase("W1")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(4, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 3, "IDEM"));
-                            } else {
-                                s.addCell(new Label(4, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 3, "IDEM"));
-                                s.addCell(new Label(4, 4, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W2")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(4, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 6, "IDEM"));
-                            } else {
-                                s.addCell(new Label(4, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 6, "IDEM"));
-                                s.addCell(new Label(4, 7, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W3")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(4, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 9, "IDEM"));
-                            } else {
-                                s.addCell(new Label(4, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 9, "IDEM"));
-                                s.addCell(new Label(4, 10, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W4")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(4, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 12, "IDEM"));
-                            } else {
-                                s.addCell(new Label(4, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(4, 12, "IDEM"));
-                                s.addCell(new Label(4, 13, "IDEM"));
-                            }
-                        }
-                    }
-                    if (rset.getString(12).equals("H5")) {
-                        if (rset.getString(14).equalsIgnoreCase("W1")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(5, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 3, "IDEM"));
-                            } else {
-                                s.addCell(new Label(5, 2, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 3, "IDEM"));
-                                s.addCell(new Label(5, 4, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W2")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(5, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 6, "IDEM"));
-                            } else {
-                                s.addCell(new Label(5, 5, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 6, "IDEM"));
-                                s.addCell(new Label(5, 7, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W3")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(5, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 9, "IDEM"));
-                            } else {
-                                s.addCell(new Label(5, 8, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 9, "IDEM"));
-                                s.addCell(new Label(5, 10, "IDEM"));
-                            }
-                        }
-                        if (rset.getString(14).equalsIgnoreCase("W4")) {
-                            if (rset.getInt(7) < 3) {
-                                s.addCell(new Label(5, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 12, "IDEM"));
-                            } else {
-                                s.addCell(new Label(5, 11, rset.getString(6) + " (" + rset.getString(3) + ") \n" + rset.getString(19) + "\n" + rset.getString(17)));
-                                s.addCell(new Label(5, 12, "IDEM"));
-                                s.addCell(new Label(5, 13, "IDEM"));
-                            }
-                        }
-                    }
-                }   //Menulis data ke excell shet
-                w.write();
-                //Menutup sambungan
-                w.close();
+                    if (rset.getString(2).equals("10:00-12:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(1, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 6, "IDEM"));
 
-                conn.commit();
-            }
-            //        return st;
+                        } else {
+                            s.addCell(new Label(1, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 6, "IDEM"));
+                            s.addCell(new Label(1, 7, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("13:00-15:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(1, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 9, "IDEM"));
+                        } else {
+                            s.addCell(new Label(1, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 9, "IDEM"));
+                            s.addCell(new Label(1, 10, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("16:00-18:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(1, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 12, "IDEM"));
+                        } else {
+                            s.addCell(new Label(1, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(1, 12, "IDEM"));
+                            s.addCell(new Label(1, 13, "IDEM"));
+                        }
+                    }
+                }
+                if (rset.getString(1).equals("Selasa")) {
+                    if (rset.getString(2).equals("07:00-09:59")) {
+                        if (rset.getInt(7) < 3) {//2 jp
+                            s.addCell(new Label(2, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 3, "IDEM"));
+
+                        } else {//3jp
+                            s.addCell(new Label(2, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 3, "IDEM"));
+                            s.addCell(new Label(2, 4, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("10:00-12:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(2, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 6, "IDEM"));
+                        } else {
+                            s.addCell(new Label(2, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 6, "IDEM"));
+                            s.addCell(new Label(2, 7, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("13:00-15:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(2, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 9, "IDEM"));
+                        } else {
+                            s.addCell(new Label(2, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 9, "IDEM"));
+                            s.addCell(new Label(2, 10, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("16:00-18:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(2, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 12, "IDEM"));
+                        } else {
+                            s.addCell(new Label(2, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(2, 12, "IDEM"));
+                            s.addCell(new Label(2, 13, "IDEM"));
+                        }
+                    }
+                }
+                if (rset.getString(1).equals("Rabu")) {
+                    if (rset.getString(2).equals("07:00-09:59")) {
+                        if (rset.getInt(7) < 3) {//2 jp
+                            s.addCell(new Label(3, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 3, "IDEM"));
+
+                        } else {//3jp
+                            s.addCell(new Label(3, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 3, "IDEM"));
+                            s.addCell(new Label(3, 4, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("10:00-12:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(3, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 6, "IDEM"));
+                        } else {
+                            s.addCell(new Label(3, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 6, "IDEM"));
+                            s.addCell(new Label(3, 7, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("13:00-15:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(3, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 9, "IDEM"));
+                        } else {
+                            s.addCell(new Label(3, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 9, "IDEM"));
+                            s.addCell(new Label(3, 10, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("16:00-18:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(3, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 12, "IDEM"));
+                        } else {
+                            s.addCell(new Label(3, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(3, 12, "IDEM"));
+                            s.addCell(new Label(3, 13, "IDEM"));
+                        }
+                    }
+                }
+                if (rset.getString(1).equals("Kamis")) {
+                    if (rset.getString(2).equals("07:00-09:59")) {
+                        if (rset.getInt(7) < 3) {//2 jp
+                            s.addCell(new Label(4, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 3, "IDEM"));
+
+                        } else {//3jp
+                            s.addCell(new Label(4, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 3, "IDEM"));
+                            s.addCell(new Label(4, 4, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("10:00-12:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(4, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 6, "IDEM"));
+                        } else {
+                            s.addCell(new Label(4, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 6, "IDEM"));
+                            s.addCell(new Label(4, 7, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("13:00-15:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(4, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 9, "IDEM"));
+                        } else {
+                            s.addCell(new Label(4, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 9, "IDEM"));
+                            s.addCell(new Label(4, 10, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("16:00-18:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(4, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 12, "IDEM"));
+                        } else {
+                            s.addCell(new Label(4, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(4, 12, "IDEM"));
+                            s.addCell(new Label(4, 13, "IDEM"));
+                        }
+                    }
+                }
+                if (rset.getString(1).equals("Jumat")) {
+                    if (rset.getString(2).equals("07:00-09:59")) {
+                        if (rset.getInt(7) < 3) {//2 jp
+                            s.addCell(new Label(5, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 3, "IDEM"));
+
+                        } else {//3jp
+                            s.addCell(new Label(5, 2, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 3, "IDEM"));
+                            s.addCell(new Label(5, 4, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("10:00-12:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(5, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 6, "IDEM"));
+                        } else {
+                            s.addCell(new Label(5, 5, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 6, "IDEM"));
+                            s.addCell(new Label(5, 7, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("13:00-15:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(5, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 9, "IDEM"));
+                        } else {
+                            s.addCell(new Label(5, 8, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 9, "IDEM"));
+                            s.addCell(new Label(5, 10, "IDEM"));
+                        }
+                    }
+                    if (rset.getString(2).equals("16:00-18:59")) {
+                        if (rset.getInt(7) < 3) {
+                            s.addCell(new Label(5, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 12, "IDEM"));
+                        } else {
+                            s.addCell(new Label(5, 11, rset.getString(5) + " (" + rset.getString(4) + ") \n" + rset.getString(8) + "\n" + rset.getString(9)));
+                            s.addCell(new Label(5, 12, "IDEM"));
+                            s.addCell(new Label(5, 13, "IDEM"));
+                        }
+                    }
+                }
+            }   //Menulis data ke excell shet
+            w.write();
+            //Menutup sambungan
+            w.close();
+
+            conn.commit();
         } catch (WriteException ex) {
             Logger.getLogger(PenjadwalanKontrol.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(PenjadwalanKontrol.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public static void main(String[] args) {
-        int a = 3;
-        System.out.println(a%2);
+        //        return st;
     }
 }
