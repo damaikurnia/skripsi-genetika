@@ -213,7 +213,7 @@ public class PenjadwalanKontrol {
         conn.close();
     }
 
-    public List<tabelPermintaan> tampilTabelJadwal() throws SQLException {
+    public List<tabelPermintaan> tampilTabelJadwal(int sem, String kelas) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
         conn.setAutoCommit(false);
@@ -222,8 +222,11 @@ public class PenjadwalanKontrol {
                 + "AS \"RUANG\",a.Hari,a.Jam \n "
                 + "FROM tabel_jadwal a,kelas_makul b,matakuliah c, ruang d, dosen e \n"
                 + "WHERE a.idKelas = b.idKelas AND a.idRuang = d.idRuang "
-                + "AND b.idMK = c.idMK AND b.idDosen = e.idDosen;";
+                + "AND b.idMK = c.idMK AND b.idDosen = e.idDosen "
+                + "AND c.semester = ? AND b.Kelas = ?;";
         stmt = conn.prepareStatement(query);
+        stmt.setInt(1, sem);
+        stmt.setString(2, kelas);
         result = stmt.executeQuery();
         List<tabelPermintaan> tab = new ArrayList<tabelPermintaan>();
 
@@ -241,8 +244,28 @@ public class PenjadwalanKontrol {
         conn.close();
         return tab;
     }
+
+    public List<String> tampilSemesterKelas() throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        conn.setAutoCommit(false);
+        String query = "SELECT b.semester,c.Kelas  \n"
+                + "FROM tabel_jadwal a, matakuliah b, kelas_makul c \n"
+                + "where a.idKelas = c.idKelas and c.idMK = b.idMK AND b.semester <> 0\n"
+                + "GROUp by b.semester,c.Kelas;";
+        stmt = conn.prepareStatement(query);
+        result = stmt.executeQuery();
+        List<String> tab = new ArrayList<String>();
+
+        tabelPermintaan temp = null;
+        while (result.next()) {
+            tab.add(result.getString(1) + "-" + result.getString(2));
+        }
+        conn.close();
+        return tab;
+    }
     
-      public void ExportExcel(int sem, String kelas) throws SQLException, IOException {
+    public void ExportExcel(int sem, String kelas) throws SQLException, IOException {
         try {
             PreparedStatement psmt = null;
             ResultSet rset = null;
@@ -531,12 +554,9 @@ public class PenjadwalanKontrol {
             Logger.getLogger(PenjadwalanKontrol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void main(String[] args) {
-        String query = "SELECT a.idKelas,CONCAT(b.idMK,'-',c.namaMK,'-',b.Kelas) AS \"MATAKULIAH\", "
-                + "e.namaDosen, CONCAT(a.idRuang,'-',d.namaRuang) AS \"RUANG\",a.Hari,a.Jam \n"
-                + "FROM tabelpermintaan a,kelas_makul b,matakuliah c, ruang d, dosen e \n"
-                + "WHERE a.idKelas = b.idKelas AND a.idRuang = d.idRuang AND b.idMK = c.idMK AND b.idDosen = e.idDosen;";
-        System.out.println(query);
+        int a = 3;
+        System.out.println(a%2);
     }
 }
