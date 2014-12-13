@@ -224,6 +224,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         comboSemester_sol = new javax.swing.JComboBox();
         comboKelas_sol = new javax.swing.JComboBox();
+        buttonCetakSeluruhExcel = new javax.swing.JButton();
         dialog_penjadwalanAll = new javax.swing.JDialog();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -636,6 +637,14 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             }
         });
 
+        buttonCetakSeluruhExcel.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        buttonCetakSeluruhExcel.setText("CETAK SELURUH JADWAL");
+        buttonCetakSeluruhExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCetakSeluruhExcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -655,8 +664,10 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                         .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(364, 364, 364)
+                .addGap(179, 179, 179)
                 .addComponent(buttonCetakExcel)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCetakSeluruhExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -670,9 +681,14 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                     .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonCetakExcel)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(buttonCetakSeluruhExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(72, 72, 72))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(buttonCetakExcel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1571,7 +1587,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         } catch (WriteException ex) {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(null, "Jadwal Kuliah Semester "+Integer.toString(Semester)+"-"+Kelas+" Berhasil Disimpan");
+        JOptionPane.showMessageDialog(null, "Jadwal Kuliah Semester " + Integer.toString(Semester) + "-" + Kelas + " Berhasil Dicetak");
     }//GEN-LAST:event_buttonCetakExcelActionPerformed
 
     private void button_lihatJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_lihatJadwalActionPerformed
@@ -1600,6 +1616,28 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_comboKelas_solActionPerformed
+
+    private void buttonCetakSeluruhExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakSeluruhExcelActionPerformed
+        List<String> sekel = new ArrayList<>();
+        try {
+            sekel = PenjadwalanKontrol.getKoneksi().tampilSemesterKelas();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (int i = 0; i < sekel.size(); i++) {
+            try {
+                PenjadwalanKontrol.getKoneksi().ExportExcel(Integer.parseInt(sekel.get(i).split("-")[0]), sekel.get(i).split("-")[1]);
+            } catch (SQLException ex) {
+                Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (WriteException ex) {
+                Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Seluruh Jadwal Matakuliah Telah Berhasil Dicetak");
+    }//GEN-LAST:event_buttonCetakSeluruhExcelActionPerformed
 
     public void isiSemesterdiSolusi(List<String> semesterKelas) {
         comboSemester_sol.removeAllItems();
@@ -1648,6 +1686,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JTable Tabel_Solusi;
     private javax.swing.JButton buttonCariMatkul;
     private javax.swing.JButton buttonCetakExcel;
+    private javax.swing.JButton buttonCetakSeluruhExcel;
     private javax.swing.JButton button_batal;
     private javax.swing.JButton button_lihatJadwal;
     private javax.swing.JButton button_tambahPermintaanAll;
