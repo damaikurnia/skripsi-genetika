@@ -81,7 +81,12 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         dialog_solusiJadwal.setVisible(false);
         dialog_solusiJadwal.setSize(1033, 470);
         dialog_solusiJadwal.setLocationRelativeTo(null);
-        dialog_solusiJadwal.setTitle("JADWAL");
+        dialog_solusiJadwal.setTitle("JADWAL MAHASISWA");
+
+        dialog_solusiJadwalDosen.setVisible(false);
+        dialog_solusiJadwalDosen.setSize(1033, 470);
+        dialog_solusiJadwalDosen.setLocationRelativeTo(null);
+        dialog_solusiJadwalDosen.setTitle("JADWAL DOSEN");
 
         dialog_penjadwalanAll.setVisible(false);
         dialog_penjadwalanAll.setSize(685, 450);
@@ -141,6 +146,13 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwal(semester, Kelas);
         TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
         Tabel_Solusi.setModel(model);
+    }
+
+    private void updateTabelJadwalDosen() throws SQLException {
+        String idDosen = comboDosen_sol.getSelectedItem().toString().split("-")[0];
+        List<tabelPermintaan> mktm = PenjadwalanKontrol.getKoneksi().tampilTabelJadwalDosen(idDosen);
+        TabelPermintaan_TM model = new TabelPermintaan_TM(mktm);
+        Tabel_SolusiDos.setModel(model);
     }
 
     private void isiComboRuang() throws SQLException {
@@ -225,6 +237,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         comboSemester_sol = new javax.swing.JComboBox();
         comboKelas_sol = new javax.swing.JComboBox();
         buttonCetakSeluruhExcel = new javax.swing.JButton();
+        buttonJadwalDosen = new javax.swing.JButton();
         dialog_penjadwalanAll = new javax.swing.JDialog();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -250,6 +263,16 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         tabel_MatakuliahAll = new javax.swing.JTable();
         tomboldialog_matkul1 = new javax.swing.JButton();
+        dialog_solusiJadwalDosen = new javax.swing.JDialog();
+        jPanel22 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Tabel_SolusiDos = new javax.swing.JTable();
+        buttonCetakExcel1 = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        comboDosen_sol = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
@@ -645,6 +668,13 @@ public class viewPenjadwalan extends javax.swing.JFrame {
             }
         });
 
+        buttonJadwalDosen.setText("JADWAL DOSEN");
+        buttonJadwalDosen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonJadwalDosenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -662,7 +692,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonJadwalDosen, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(179, 179, 179)
                 .addComponent(buttonCetakExcel)
@@ -678,8 +710,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
                     .addComponent(jLabel25)
                     .addComponent(jLabel26)
                     .addComponent(comboSemester_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                    .addComponent(comboKelas_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonJadwalDosen))
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -906,6 +939,122 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         );
 
         dialog_matkulAll.getContentPane().add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        dialog_solusiJadwalDosen.setTitle("HASIL JADWAL KULIAH");
+        dialog_solusiJadwalDosen.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dialog_solusiJadwalDosenWindowActivated(evt);
+            }
+        });
+        dialog_solusiJadwalDosen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel23.setBackground(new java.awt.Color(255, 102, 0));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel27.setText("JADWAL YANG DIHASILKAN");
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE))
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        Tabel_SolusiDos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabel_SolusiDos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabel_SolusiDosMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(Tabel_SolusiDos);
+
+        buttonCetakExcel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        buttonCetakExcel1.setText("CETAK KE DALAM EXCEL");
+        buttonCetakExcel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCetakExcel1ActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setText("DOSEN");
+
+        comboDosen_sol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDosen_solActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboDosen_sol, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(buttonCetakExcel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(comboDosen_sol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCetakExcel1)
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dialog_solusiJadwalDosen.getContentPane().add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEM PENJADWALAN MATAKULIAH PGSD USD - INFORMASI PERMINTAAN KELAS");
@@ -1639,6 +1788,52 @@ public class viewPenjadwalan extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Seluruh Jadwal Matakuliah Telah Berhasil Dicetak");
     }//GEN-LAST:event_buttonCetakSeluruhExcelActionPerformed
 
+    private void Tabel_SolusiDosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel_SolusiDosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tabel_SolusiDosMouseClicked
+
+    private void buttonCetakExcel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakExcel1ActionPerformed
+        String idDosen = comboDosen_sol.getSelectedItem().toString().split("-")[0];
+        try {
+            PenjadwalanKontrol.getKoneksi().ExportExcelDosen(idDosen);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (WriteException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Data Jadwal Dosen "+comboDosen_sol.getSelectedItem().toString()+" Berhasil Dicetak");
+    }//GEN-LAST:event_buttonCetakExcel1ActionPerformed
+
+    private void comboDosen_solActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDosen_solActionPerformed
+        try {
+            updateTabelJadwalDosen();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_comboDosen_solActionPerformed
+
+    private void dialog_solusiJadwalDosenWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialog_solusiJadwalDosenWindowActivated
+        Image oldIcon = getIconImage();
+        ImageIcon newIcon = createImageIcon("/gambar/dosen.png");
+        dialog_solusiJadwal.setIconImage(newIcon.getImage());
+    }//GEN-LAST:event_dialog_solusiJadwalDosenWindowActivated
+
+    private void buttonJadwalDosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJadwalDosenActionPerformed
+        try {
+            List<String> dtDos = PenjadwalanKontrol.getKoneksi().tampilDosenSolusi();
+            comboDosen_sol.removeAllItems();
+            for (int i = 0; i < dtDos.size(); i++) {
+                comboDosen_sol.addItem(dtDos.get(i));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPenjadwalan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dialog_solusiJadwal.setVisible(false);
+        dialog_solusiJadwalDosen.setVisible(true);
+    }//GEN-LAST:event_buttonJadwalDosenActionPerformed
+
     public void isiSemesterdiSolusi(List<String> semesterKelas) {
         comboSemester_sol.removeAllItems();
         if (Integer.parseInt(semesterKelas.get(0).split("-")[0]) % 2 == 1) {//semester ganjil
@@ -1684,12 +1879,16 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JTable Tabel_Dosen;
     private javax.swing.JTable Tabel_Permintaan;
     private javax.swing.JTable Tabel_Solusi;
+    private javax.swing.JTable Tabel_SolusiDos;
     private javax.swing.JButton buttonCariMatkul;
     private javax.swing.JButton buttonCetakExcel;
+    private javax.swing.JButton buttonCetakExcel1;
     private javax.swing.JButton buttonCetakSeluruhExcel;
+    private javax.swing.JButton buttonJadwalDosen;
     private javax.swing.JButton button_batal;
     private javax.swing.JButton button_lihatJadwal;
     private javax.swing.JButton button_tambahPermintaanAll;
+    private javax.swing.JComboBox comboDosen_sol;
     private javax.swing.JComboBox comboHari_all;
     private javax.swing.JComboBox comboKelas_sol;
     private javax.swing.JComboBox comboSemester_sol;
@@ -1704,6 +1903,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JDialog dialog_penjadwalanAll;
     private javax.swing.JDialog dialog_pleasewait;
     private javax.swing.JDialog dialog_solusiJadwal;
+    private javax.swing.JDialog dialog_solusiJadwalDosen;
     private javax.swing.JButton dosenButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel jLabel1;
@@ -1725,6 +1925,8 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1746,6 +1948,9 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1759,6 +1964,7 @@ public class viewPenjadwalan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jadwalButton;
     private javax.swing.JButton kelasButton;
