@@ -10,8 +10,8 @@ public class Koneksi {
     //pasw google ph6CX4Em8ju3
     private static String jdbcURL = "jdbc:mysql://localhost:3306/pgsd";
     private static String user = "root";
-    private static String password = "root";//linux database
-//    private static String password = "";//windows database
+//    private static String password = "root";//linux database
+    private static String password = "";//windows database
     private static Connection connection = null;
 
     public static Connection getKoneksi() {
