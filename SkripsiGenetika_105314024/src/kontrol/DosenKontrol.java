@@ -22,7 +22,7 @@ public class DosenKontrol {
     public void insertDosen(Dosen d) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "INSERT INTO DOSEN VALUES(?,?,?)";
+        String query = "INSERT INTO dosen VALUES(?,?,?)";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, d.getIdDosen());
         stmt.setString(2, d.getNamaDosen());
@@ -36,7 +36,7 @@ public class DosenKontrol {
     public void updateDosen(Dosen dosen) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "update Dosen set namaDosen = ?, status = ? where idDosen = ?";
+        String query = "update dosen set namaDosen = ?, status = ? where idDosen = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, dosen.getNamaDosen());
         stmt.setString(2, dosen.getStatus());
@@ -50,7 +50,7 @@ public class DosenKontrol {
     public void deleteDosen(Dosen dosen) throws SQLException {
         PreparedStatement stmt = null;
         conn.setAutoCommit(false);
-        String query = "delete from Dosen where idDosen = ?";
+        String query = "delete from dosen where idDosen = ?";
         stmt = conn.prepareStatement(query);
         stmt.setString(1, dosen.getIdDosen());
 
