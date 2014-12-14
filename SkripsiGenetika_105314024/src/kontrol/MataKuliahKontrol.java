@@ -111,7 +111,7 @@ public class MataKuliahKontrol {
 
         List<String> kel = new ArrayList<String>();
         for (int i = 0; i < klsKul.size(); i++) {
-            if (kel.size() == 0) {
+            if (kel.size() == 0) {//outputnya : 1-A-0, 1-B-0,dst
                 kel.add(klsKul.get(i).getIdMK().getSemester() + "-" + klsKul.get(i).getKelas()+"-0");
             } else {
                 boolean cek = false;

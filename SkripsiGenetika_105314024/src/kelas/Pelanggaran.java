@@ -148,7 +148,7 @@ public class Pelanggaran {
         int count = 0;
         int temp_count = 0;
         List<String> kel = MataKuliahKontrol.cariKelompokKelas(dataKelasMakul,dataMatakuliah);
-
+        //outputnya 1-A-0
         while (true) { //mencari rentang hari
             if (x.getData()[count].getHari().equals(hari[0])) {
                 count++;
