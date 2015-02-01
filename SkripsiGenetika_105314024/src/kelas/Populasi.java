@@ -20,7 +20,7 @@ import view.viewPenjadwalan;
  */
 public class Populasi {
 
-    Kromosom[] parent = new Kromosom[4];//satu populasi terdiri dari N kromosom (Ujicoba 4 10 16)
+    Kromosom[] parent = new Kromosom[16];//satu populasi terdiri dari N kromosom (Ujicoba 4 10 16)
     int iterasi = 0;
     int indexSolusi = -1;
     int fitnessTerkecil = 1000;
@@ -53,7 +53,7 @@ public class Populasi {
     }
 
     public void EvaluasiFitness_child() {
-        for (int i = 2; i < getParent().length; i++) { //2,8,14
+        for (int i = 14; i < getParent().length; i++) { //2,8,14
             parent[i] = Pelanggaran.eksekusiAturan(parent[i], dataRuang, dataDosen, dataMakul, dataKelasKuliah);
         }
     }
